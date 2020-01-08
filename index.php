@@ -65,8 +65,23 @@ CARACTERISTICAS:
 	* dist
 	* plugins
 
+	De la carpeta "pages/examples/blank.html" a "plantillas.php" que se encuentra en la carpeta de Vistas
+	Cuando se agregan las carpetas, muestra "../../" que sube dos niveles
+	Se tiene que reemplazar estos "../../" por el nombre de la carpeta "vistas" ya que se encuentran en la misma
+	carpeta.
+	
+
 */ 
 
-?>
+
+
+require_once "controladores/plantilla.controlador.php";
+$plantilla = new ControladorPlantilla();
+$plantilla->ctrPlantilla();
+
+
+
+
+
  
 
