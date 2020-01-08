@@ -69,7 +69,20 @@ CARACTERISTICAS:
 	Cuando se agregan las carpetas, muestra "../../" que sube dos niveles
 	Se tiene que reemplazar estos "../../" por el nombre de la carpeta "vistas" ya que se encuentran en la misma
 	carpeta.
-	
+
+	Los tamaños para visualizarlo en las pantallas son:
+	320X494 = Celular
+	768X494 = Tablet - Vertical
+	1024X494 = Tablet - Horizontal
+	1366X494 = Pantalla Laptop en adelante
+
+	Agregando Modulos a la plantilla AdminLTE. "Pantilla.php"
+	<!-- Theme style -->
+	<link rel="stylesheet" href="vistas/dist/css/AdminLTE.css">
+	Se cambian el CSS 
+
+	Se cambian la parte última Jquery3 ... a la parte de arriba.
+	7:22 Hrs
 
 */ 
 
