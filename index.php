@@ -82,7 +82,18 @@ CARACTERISTICAS:
 	Se cambian el CSS 
 
 	Se cambian la parte última Jquery3 ... a la parte de arriba.
-	7:22 Hrs
+	
+	<!-- Se agrega "sidebar-collapse" para ocultar  el submenu  del lado izq. donde viene la fato. -->
+		<body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
+
+	Todos los archivos de AdminLTE, contienen una clase llamada "wrapper" 
+	En el archivo "plantilla.php" se hara la siguiente:
+	Se iniciara por borrar el contenido del archivo de la etiqueta 
+	"<header></header>", 
+	"<aside></aside>= Donde se encuentra la columna de botones del lado izq. del menu principal"
+	"content - wrapper" = Contiene el cuerpo de la pantalla principal, 
+
+
 
 */ 
 
