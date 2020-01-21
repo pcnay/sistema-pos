@@ -104,8 +104,5 @@ $plantilla = new ControladorPlantilla();
 $plantilla->ctrPlantilla();
 
 
-
-
-
  
 

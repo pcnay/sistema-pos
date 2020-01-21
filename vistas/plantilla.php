@@ -53,11 +53,13 @@
 <body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
-
+  <?php
+    include "modulos/cabezote.php";
+  ?>
 </div>  
 <!-- ./wrapper -->
-
-<script src="js/plantlla.js"></script>
+<!-- Los archivos de "JavaScript" incian las busquedas desde el directorio raíz.  -->
+<script src="vistas/js/plantilla.js"></script>
 
 </body>
 </html>
