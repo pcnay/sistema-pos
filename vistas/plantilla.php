@@ -55,6 +55,10 @@
 <div class="wrapper">
   <?php
     include "modulos/cabezote.php";
+    include "modulos/menu.php";
+    // Agregando un Contenido temporal para utilizar la pantalla principal.
+    include "modulos/contenido.php";
+    include "modulos/footer.php";
   ?>
 </div>  
 <!-- ./wrapper -->
