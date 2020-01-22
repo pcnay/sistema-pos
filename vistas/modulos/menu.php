@@ -4,24 +4,24 @@
     <!-- Despliega los iconos del menu laterial -->
     <ul class="sidebar-menu">
         <li class="active">
-          <a href="">
+          <a href="inicio">
             <i class="fa fa-home"></i>
             <span>Inicio</span>           
           </a>
         </li>
 
        <!-- Manejando los roles de los usuarios. -->
-       
+
        <li class="">
-        <a href="">
+        <a href="usuarios">
           <i class="fa fa-user"></i>
           <span>Usarios</span>           
         </a>
        </li>
 
        <!-- Manejando las categorias -->
-       <li class="">
-        <a href="">
+       <li class="categorias">
+        <a href="categorias">
           <i class="fa fa-th"></i>
           <span>Categorias </span>           
         </a>
@@ -29,7 +29,7 @@
 
        <!-- Manejando los Productos -->
        <li class="">
-        <a href="">
+        <a href="productos">
           <i class="fa fa-product-hunt"></i>
           <span>Productos</span>           
         </a>
@@ -37,7 +37,7 @@
 
        <!-- Manejando los Clientes  -->
        <li class="">
-        <a href="">
+        <a href="clientes">
           <i class="fa fa-users"></i>
           <span>Clientes</span>           
         </a>
@@ -45,7 +45,7 @@
        <!-- Permite realizar una botonera en Arbol, para que tenga un menú desplegable 
         -->
        <li class="treeview">
-          <a href="">
+          <a href="#">
             <i class="fa fa-list-ul"></i>
             <span>Ventas</span>
             <span class="pull-right-container">
@@ -56,21 +56,21 @@
 
           <ul class="treeview-menu">
             <li>
-              <a href="">
+              <a href="ventas">
                 <i class="fa fa-circle-o"></i>
                 <span>Administrar Venta</span>
               </a>
             </li>
 
             <li>
-              <a href="">
+              <a href="crear-ventas">
                 <i class="fa fa-circle-o"></i>
                 <span>Crear Venta</span>
               </a>
             </li>
 
             <li>
-              <a href="">
+              <a href="reportes">
                 <i class="fa fa-circle-o"></i>
                 <span>Reporte De Venta</span>
               </a>

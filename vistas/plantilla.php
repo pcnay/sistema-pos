@@ -57,8 +57,20 @@
     include "modulos/cabezote.php";
     include "modulos/menu.php";
     // Agregando un Contenido temporal para utilizar la pantalla principal.
-    include "modulos/contenido.php";
-    include "modulos/inicio.php";
+    // Generando las URL Amigables., cuando se teclea en la barra de direcciones o cuando se seleccione el icono "inicio" o tras rutas.
+    if (isset($_GET["ruta"]))
+    {
+      if ($_GET["ruta"]=="inicio" || $_GET["ruta"]=="usuarios" || $_GET["ruta"]=="categorias" || $_GET["ruta"]=="productos" || $_GET["ruta"]=="clientes"|| $_GET["ruta"]=="ventas" || $_GET["ruta"]=="crear-venta"|| $_GET["ruta"]=="reportes")
+      {
+        include "modulos/".$_GET["ruta"].".php";
+      }
+
+
+
+    }
+
+    //include "modulos/contenido.php";
+    
     include "modulos/footer.php";
   ?>
 </div>  

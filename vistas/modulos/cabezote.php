@@ -6,7 +6,8 @@
 
 <header class= "main-header">
   <!-- Logotipo -->
-  <a href= "" class="logo">
+  <!-- Usando la URL amigable, solo se coloca la palabra "inicio" -->
+  <a href= "inicio" class="logo">
     <!-- Logo Mini -->
     <span class="logo-mini">
       <img src="vistas/img/plantilla/icono-blanco.png" class="img-responsive" style="padding:10px" >

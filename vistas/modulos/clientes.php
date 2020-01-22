@@ -3,12 +3,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Tablero
+        Administrar Clientes
         <small>Panel De Control</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Tablero</li>
+        <li class="active">Administrar Clientes</li>
       </ol>
     </section>
 
