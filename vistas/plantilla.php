@@ -10,6 +10,10 @@
   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+  <!-- Para colocar el icono cuando se minimiza la ventana -->
+  <link rel="icon" href="vistas/img/plantilla/icono-negro.png">
+  
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="vistas/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
@@ -64,10 +68,17 @@
       {
         include "modulos/".$_GET["ruta"].".php";
       }
-
-
-
+      else
+      {
+        include "modulos/404.php";      
+      }
     }
+    else // Cuando no se este utilizando las variables global GET["ruta"]
+    {
+      include "modulos/404.php"; 
+    
+    }
+   
 
     //include "modulos/contenido.php";
     

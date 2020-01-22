@@ -94,7 +94,6 @@ CARACTERISTICAS:
 	"content - wrapper" = Contiene el cuerpo de la pantalla principal, 
 
 
-
 */ 
 
 
