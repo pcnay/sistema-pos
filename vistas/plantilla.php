@@ -54,35 +54,47 @@
 
 <!-- Cuerpo de Documento -->
 <!-- Se agrega "sidebar-collapse" para ocultar  el submenu  del lado izq. donde viene la fato. -->
-<body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
-<!-- Site wrapper -->
-<div class="wrapper">
-  <?php
-    include "modulos/cabezote.php";
-    include "modulos/menu.php";
-    // Agregando un Contenido temporal para utilizar la pantalla principal.
-    // Generando las URL Amigables., cuando se teclea en la barra de direcciones o cuando se seleccione el icono "inicio" o tras rutas.
-    if (isset($_GET["ruta"]))
-    {
-      if ($_GET["ruta"]=="inicio" || $_GET["ruta"]=="usuarios" || $_GET["ruta"]=="categorias" || $_GET["ruta"]=="productos" || $_GET["ruta"]=="clientes"|| $_GET["ruta"]=="ventas" || $_GET["ruta"]=="crear-venta"|| $_GET["ruta"]=="reportes")
-      {
-        include "modulos/".$_GET["ruta"].".php";
-      }
-      else
-      {
-        include "modulos/404.php";      
-      }
-    }
-    else // Cuando no se este utilizando las variables global GET["ruta"]
-    {
-      include "modulos/404.php"; 
-    
-    }
-   
+<body class="hold-transition skin-blue sidebar-collapse sidebar-mini login-page">
 
-    //include "modulos/contenido.php";
-    
-    include "modulos/footer.php";
+  <?php
+    // Valida si el usuario esta logueado 
+    if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok")
+    {
+      // Si tiene la sesion iniciada muestra la pantalla principal del sistema.
+      //<!-- Site wrapper -->
+      // Se agrega esta linea debido a que la pantalla "login" agrega una clase diferente, además se va separar la pantalla del menu general y login.
+      echo '<div class="wrapper">';
+  
+        include "modulos/cabezote.php";
+        include "modulos/menu.php";
+        // Agregando un Contenido temporal para utilizar la pantalla principal.
+        // Generando las URL Amigables., cuando se teclea en la barra de direcciones o cuando se seleccione el icono "inicio" o tras rutas.
+        if (isset($_GET["ruta"]))
+        {
+          if ($_GET["ruta"]=="inicio" || $_GET["ruta"]=="usuarios" || $_GET["ruta"]=="categorias" || $_GET["ruta"]=="productos" || $_GET["ruta"]=="clientes"|| $_GET["ruta"]=="ventas" || $_GET["ruta"]=="crear-venta"|| $_GET["ruta"]=="reportes")
+          {
+            include "modulos/".$_GET["ruta"].".php";
+          }
+          else
+          {
+            include "modulos/404.php";      
+          }
+        }
+        else // Cuando no se este utilizando las variables global GET["ruta"]
+        {
+          include "modulos/404.php"; 
+        
+        }
+
+        include "modulos/footer.php";
+
+      echo '</div> '; // '<div class="wrapper">';
+
+    } // if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok")
+    else // Si no se ha logeado
+    {
+      include "modulos/login.php";
+    }
   ?>
 </div>  
 <!-- ./wrapper -->
