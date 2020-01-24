@@ -29,7 +29,8 @@
         <div class="box-body">
           <!-- Cuerpo de la ventana, donde se encuentran los datos, tablas, se utilizara tDAtaTable de Bootstrap esta completa, contiene buscar, paginador, ordenar las columnas  -->
           <!-- Esta clases de "table" son del plugin "bootstrap"-->
-          <table class="table table-bordered tabe-striped">
+          <!-- "tabla" = Es para enlazarlo con DataTable, se utiliza el archivo  /frontend/vistas/js/plantilla.js-->
+          <table class="table table-bordered tabe-striped dt-responsive tablas">
             <thead>
               <tr>
                 <th>#</th>
