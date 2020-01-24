@@ -85,17 +85,74 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
 
-  </div>
-</div>
+      <!-- enctype= "multipart/form-data = Para subir archivos. -->
+      <form role="form" method="post" enctype= "multipart/form-data">
+    
+        <!-- La franja azul de la ventana modal -->
+        <div class="modal-header" style= "background:#3c8dbc; color:white">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Agregar Usuario</h4>
+        </div>
+
+
+        <div class="modal-body">
+          <div class="box-body">
+            <!-- Clases de BootStrap para las formularios-->
+            <div class="form-group">
+              <div class = "input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" class="form-control input-lg" name="nuevoNombre" placeholder = "Ingresar Nombre" required>
+              </div> <!-- <div class = "input-group"> -->           
+            </div> <!-- <div class="form-group"> -->
+
+            <div class="form-group">
+              <div class = "input-group">
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <input type="text" class="form-control input-lg" name="nuevoUsuario" placeholder = "Ingresar Usuario" required>
+              </div> <!-- <div class = "input-group"> -->           
+            </div> <!-- <div class="form-group"> -->
+
+            <div class="form-group">
+              <div class = "input-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input type="password" class="form-control input-lg" name="nuevoPassword" placeholder = "Ingresar Contraseña" required>
+              </div> <!-- <div class = "input-group"> -->           
+            </div> <!-- <div class="form-group"> -->
+
+            <div class="form-group">
+              <div class = "input-group">
+                <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                <select class="form-control input-lg" name="nuevoPerfil">
+                  <option value="">Seleccionar perfil</option>
+                  <option value="Administrador">Administrador</option>
+                  <option value="Especial">Especial</option>
+                  <option value="Vendedor">Vendedor</option>
+                </select>                
+              </div> <!-- <div class = "input-group"> -->           
+            </div> <!-- <div class="form-group"> -->
+
+            <div class="form-group">
+              <div class="panel text-up">SUBIR FOTO</div> 
+              <input type="file" id="nuevaFoto" name="nuevaFoto">
+              <p class="help-block">Peso Máximo de la foto 200 Mb</p>
+              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail" width = "100px">
+
+            </div> <!-- <div class="form-group"> -->
+
+          </div> <!-- <div class="box-body"> -->
+
+        </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+            <button type="submit" class="btn btn-primary">Guardar Usuarios</button>
+          </div>
+
+        </form>
+
+    </div> <!-- <div class="modal-content"> -->
+
+  </div> <!-- <div class="modal-dialog"> -->
+
+</div> <!-- <div id="modalAgregarUsuario" class="modal fade" role="dialog"> -->
