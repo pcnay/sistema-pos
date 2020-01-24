@@ -1,3 +1,8 @@
+<?php
+  session_start();
+    
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +76,7 @@
         // Generando las URL Amigables., cuando se teclea en la barra de direcciones o cuando se seleccione el icono "inicio" o tras rutas.
         if (isset($_GET["ruta"]))
         {
-          if ($_GET["ruta"]=="inicio" || $_GET["ruta"]=="usuarios" || $_GET["ruta"]=="categorias" || $_GET["ruta"]=="productos" || $_GET["ruta"]=="clientes"|| $_GET["ruta"]=="ventas" || $_GET["ruta"]=="crear-venta"|| $_GET["ruta"]=="reportes")
+          if ($_GET["ruta"]=="inicio" || $_GET["ruta"]=="usuarios" || $_GET["ruta"]=="categorias" || $_GET["ruta"]=="productos" || $_GET["ruta"]=="clientes"|| $_GET["ruta"]=="ventas" || $_GET["ruta"]=="crear-venta"|| $_GET["ruta"]=="reportes" || $_GET["ruta"]=="salir")
           {
             include "modulos/".$_GET["ruta"].".php";
           }
