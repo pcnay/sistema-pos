@@ -30,7 +30,7 @@
           <!-- Cuerpo de la ventana, donde se encuentran los datos, tablas, se utilizara tDAtaTable de Bootstrap esta completa, contiene buscar, paginador, ordenar las columnas  -->
           <!-- Esta clases de "table" son del plugin "bootstrap"-->
           <!-- "tabla" = Es para enlazarlo con DataTable, se utiliza el archivo  /frontend/vistas/js/plantilla.js-->
-          <table class="table table-bordered table-striped dt-responsive tablas">
+          <table class="table table-bordered tabe-striped dt-responsive tablas">
             <thead>
               <tr>
                 <th style="width:10px">#</th>
@@ -149,10 +149,7 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
             <button type="submit" class="btn btn-primary">Guardar Usuarios</button>
           </div>
-            <?php 
-              $crearUsuario = new ControladorUsuarios();
-              $crearUsuario->ctrCrearUsuario();
-            ?>
+
         </form>
 
     </div> <!-- <div class="modal-content"> -->
