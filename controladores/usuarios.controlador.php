@@ -11,12 +11,17 @@
         // preg_match('/^[a-zA-Z0-9]+$/',$_POST["ingUsuario"]) && (preg_match('/^[a-zA-Z0-9]+$/',$_POST["ingPassword"]
         if (preg_match('/^[a-zA-Z0-9]+$/',$_POST["ingUsuario"]) && preg_match('/^[a-zA-Z0-9]+$/',$_POST["ingPassword"]))
         {
+
+          // Este valor  '$2a$07$usesomesillystringforsalt$' es fijo, se utilizar para descriptar e encriptar la clave.
+          $desencriptar = crypt($_POST["ingPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+
           $tabla = 't_Usuario';
           $item = 'usuario'; // El campo a revisar, para este caso es "usuario"
           $valor = $_POST["ingUsuario"];
           // Esta forma es para obtener un valor directamente y se almacena en una variable.
+          
           $respuesta = ModeloUsuarios::mdlMostrarUsuarios($tabla,$item,$valor);
-          if (($respuesta["usuario"] == $_POST["ingUsuario"]) && ($respuesta["clave"] == $_POST["ingPassword"]))
+          if (($respuesta["usuario"] == $_POST["ingUsuario"]) && ($respuesta["clave"] == $desencriptar))
           {
             // Inicia Session .
             //echo '<br><div class="alert alert-success">Bienvenido al Sistema</div>';
@@ -102,12 +107,13 @@
             }
             
           }
-
-  
+          // '$2a$07$usesomesillystringforsalt$ = Este valor es el sig. parametro de la función es un nivel de encriptacion
+          // Se le llama Capsula, envuelve lo que se quiere encriptar.
+          $encriptar = crypt($_POST["nuevoPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
           $tabla = "t_Usuario";
           $datos = array("nombre"=>$_POST["nuevoNombre"],
                           "usuario"=>$_POST["nuevoUsuario"],
-                        "password"=> $_POST["nuevoPassword"],
+                        "password"=> $encriptar,
                         "perfil"=>$_POST["nuevoPerfil"],
                       "ruta" =>$ruta );
           
