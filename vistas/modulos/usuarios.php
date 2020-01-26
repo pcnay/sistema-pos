@@ -135,9 +135,10 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
 
             <div class="form-group">
               <div class="panel text-up">SUBIR FOTO</div> 
-              <input type="file" id="nuevaFoto" name="nuevaFoto">
-              <p class="help-block">Peso Máximo de la foto 200 Mb</p>
-              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail" width = "100px">
+              <input type="file" class="nuevaFoto" name="nuevaFoto">
+              <p class="help-block">Peso Máximo de la foto 2 Mb</p>
+              <!-- previsualizar = para reemplazar la foto que se va a subir-->
+              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail previsualizar" width = "100px">
 
             </div> <!-- <div class="form-group"> -->
 
