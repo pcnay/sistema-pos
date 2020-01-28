@@ -1,0 +1,9 @@
+# Oculta todas las carpeta del proyecto, para que el usuario no pueda entrar desde la URL
+Options All -Indexes
+# URL amigables
+RewriteEngine On 
+
+#Permita letras y numeros
+# Cuando se este enviando a traves de la ruta "index.php" con variable GET "ruta" que se convierta en una 
+# URL amigable $1 = Convierte cualquier valor que traiga "ruta y la convierta en una URL amigable
+RewriteRule ^([-a-zA-Z0-9]+)$ index.php?ruta=$1
