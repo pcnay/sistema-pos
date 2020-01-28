@@ -97,6 +97,10 @@ CARACTERISTICAS:
 */ 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 39ad9c9d6b3063776edd24354f00bfac7e26cd13
 require_once "controladores/plantilla.controlador.php";
 require_once "controladores/categorias.controlador.php";
 require_once "controladores/clientes.controlador.php";

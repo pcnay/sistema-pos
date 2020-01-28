@@ -13,7 +13,11 @@
         {
 
           // Este valor  '$2a$07$usesomesillystringforsalt$' es fijo, se utilizar para descriptar e encriptar la clave.
+<<<<<<< HEAD
           //$desencriptar = crypt($_POST["ingPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+=======
+          $desencriptar = crypt($_POST["ingPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+>>>>>>> 39ad9c9d6b3063776edd24354f00bfac7e26cd13
 
           $tabla = 't_Usuario';
           $item = 'usuario'; // El campo a revisar, para este caso es "usuario"
@@ -21,9 +25,14 @@
           // Esta forma es para obtener un valor directamente y se almacena en una variable.
           
           $respuesta = ModeloUsuarios::mdlMostrarUsuarios($tabla,$item,$valor);
+<<<<<<< HEAD
           if (($respuesta["usuario"] == $_POST["ingUsuario"]) && ($respuesta["clave"] == $_POST["ingPassword"] ))
           {
 						// $desencriptar
+=======
+          if (($respuesta["usuario"] == $_POST["ingUsuario"]) && ($respuesta["clave"] == $desencriptar))
+          {
+>>>>>>> 39ad9c9d6b3063776edd24354f00bfac7e26cd13
             // Inicia Session .
             //echo '<br><div class="alert alert-success">Bienvenido al Sistema</div>';
             $_SESSION["iniciarSesion"] = "ok";
