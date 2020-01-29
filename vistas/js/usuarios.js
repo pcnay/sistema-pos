@@ -77,7 +77,6 @@ $(".btnEditarUsuario").click(function (){
 
 		}
 
-
 	}); 
 
 })
