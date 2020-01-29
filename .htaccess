@@ -6,8 +6,4 @@ RewriteEngine On
 #Permita letras y numeros
 # Cuando se este enviando a traves de la ruta "index.php" con variable GET "ruta" que se convierta en una 
 # URL amigable $1 = Convierte cualquier valor que traiga "ruta y la convierta en una URL amigable
-<<<<<<< HEAD
 RewriteRule ^([-a-zA-Z0-9]+)$ index.php?ruta=$1
-=======
-RewriteRule ^([-a-zA-Z0-9]+)$ index.php?ruta=$1
->>>>>>> 39ad9c9d6b3063776edd24354f00bfac7e26cd13

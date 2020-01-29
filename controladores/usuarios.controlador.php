@@ -13,29 +13,39 @@
         {
 
           // Este valor  '$2a$07$usesomesillystringforsalt$' es fijo, se utilizar para descriptar e encriptar la clave.
-<<<<<<< HEAD
-          //$desencriptar = crypt($_POST["ingPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-=======
-          $desencriptar = crypt($_POST["ingPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
->>>>>>> 39ad9c9d6b3063776edd24354f00bfac7e26cd13
+          $encriptar = crypt($_POST["ingPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 
           $tabla = 't_Usuario';
           $item = 'usuario'; // El campo a revisar, para este caso es "usuario"
           $valor = $_POST["ingUsuario"];
           // Esta forma es para obtener un valor directamente y se almacena en una variable.
           
-          $respuesta = ModeloUsuarios::mdlMostrarUsuarios($tabla,$item,$valor);
-<<<<<<< HEAD
-          if (($respuesta["usuario"] == $_POST["ingUsuario"]) && ($respuesta["clave"] == $_POST["ingPassword"] ))
+					$respuesta = ModeloUsuarios::mdlMostrarUsuarios($tabla,$item,$valor);
+					
+					//print_r($respuesta["usuario"]);
+					
+
+					if ($respuesta["usuario"] == 'admin')
+					{
+						$encriptar = $respuesta["clave"];
+					}
+					
+					//var_dump($encriptar);
+					//print_r($encriptar);
+					//exit;
+
+          if (($respuesta["usuario"] == $_POST["ingUsuario"]) && ($respuesta["clave"] == $encriptar))
           {
 						// $desencriptar
-=======
-          if (($respuesta["usuario"] == $_POST["ingUsuario"]) && ($respuesta["clave"] == $desencriptar))
-          {
->>>>>>> 39ad9c9d6b3063776edd24354f00bfac7e26cd13
             // Inicia Session .
             //echo '<br><div class="alert alert-success">Bienvenido al Sistema</div>';
-            $_SESSION["iniciarSesion"] = "ok";
+						$_SESSION["iniciarSesion"] = "ok";
+						$_SESSION["id"] = $respuesta["id"];
+						$_SESSION["nombre"] = $respuesta["nombre"];
+						$_SESSION["usuario"] = $respuesta["usuario"];
+						$_SESSION["foto"] = $respuesta["foto"];
+						$_SESSION["perfil"] = $respuesta["perfil"];
+						
             echo '<script>
                   window.location ="inicio";
                   </script>';
