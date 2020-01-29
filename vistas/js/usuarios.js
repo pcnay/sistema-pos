@@ -39,3 +39,47 @@ $(".nuevaFoto").change(function(){
 
 
 })
+
+/* Editar Usuario*/
+
+$(".btnEditarUsuario").click(function (){
+	/* <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value["id "] .'" data-toggle="modal"  */
+	var identifUsuario=$(this).attr("idUsuario");
+	// console.log(idUsuario);
+	// Obtener los datos desde la base de datos.
+	var datos = new FormData();
+	// idUsuario = Variable POST
+	datos.append("idUsuario",identifUsuario);
+
+	$.ajax({
+		url:"ajax/usuarios.ajax.php",
+		method:"POST",
+		data: datos,
+		cache:false,
+		contentType:false,
+		processData:false,
+		dataType:"json",
+		success:function(respuesta)
+		{
+			console.log("respuesta",respuesta);
+			$("#editarNombre").val(respuesta["nombre"]);
+			$("#editarUsuario").val(respuesta["usuario"]);
+			$("#editarPerfil").html(respuesta["perfil"]); // Es un etiqueta <option>
+			$("#passwordActual").val(respuesta["clave"]);
+			$("#editarPerfil").val(respuesta["perfil"]); // Para mantener el valor del perfil, cuando no se cambie.
+			$("#fotoActual").val(respuesta["foto"]); // Para mantener el valor del perfil, cuando no se cambie.
+
+			if (respuesta["foto"] != "")
+			{
+				//<img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail previsualizar" width = "100px">
+				 $(".previsualizar").attr("src",respuesta["foto"]);
+			}			 
+
+		}
+
+
+	}); 
+
+})
+
+

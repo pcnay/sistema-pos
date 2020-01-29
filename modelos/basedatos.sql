@@ -42,9 +42,5 @@ CREATE TABLE t_Usuario
   fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-<<<<<<< HEAD
 INSERT INTO t_Usuario (id,nombre,usuario,clave,perfil,vendedor,foto,estado,ultimo_login,fecha) VALUES
-=======
-INSERT INTO t_Usuario (id_marca,nombre,usuario,clave,perfil,vendedor,foto,estado,ultimo_login,fecha) VALUES
->>>>>>> 39ad9c9d6b3063776edd24354f00bfac7e26cd13
   (1,'Usuario Administrador','admin','123','Administrador','','',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
