@@ -7,17 +7,30 @@
     // "static" debido a que tiene parámetros.
     static public function mdlMostrarUsuarios($tabla,$item,$valor)
     {
-      //print_r($tabla,$item,$valor);
-      //exit;
+      //print_r($tabla,$item);
+			//exit;
+			// Determinar si se quiere un registro o todos.
+			if ($item != null)
+			{
+				$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
+				$stmt->bindParam(":".$item,$valor, PDO::PARAM_STR);
+				$stmt->execute();
+	
+				return $stmt->fetch(); // Retorna solo una linea.	
+			}
+			else
+			{
+				$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ");
+				$stmt->execute();
 
-      $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
-      $stmt->bindParam(":".$item,$valor, PDO::PARAM_STR);
-      $stmt->execute();
+				return $stmt->fetchAll(); // Retorna solo una linea.	
 
-      return $stmt->fetch(); // Retorna solo una linea.
-      $stmt->close();
-      $stmt = null; 
-    }
+			}
+
+			$stmt->close();
+			$stmt = null; 
+
+		} // static public function mdlMostrarUsuarios($tabla,$item,$valor)
 
     // Registrar Usuario.
     static public function mdlIngresarUsuario($tabla,$datos)

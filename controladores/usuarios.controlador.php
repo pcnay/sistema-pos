@@ -45,7 +45,7 @@
 						$_SESSION["usuario"] = $respuesta["usuario"];
 						$_SESSION["foto"] = $respuesta["foto"];
 						$_SESSION["perfil"] = $respuesta["perfil"];
-						
+
             echo '<script>
                   window.location ="inicio";
                   </script>';
@@ -193,6 +193,16 @@
       } // if (isset($_POST["nuevoUsuario"]))
 
     } // static public function ctrCrearUsuario()
+
+
+		// Extrae los datos desde la base de datos.
+		static public function ctrMostrarUsuarios($item,$valor)
+		{
+			$tabla = "t_Usuario";
+			$respuesta = ModeloUsuarios::mdlMostrarUsuarios($tabla,$item,$valor);
+			return $respuesta;
+
+		} // static public function ctrMostrarUsuarios()
 
   } // class  ControladorUsuarios
 ?>

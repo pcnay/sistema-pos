@@ -43,27 +43,56 @@
                 <th>Acciones </th>
               </tr>
             </thead>
-            <!-- Cuerpo de la Tabla -->
+            <!-- Cuerpo de la Tabla, se desplegara desde la base de datos.  -->
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Usuario Administrador</td>
-                <td>admin</td>
-                <!-- Clase de BootStrap -->
-                <td><img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail" width="40px"></td>
-                <td>Administrador</td>
-                <td><button class="btn btn-success btn-xs">Activado</button></td>
-                <td>2020-01-11 12:05:32</td>
-                <td>
-                  <div class="btn-group">
-                    <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                  </div>
-                </td>
-              </tr>
+							<?php
+								// Obtener los datos desde la base de datos.
+								// Estos valores lo requiere el MdlMostrarUsarios(......)
+								$item = null;
+								$valor = null;
+
+								$usuarios = ControladorUsuarios::ctrMostrarUsuarios($item,$valor);
+								// var_dump($usuarios);
+								// Como se utiliza "Bootstrap" con solo colocar las etiquetas de HTML5, automaticamente las centra en pantalla, utilizando las pantallas Responsive
+								foreach ($usuarios as $key => $value)
+								{
+									// var_dump($value["nombre"]);
+									echo '<tr>
+											<td>1</td>
+											<td>'.$value["nombre"].'</td>
+											<td>'.$value["usuario"].'</td>
+											<!-- Clase de BootStrap -->';
+											
+											if ($value["foto"] != "")
+											{
+												echo '<td><img src="'.$value["foto"].'" width="40px"></td>
+												';
+											}
+											else
+											{
+												echo '<td><img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail" width="40px"></td>';
+											}
+
+											echo '<td>'.$value["perfil"].'</td>
+
+											<td><button class="btn btn-success btn-xs">Activado</button></td>
+											<td>'.$value["ultimo_login"].'</td>
+											<td>
+												<div class="btn-group">
+													<button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+													<button class="btn btn-danger"><i class="fa fa-times"></i></button>
+												</div>
+											</td>
+								</tr> ';
+								} // foreach ($usuarios as $key => $value)
+
+
+							?>
+
             </tbody>
 
           </table> <!-- <table class="table table-bordered tabe-striped"> -->
+
         </div> <!-- <div class="box-body"> -->
 
         <!-- /.box-body -->
