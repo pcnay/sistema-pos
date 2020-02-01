@@ -63,16 +63,19 @@
 
     } // public function ctrIngresoUsuario()
 
-    // Registro Usuarios
+		// Registro Usuarios
+		// Se coloca "static" ya que algunos hosting muestra error, por lo que se coloca.
     static public function ctrCrearUsuario()
     {
-      // Valida si esta creada la variable POST "nuevoUsuario", cuando se oprime el boton Submit
+			// Valida si esta creada la variable POST "nuevoUsuario", que se encuentra en el formulario; cuando se oprime el boton Submit, se poueden incluir todas del formulario 
+			//Para poder ejecutar esta funcion. 
 
       if (isset($_POST["nuevoUsuario"]))
       {
         
         // preg_match('/^[a-zA-ZO-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["nuevoNombre"]) && preg_match('/^[a-zA-ZO-9]+$/',$_POST["nuevoUsuario"]) &&
-             //preg_match('/^[a-zA-Z0-9]+$/',$_POST["nuevoNombre"])
+						 //preg_match('/^[a-zA-Z0-9]+$/',$_POST["nuevoNombre"])
+				// Validando que lo que tecleo el usuario sea valido con la sig. expresion regular.
         if ( preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["nuevoNombre"]) && preg_match('/^[a-zA-Z0-9]+$/',$_POST["nuevoUsuario"]) && preg_match('/^[a-zA-Z0-9]+$/',$_POST["nuevoPassword"]))
         {
           /* Para guardar las fotos, sera de la siguiente manera: 
@@ -165,7 +168,7 @@
           }
           
         }
-        else
+        else // if ( preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["nuevoNombre"]) && preg_match('/^....
         {
           // Este plugins se baja de : https://www.jsdelivr.com/package/npm/sweetalert2, se copia en un archivo el contenido y se agrega en la carpeta "Vistas/plugins/sweetalert2/sweetalert2.all.js"
           
@@ -179,7 +182,7 @@
               }).then((result)=>{
                 if (result.value)
                 {
-                  window.location="categorias";
+                  window.location="usuarios";
                 }
 
                 });
