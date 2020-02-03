@@ -283,7 +283,7 @@ Cuando el usuario oprima el boton de "Editar" (Lapiz)  se activa esta ventana.
 					
            <?php 
               $editarUsuario = new ControladorUsuarios();
-              $editarUsuario->ctrEditarUsuario();
+              //$editarUsuario->ctrEditarUsuario();
             ?> 
 
         </form>

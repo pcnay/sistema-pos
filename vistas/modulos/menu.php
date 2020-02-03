@@ -15,7 +15,7 @@
        <li class="">
         <a href="usuarios">
           <i class="fa fa-user"></i>
-          <span>Usarios</span>           
+          <span>Usuarios</span>           
         </a>
        </li>
 

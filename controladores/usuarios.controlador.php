@@ -132,7 +132,8 @@
           }
           // '$2a$07$usesomesillystringforsalt$ = Este valor es el sig. parametro de la función es un nivel de encriptacion
           // Se le llama Capsula, envuelve lo que se quiere encriptar.
-          $encriptar = crypt($_POST["nuevoPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+					$encriptar = crypt($_POST["nuevoPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+					// Se definen los datos, nombre de la tabla y un arreglo para ser insertado en la base de datos
           $tabla = "t_Usuario";
           $datos = array("nombre"=>$_POST["nuevoNombre"],
                           "usuario"=>$_POST["nuevoUsuario"],
@@ -145,23 +146,20 @@
 
           if ($respuesta == "ok")
           {
-            echo '<script>
-              alert ("Usuario grabado correctamente ..");
-              window.location="usuarios";
-              
-            Swal.fire ({
-              type: "success",
-              title: "El usuario ha sido guardado correctamente ",
-              showConfirmButton: true,
-              confirmButtonText: "Cerrar",
-              closeOnConfirm: false
-              }).then((result)=>{
-                if (result.value)
-                {
-                  window.location="usuarios";
-                }
+            echo '<script>           
+            	Swal.fire ({
+								type: "success",
+								title: "El usuario ha sido guardado correctamente ",
+								showConfirmButton: true,
+								confirmButtonText: "Cerrar",
+								closeOnConfirm: false
+								}).then((result)=>{
+									if (result.value)
+									{
+										window.location="usuarios";
+									}
 
-                });
+									});
         
           </script>';          
             
@@ -352,7 +350,7 @@
 				echo '<script>
 				Swal.fire ({
 					type: "error",
-					title: "El nombre  no puede ir vacio o llevar caracteres especiales",
+					title: " preg_match(,$_POST[ editarNombre ])) El nombre  no puede ir vacio o llevar caracteres especiales",
 					showConfirmButton: true,
 					confirmButtonText: "Cerrar",
 					closeOnConfirm: false
@@ -365,7 +363,7 @@
 						});
 		
 					</script>';          
-					echo '<script>alert("El nombre no puede ir vacio");</script>';
+					
 		
 			} // if ( preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["editarNombre"]))
       
