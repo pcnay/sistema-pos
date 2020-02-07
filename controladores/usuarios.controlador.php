@@ -37,7 +37,7 @@
           if (($respuesta["usuario"] == $_POST["ingUsuario"]) && ($respuesta["clave"] == $encriptar))
           {
 						// $desencriptar
-            // Inicia Session .
+            // Inicia Session. Se inicia con la creacion de Variables de Sesion.
             //echo '<br><div class="alert alert-success">Bienvenido al Sistema</div>';
 						$_SESSION["iniciarSesion"] = "ok";
 						$_SESSION["id"] = $respuesta["id"];
@@ -84,7 +84,7 @@
 
           */
           $ruta ="";
-          
+					// Validando que se encuentre la foto en la etiqueta de "vistas/modulos/usuarios.php" seccion de "modalAgregarUsuario" etiqueta tipo "File" "nuevaFoto"
           if (isset($_FILES["nuevaFoto"]["tmp_name"]))
           {
             // Crea un nuevo array
@@ -98,21 +98,25 @@
             $nuevoAlto = 500;
 
             // Crear el directorio donde se guardara la foto del usuario
-            $directorio = "vistas/img/usuarios/".$_POST["nuevoUsuario"];
+						$directorio = "vistas/img/usuarios/".$_POST["nuevoUsuario"];
+						// Si se esta utilizando servidor de Linux, se tiene que dar permisos totales a la carpeta de "usuarios".
             mkdir ($directorio,0755);
 
             // De acuerdo al tipo de imagen aplicamos las funciones por defecto de PHP.
             if ($_FILES["nuevaFoto"]["type"] == "image/jpeg")
             {
-              $aleatorio = mt_rand(100,999);
+              $aleatorio = mt_rand(100,999); // Utilizado para el nombre del archivo.
               $ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio.".jpg";
               $origen = imagecreatefromjpeg($_FILES["nuevaFoto"]["tmp_name"]);
               // Cuando se define el nuevo tamaño de al foto, mantenga los colores.
-              $destino = imagecreatetruecolor($nuevoAncho,$nuevoAlto);
-              // Ajustar la imagen al tamaño definidos en las variables "$nuevoAncho", y "$nuevoAlto"
+							$destino = imagecreatetruecolor($nuevoAncho,$nuevoAlto);
+							
+							// Ajustar la imagen al tamaño definidos en las variables "$nuevoAncho", y "$nuevoAlto"
+							// imagecopyresized (dst_image,src_image,dst_x, dst_y,src_x,src_y,dst_w,dst_h,src_w,src_h)
               imagecopyresized($destino,$origen,0,0,0,0,$nuevoAncho,$nuevoAlto,$ancho,$alto);
               // Guardar la foto en la computadora.
-              imagejpeg($destino,$ruta);
+							imagejpeg($destino,$ruta);
+							
             }
 
             // De acuerdo al tipo de imagen aplicamos las funciones por defecto de PHP.
@@ -123,7 +127,9 @@
               $origen = imagecreatefrompng($_FILES["nuevaFoto"]["tmp_name"]);
               // Cuando se define el nuevo tamaño de al foto, mantenga los colores.
               $destino = imagecreatetruecolor($nuevoAncho,$nuevoAlto);
-              // Ajustar la imagen al tamaño definidos en las variables "$nuevoAncho", y "$nuevoAlto"
+							// Ajustar la imagen al tamaño definidos en las variables "$nuevoAncho", y "$nuevoAlto"
+							// imagecopyresized (dst_image,src_image,dst_x, dst_y,src_x,src_y,dst_w,dst_h,src_w,src_h)
+
               imagecopyresized($destino,$origen,0,0,0,0,$nuevoAncho,$nuevoAlto,$ancho,$alto);
               // Guardar la foto en la computadora.
               imagejpeg($destino,$ruta);
@@ -137,9 +143,9 @@
           $tabla = "t_Usuario";
           $datos = array("nombre"=>$_POST["nuevoNombre"],
                           "usuario"=>$_POST["nuevoUsuario"],
-                        "password"=> $encriptar,
-                        "perfil"=>$_POST["nuevoPerfil"],
-                      "ruta" =>$ruta );
+                    	  	 "password"=> $encriptar,
+                      	  "perfil"=>$_POST["nuevoPerfil"],
+                      		"ruta" =>$ruta );
           
           // Conectar la capa Controlador con la del Modelo.
           $respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla,$datos);
@@ -195,8 +201,9 @@
 
     } // static public function ctrCrearUsuario()
 
-
+		// ==================================================================
 		// Extrae los datos desde la base de datos.
+		// ==================================================================
 		static public function ctrMostrarUsuarios($item,$valor)
 		{
 			$tabla = "t_Usuario";
@@ -209,164 +216,182 @@
 		static public function ctrEditarUsuario()
 		{
 			// Validando los campos de la forma.
-			if ( preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["editarNombre"]))
+			//echo '<pre class="bg-white">' ; var_dump(getimagesize($_FILES["editarFoto"]["tmp_name"])); echo '</pre>'; 
+			//exit;
+			
+
+			if (isset($_POST["editarUsuario"]))
 			{
-				 // Validar foto
-				 $ruta = $_POST["fotoActual"];
+				
 
-				 if (isset($_FILES["editarFoto"]["tmp_name"]))
-				 {
-					 // Crea un nuevo array
-					 //Definiendo el tamaño de la foto de 500X500.
-					 // getimagesize($_FILES["nuevaFoto"]["tmp_name"]), es un arreglo que en la primera, segunda posicion tiene el tamaño de la foto "Ancho" y "Alto"
-					 list($ancho,$alto) = getimagesize($_FILES["editarFoto"]["tmp_name"]);
-					 //var_dump(getimagesize($_FILES["nuevaFoto"]["tmp_name"])); 
+				if ( preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["editarNombre"]))						
+				{
+					//echo '<script>alert("Entro a ctrEditarUsuario");</script>';
+					// Se suprime el "editarPassword" dado que cuando el usuario no modifica la clave, el campo sera en blanco y no nunca se cumple la condicion,
+					// De igual forma se suprime "editarUsuario" porque se crean carpetas por cada usuario nuevo por lo que se estaran creando carpetas innecesarias, ocupando espacios en el servidor.
+					
+					// Validar foto
+					$ruta = $_POST["fotoActual"];
+					//print_r($ruta);
+					//exit;
 
-					 // Los tamaños de la foto a guardar en la computadora
-					 $nuevoAncho = 500;
-					 $nuevoAlto = 500;
+					//echo '<pre class="bg-white">'; print_r($_POST["fotoActual"]); echo '</pre>';
 
-					 // Crear el directorio donde se guardara la foto del usuario
-					 $directorio = "vistas/img/usuarios/".$_POST["editarUsuario"];
+					if (isset($_FILES["editarFoto"]["tmp_name"]) && (!empty($_FILES["editarFoto"]["tmp_name"])))
+					{
+						//echo '<script>alert("cumple condicion $_FILES[editarFoto][tmp_name]");</script>';
+						// Crea un nuevo array
+						//Definiendo el tamaño de la foto de 500X500.
+						// getimagesize($_FILES["nuevaFoto"]["tmp_name"]), es un arreglo que en la primera, segunda posicion tiene el tamaño de la foto "Ancho" y "Alto"
+						//var_dump(getimagesize($_FILES["editarFoto"]["tmp_name"])); 
+						list($ancho,$alto) = getimagesize($_FILES["editarFoto"]["tmp_name"]);
+						
 
-					 // Verificando si existe una foto (ubicacion) en la Base De Datos.
-					 if(!empty($_POST["fotoActual"]))
-					 {
-							// Borrar la foto que se encuentra en la computadora
-							unlink($_POST["fotoActual"]);
-					 }
-					 else
-					 {
-						 mkdir ($directorio,0755);
-					 }
+						// Los tamaños de la foto a guardar en la computadora
+						$nuevoAncho = 500;
+						$nuevoAlto = 500;
+
+						// Crear el directorio donde se guardara la foto del usuario
+ 						$directorio = "vistas/img/usuarios/".$_POST["editarUsuario"];
+
+						// Verificando si existe una foto (ubicacion) en la Base De Datos.
+						if(!empty($_POST["fotoActual"]))
+						{
+								// Borrar la foto que se encuentra en la computadora
+								unlink($_POST["fotoActual"]);
+						}
+						else
+						{
+							// Si se tiene un servidor Linux, se tiene que dar permisos 777 totales para este caso es : "/var/www/html/sistema-pos/vistas/img/usuarios "
+							// Si viene vacia.
+							mkdir ($directorio,0755);
+						}
 
 
 
-					 // De acuerdo al tipo de imagen aplicamos las funciones por defecto de PHP.
-					 if ($_FILES["nuevaFoto"]["type"] == "image/jpeg")
-					 {
-						 $aleatorio = mt_rand(100,999);
-						 $ruta = "vistas/img/usuarios/".$_POST["editarUsuario"]."/".$aleatorio.".jpg";
-						 $origen = imagecreatefromjpeg($_FILES["editarFoto"]["tmp_name"]);
-						 // Cuando se define el nuevo tamaño de al foto, mantenga los colores.
-						 $destino = imagecreatetruecolor($nuevoAncho,$nuevoAlto);
-						 // Ajustar la imagen al tamaño definidos en las variables "$nuevoAncho", y "$nuevoAlto"
-						 imagecopyresized($destino,$origen,0,0,0,0,$nuevoAncho,$nuevoAlto,$ancho,$alto);
-						 // Guardar la foto en la computadora.
-						 imagejpeg($destino,$ruta);
-					 }
+						// De acuerdo al tipo de imagen aplicamos las funciones por defecto de PHP.
+						if ($_FILES["editarFoto"]["type"] == "image/jpeg")
+						{
+							$aleatorio = mt_rand(100,999);
+							$ruta = "vistas/img/usuarios/".$_POST["editarUsuario"]."/".$aleatorio.".jpg";
+							$origen = imagecreatefromjpeg($_FILES["editarFoto"]["tmp_name"]);
+							// Cuando se define el nuevo tamaño de al foto, mantenga los colores.
+							$destino = imagecreatetruecolor($nuevoAncho,$nuevoAlto);
+							// Ajustar la imagen al tamaño definidos en las variables "$nuevoAncho", y "$nuevoAlto"
+							imagecopyresized($destino,$origen,0,0,0,0,$nuevoAncho,$nuevoAlto,$ancho,$alto);
+							// Guardar la foto en la computadora.
+							imagejpeg($destino,$ruta);
+						}
+  
+						// De acuerdo al tipo de imagen aplicamos las funciones por defecto de PHP.
+						if ($_FILES["editarFoto"]["type"] == "image/png")
+						{
+							$aleatorio = mt_rand(100,999);
+							$ruta = "vistas/img/usuarios/".$_POST["editarUsuario"]."/".$aleatorio.".png";
+							$origen = imagecreatefrompng($_FILES["editarFoto"]["tmp_name"]);
+							// Cuando se define el nuevo tamaño de al foto, mantenga los colores.
+							$destino = imagecreatetruecolor($nuevoAncho,$nuevoAlto);
+							// Ajustar la imagen al tamaño definidos en las variables "$nuevoAncho", y "$nuevoAlto"
+							imagecopyresized($destino,$origen,0,0,0,0,$nuevoAncho,$nuevoAlto,$ancho,$alto);
+							// Guardar la foto en la computadora.
+							imagejpeg($destino,$ruta);
+						}
+						
+					} // if (isset($_FILES["editarFoto"]["tmp_name"]))
+					// Actualizar los campos en la base de datos
 
-					 // De acuerdo al tipo de imagen aplicamos las funciones por defecto de PHP.
-					 if ($_FILES["nuevaFoto"]["type"] == "image/png")
-					 {
-						 $aleatorio = mt_rand(100,999);
-						 $ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio.".png";
-						 $origen = imagecreatefrompng($_FILES["nuevaFoto"]["tmp_name"]);
-						 // Cuando se define el nuevo tamaño de al foto, mantenga los colores.
-						 $destino = imagecreatetruecolor($nuevoAncho,$nuevoAlto);
-						 // Ajustar la imagen al tamaño definidos en las variables "$nuevoAncho", y "$nuevoAlto"
-						 imagecopyresized($destino,$origen,0,0,0,0,$nuevoAncho,$nuevoAlto,$ancho,$alto);
-						 // Guardar la foto en la computadora.
-						 imagejpeg($destino,$ruta);
-					 }
-					 
-				 } // if (isset($_FILES["editarFoto"]["tmp_name"]))
-				 // Actualizar los campos en la base de datos
+					$tabla = "t_Usuario";
+					if ($_POST["editarPassword"] != "") // Tiene información, se cambiara la clave
+					{
+						if (preg_match('/^[a-zA-Z0-9]+$/',$_POST["editarPassword"])) // Valida  la nueva contraseña que solo tengan letras y numeros.
+						{ 
+								$encriptar = crypt($_POST["editarPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+						}
+						else
+						{
+								echo '<script>
+								Swal.fire ({
+									type: "error",
+									title: "El usuario no puede ir vacio o llevar caracteres especiales",
+									showConfirmButton: true,
+									confirmButtonText: "Cerrar",
+									closeOnConfirm: false
+									}).then((result)=>{
+										if (result.value)
+										{
+											window.location="categorias";
+										}
 
-				 $tabla = "t_Usuario";
-				 if ($_POST["editarPassword"] != "")
-				 {
-					 if (preg_match('/^[a-zA-Z0-9]+$/',$_POST["editarPassword"]))
-					 {
-							$encriptar = crypt($_POST["editarPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-					 }
-					 else
-					 {
-							echo '<script>
+										});
+						
+								</script>';          
+
+						} // if (preg_match('/^[a-zA-Z0-9]+$/',$_POST["editarPassword"]))
+
+					}
+					else // if ($_POST["editarPassword"] != "")
+					{
+							$encriptar = $_POST["passwordActual"];
+
+					} // if ($_POST["editarPassword"] != "")
+
+					// Asignando los valores antes validados en un arreglo.
+					$datos = array("nombre"=>$_POST["editarNombre"],
+							"usuario"=>$_POST["editarUsuario"],
+							"password"=> $encriptar,
+							"perfil"=>$_POST["editarPerfil"],
+							"ruta" =>$ruta );
+					
+							var_dump ($datos);
+
+					// Grabar la información en la tabla de la base de datos.
+					$respuesta = ModeloUsuarios::mdlEditarUsuario($tabla,$datos);
+
+					if ($respuesta == "ok")
+					{
+						echo '<script>							
 							Swal.fire ({
-								type: "error",
-								title: "El usuario no puede ir vacio o llevar caracteres especiales",
+								type: "success",
+								title: "El usuario ha sido guardado correctamente ",
 								showConfirmButton: true,
 								confirmButtonText: "Cerrar",
 								closeOnConfirm: false
 								}).then((result)=>{
 									if (result.value)
 									{
-										window.location="categorias";
+										window.location="usuarios";
 									}
 
 									});
-					
-							</script>';          
+				
+						</script>';          
+ 						
+					}
 
-					 }
-
-				 }
-				 else // if ($_POST["editarPassword"] != "")
-				 {
-						$encriptar = $passwordActual;
-
-				 } // // if ($_POST["editarPassword"] != "")
-
-
-				 $datos = array("nombre"=>$_POST["editarNombre"],
-						"usuario"=>$_POST["editarUsuario"],
-						"password"=> $encriptar,
-						"perfil"=>$_POST["editarPerfil"],
-						"ruta" =>$ruta );
-
-				$respuesta = ModeloUsuarios::mdlEditarUsuario($tabla,$datos);
-
-				if ($respuesta == "ok")
+				} // if ( preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["editarNombre"]))
+				else
 				{
 					echo '<script>
-						alert ("Usuario grabado correctamente ..");
-						window.location="usuarios";
-						
-					Swal.fire ({
-						type: "success",
-						title: "El usuario ha sido guardado correctamente ",
-						showConfirmButton: true,
-						confirmButtonText: "Cerrar",
-						closeOnConfirm: false
-						}).then((result)=>{
-							if (result.value)
-							{
-								window.location="usuarios";
-							}
+						Swal.fire ({
+							type: "error",
+							title: "El nombre  no puede ir vacio o llevar caracteres especiales !",
+							showConfirmButton: true,
+							confirmButtonText: "Cerrar",
+							closeOnConfirm: false
+							}).then((result)=>{
+								if (result.value)
+								{
+									window.location="usuarios";
+								}
 
-							});
+								});
 			
-				</script>';          
-				echo '<script>alert("Usuario Actualizado Correctamente");</script>';
-					
-				}
+						</script>';          						
+			
+				} // if ( preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["editarNombre"]))
 
+			} // if (isset($_POST["editarUsuario"]))
 
-
-			} // if ( preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["editarNombre"]))
-			else
-			{
-				echo '<script>
-				Swal.fire ({
-					type: "error",
-					title: " preg_match(,$_POST[ editarNombre ])) El nombre  no puede ir vacio o llevar caracteres especiales",
-					showConfirmButton: true,
-					confirmButtonText: "Cerrar",
-					closeOnConfirm: false
-					}).then((result)=>{
-						if (result.value)
-						{
-							window.location="usuarios";
-						}
-
-						});
-		
-					</script>';          
-					
-		
-			} // if ( preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["editarNombre"]))
-      
 		} // static public function ctrEditarUsuario()
 
   } // class  ControladorUsuarios

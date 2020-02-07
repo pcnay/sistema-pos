@@ -43,6 +43,7 @@
                 <th>Acciones </th>
               </tr>
             </thead>
+
             <!-- Cuerpo de la Tabla, se desplegara desde la base de datos.  -->
             <tbody>
 							<?php
@@ -65,7 +66,7 @@
 											
 											if ($value["foto"] != "")
 											{
-												echo '<td><img src="'.$value["foto"].'" width="40px"></td>
+												echo '<td><img src="'.$value["foto"].'" class="ing-thumbnail" width="40px"></td>
 												';
 											}
 											else
@@ -79,12 +80,15 @@
 											<td>'.$value["ultimo_login"].'</td>
 											<td>
 												<div class="btn-group">
-													<!-- Para utilizar una ventana de tipo modal, esta "#modalEditarUsuario" se define mas adelante en el archivo., btnEditarUsuario, idUsuario= ... Se utiliza Javascript para utilizar AJAX y conectarse a la base de datos -->
+													<!-- Para utilizar una ventana de tipo modal, "data-toggle"= Para activar ventana Modal; "data-target=#modalEditarUsario" = Se indica en donde se activara la ventana esta
+													 "#modalEditarUsuario" se define mas adelante en el archivo., btnEditarUsuario, idUsuario= ... Se utiliza Javascript para utilizar AJAX y conectarse a la base de datos, en el archivo "usuario.js", en este archivo se crea un evento $(".btnEditarUsuario").click... -->
+													
 													<button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value["id"].'" data-toggle="modal" data-target= "#modalEditarUsuario" ><i class="fa fa-pencil"></i></button>
 													<button class="btn btn-danger"><i class="fa fa-times"></i></button>
 												</div>
 											</td>
 								</tr> ';
+
 								} // foreach ($usuarios as $key => $value)
 
 
@@ -183,6 +187,7 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
             <button type="submit" class="btn btn-primary">Guardar Usuarios</button>
           </div>
+						<!-- Cuando pasa el boton "Submit" ejecuta esta Objeto para Guardar la información del Usuario, pero antes se validan los campos.-->
             <?php 
               $crearUsuario = new ControladorUsuarios();
               $crearUsuario->ctrCrearUsuario();
@@ -218,7 +223,7 @@ Cuando el usuario oprima el boton de "Editar" (Lapiz)  se activa esta ventana.
           <h4 class="modal-title">Editar Usuario</h4>
         </div>
 
-
+				<!-- Se deja vacio el atributo "value" este se llenara con JavaScript-->
         <div class="modal-body">
           <div class="box-body">
             <!-- Clases de BootStrap para las formularios-->
@@ -233,6 +238,7 @@ Cuando el usuario oprima el boton de "Editar" (Lapiz)  se activa esta ventana.
             <div class="form-group">
               <div class = "input-group">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
+								<!-- Se coloca "readonly" porque no se podrá modificar, solo es mostrado -->
                 <input type="text" class="form-control input-lg" id = "editarUsuario" name ="editarUsuario" value = " " readonly>
               </div> <!-- <div class = "input-group"> -->           
             </div> <!-- <div class="form-group"> -->
@@ -240,8 +246,8 @@ Cuando el usuario oprima el boton de "Editar" (Lapiz)  se activa esta ventana.
             <div class="form-group">
               <div class = "input-group">
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input type="password" class="form-control input-lg" name="editarPassword" placeholder = "Escriba una nueva contraseña" required>
-								<!-- Se coloca este tipo de "input", ya que para relizar la accion de UPDATE, se tiene que agregar todos los campos.-->
+                <input type="password" class="form-control input-lg" name="editarPassword" placeholder = "Escriba una nueva contraseña" >
+								<!-- Se coloca este tipo de "input", ya que para relizar la accion de UPDATE, se tiene que agregar todos los campos., por si la clave no se modifica se manda como tipo "hidden"-->
 								<input type="hidden" id="passwordActual" name="passwordActual" >
 
               </div> <!-- <div class = "input-group"> -->           
@@ -252,7 +258,7 @@ Cuando el usuario oprima el boton de "Editar" (Lapiz)  se activa esta ventana.
                 <span class="input-group-addon"><i class="fa fa-users"></i></span>
                 <select class="form-control input-lg" name="editarPerfil">
 									<!-- id= "editarPerfil" para que desde JavaScript se modifique el que tiene el usuario .-->
-                  <option value="" id="editarPerfil"></option>
+                  <option value=""  id="editarPerfil"></option>
                   <option value="Administrador">Administrador</option>
                   <option value="Especial">Especial</option>
                   <option value="Vendedor">Vendedor</option>
@@ -263,7 +269,7 @@ Cuando el usuario oprima el boton de "Editar" (Lapiz)  se activa esta ventana.
             <div class="form-group">
               <div class="panel text-up">SUBIR FOTO</div> 
 							<!-- class = "nuevaFoto" : Es un codigo de JavaScript para subir las fotos al sistema.-->
-              <input type="file" class="nuevaFoto" name="editarFoto">
+              <input type="file" class="nuevaFoto" name="editarFoto" id="editarFoto">
               <p class="help-block">Peso Máximo de la foto 2 Mb</p>
               <!-- previsualizar = para reemplazar la foto que se va a subir-->
               <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail previsualizar" width = "100px">
@@ -283,7 +289,7 @@ Cuando el usuario oprima el boton de "Editar" (Lapiz)  se activa esta ventana.
 					
            <?php 
               $editarUsuario = new ControladorUsuarios();
-              //$editarUsuario->ctrEditarUsuario();
+              $editarUsuario->ctrEditarUsuario();
             ?> 
 
         </form>
