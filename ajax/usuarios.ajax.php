@@ -19,7 +19,25 @@
 			// Retorna el valor (El usuario encontrado) y es pasado a formato JSon.
 			echo json_encode($respuesta); // Este valor es retornado al archivo "usuarios.js" cuando se ejecuta el "Ajax", oara ser asignado en las etiquetas de la forma.
 		}
-	}
+
+		// Activar Usuarios, Cambiarlo de color Rojo a Verde.
+		public $activarUsuario;
+		public $activarId;
+		
+		public function ajaxActivarUsuario()
+		{
+			// Accesa directamente al modelo, para actualizar el "estado" del usuario.
+			$tabla = 't_Usuario';
+			$item1 = "estado";
+			$valor1 = $this->activarUsuario; // esta valor lo obtiene al instanciar la clase.
+			$item2 = 'id';
+			$valor2 = $this->activarId;		
+
+			$repuesta = ModeloUsuarios::mdlActualizarUsuario($tabla,$item1,$valor1,$item2,$valor2);
+
+		}
+
+	} // class AjaxUsuarios
 
 	if (isset($_POST["idUsuario"]))
 	{
@@ -28,4 +46,15 @@
 		$editar->ajaxEditarUsuario(); 	
 	}
 	
+	// Activar el Usuario:, esta variable $_POST["activarUsuario"] viene desde "usuarios.js"
+	if (isset($_POST["activarUsuario"]))
+	{
+		$activarUsuario = new AjaxUsuarios();
+		$activarUsuario->activarUsuario=$_POST["activarUsuario"]; // esta variable viene desde "usuarios.js"
+		$activarUsuario->activarId=$_POST["activarId"]; // esta variable viene desde "usuarios.js"
+		$activarUsuario->ajaxActivarUsuario();
+		 
+		 
+	}
+
 ?>

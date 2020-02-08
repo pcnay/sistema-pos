@@ -81,4 +81,46 @@ $(".btnEditarUsuario").click(function (){
 
 })
 
+/* 	ACTIVAR EL USUARIO, 
+echo ' <td><button class="btn btn-success btn-xs btnActivar" idUsuario="'.$value["id"].'" estadoUsuario="0" >Activado</button></td>';
+*/
 
+$(".btnActivar").click(function(){
+	var idUsuario = $(this).attr("idUsuario");
+	var estadoUsuario = $(this).attr("estadoUsuario");
+
+	// Usando Ajax Hara la actualizacion para la base de datos.
+	var datos = new FormData();
+
+	// Estos valores se pasan como parametros POST["activarId"], POST["activarUsuario"]  para "usuarios.ajax.php"
+	datos.append("activarId",idUsuario);
+	datos.append("activarUsuario",estadoUsuario);
+
+	$.ajax({
+		url:"ajax/usuarios.ajax.php",
+		method:"POST",
+		data:datos,
+		cache:false,
+		contentType:false,
+		processData:false,
+		success:function(respuesta){
+			 
+		}
+	})
+
+	// Cambiando el color del boton, una vez que se haya actualizado en la base de datos.
+	if(estadoUsuario == 0)
+	{
+		$(this).removeClass('btn-success');
+		$(this).addClass('btn-danger');
+		$(this).html('Desactivado');
+		$(this).attr('estadoUsuario',1);
+	}
+	else
+	{
+		$(this).addClass('btn-success');
+		$(this).removeClass('btn-danger');
+		$(this).html('Activado');
+		$(this).attr('estadoUsuario',0);
+	}
+})

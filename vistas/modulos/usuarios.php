@@ -74,10 +74,20 @@
 												echo '<td><img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail" width="40px"></td>';
 											}
 
-											echo '<td>'.$value["perfil"].'</td>
+											echo '<td>'.$value["perfil"].'</td>';
+											
+											//  != 0, El estado es activado.
+											if ($value["estado"] != 0)
+											{
+												// Se va a definir una clase "btnActivar" para activar el usuario. El funcionamiento se define en "usuario.js", se agrega el "idUsuario"
+												echo ' <td><button class="btn btn-success btn-xs btnActivar" idUsuario="'.$value["id"].'" estadoUsuario="0" >Activado</button></td>';
+											}
+											else
+											{
+												echo ' <td><button class="btn btn-danger btn-xs btnActivar" idUsuario="'.$value["id"].'" estadoUsuario= "1">Desactivado</button></td>';
+											}											
 
-											<td><button class="btn btn-success btn-xs">Activado</button></td>
-											<td>'.$value["ultimo_login"].'</td>
+											echo '<td>'.$value["ultimo_login"].'</td>
 											<td>
 												<div class="btn-group">
 													<!-- Para utilizar una ventana de tipo modal, "data-toggle"= Para activar ventana Modal; "data-target=#modalEditarUsario" = Se indica en donde se activara la ventana esta

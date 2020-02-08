@@ -37,10 +37,12 @@ CREATE TABLE t_Usuario
   perfil VARCHAR(45) NOT NULL,
   vendedor VARCHAR(45) NULL,
   foto VARCHAR(45) NULL,
-  estado INTEGER UNSIGNED,
+  estado INTEGER UNSIGNED DEFAULT 0,
   ultimo_login DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+
 
 INSERT INTO t_Usuario (id,nombre,usuario,clave,perfil,vendedor,foto,estado,ultimo_login,fecha) VALUES
   (1,'Usuario Administrador','admin','123','Administrador','','',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);

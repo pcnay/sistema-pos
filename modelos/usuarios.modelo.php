@@ -35,7 +35,7 @@
     // Registrar Usuario.
     static public function mdlIngresarUsuario($tabla,$datos)
     {
-      //print_r($tabla,$item,$valor);
+      //print_r($datos);
       //exit;
 
       $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(nombre, usuario, clave, perfil,foto) VALUES (:nombre,:usuario,:password,:perfil,:ruta)");
@@ -81,6 +81,27 @@
 			$stmt->close();
 			$stmt = null;
 		}
+
+		// Actualizar Usuario 
+		static public function mdlActualizarUsuario($tabla,$item1,$valor1,$item2,$valor2)
+		{
+			$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET $item1 = :$item1  WHERE $item2 = :$item2");
+			$stmt->bindParam(":".$item1, $valor1,PDO::PARAM_STR);
+			$stmt->bindParam(":".$item2, $valor2,PDO::PARAM_STR);
+
+			if($stmt->execute())
+			{
+				return "ok";
+			}
+			else
+			{
+				return "error";
+			}
+
+			$stmt->close();
+			$stmt = null;
+
+		} // 		static public function mdlActualizarUsuario.......
  
-  }
+  } // class ModeloUsuarios
 ?>

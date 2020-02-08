@@ -22,8 +22,7 @@
           
 					$respuesta = ModeloUsuarios::mdlMostrarUsuarios($tabla,$item,$valor);
 					
-					//print_r($respuesta["usuario"]);
-					
+									
 
 					if ($respuesta["usuario"] == 'admin')
 					{
@@ -36,20 +35,31 @@
 
           if (($respuesta["usuario"] == $_POST["ingUsuario"]) && ($respuesta["clave"] == $encriptar))
           {
-						// $desencriptar
-            // Inicia Session. Se inicia con la creacion de Variables de Sesion.
-            //echo '<br><div class="alert alert-success">Bienvenido al Sistema</div>';
-						$_SESSION["iniciarSesion"] = "ok";
-						$_SESSION["id"] = $respuesta["id"];
-						$_SESSION["nombre"] = $respuesta["nombre"];
-						$_SESSION["usuario"] = $respuesta["usuario"];
-						$_SESSION["foto"] = $respuesta["foto"];
-						$_SESSION["perfil"] = $respuesta["perfil"];
+						// Verifica si el usuario esta activo.
+						if ($respuesta["estado"] == 1 )
+						{
+							// $desencriptar
+							// Inicia Session. Se inicia con la creacion de Variables de Sesion.
+							//echo '<br><div class="alert alert-success">Bienvenido al Sistema</div>';
+							$_SESSION["iniciarSesion"] = "ok";
+							$_SESSION["id"] = $respuesta["id"];
+							$_SESSION["nombre"] = $respuesta["nombre"];
+							$_SESSION["usuario"] = $respuesta["usuario"];
+							$_SESSION["foto"] = $respuesta["foto"];
+							$_SESSION["perfil"] = $respuesta["perfil"];
+	
+							echo '<script>
+										window.location ="inicio";
+										</script>';
 
-            echo '<script>
-                  window.location ="inicio";
-                  </script>';
-          }
+						} // if ($respuesta["estado"] == 1 )
+						else
+						{
+							echo '<br><div class="alert alert-danger">El Usuario Aun No esta Activado !!</div>';	
+						} // if ($respuesta["estado"] == 1 )
+						
+					}
+					
           else
           {
             echo '<br><div class="alert alert-danger">Error Al Ingresar.</div>';
@@ -169,7 +179,27 @@
         
           </script>';          
             
-          }
+					}
+					else
+					{
+						echo '<script>           
+            	Swal.fire ({
+								type: "danger",
+								title: "El usuario ha sido guardado correctamente ",
+								showConfirmButton: true,
+								confirmButtonText: "Cerrar",
+								closeOnConfirm: false
+								}).then((result)=>{
+									if (result.value)
+									{
+										window.location="usuarios";
+									}
+
+									});
+        
+          		</script>';          
+            
+					}
           
         }
         else // if ( preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["nuevoNombre"]) && preg_match('/^....
