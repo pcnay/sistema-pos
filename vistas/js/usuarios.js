@@ -124,3 +124,40 @@ $(".btnActivar").click(function(){
 		$(this).attr('estadoUsuario',0);
 	}
 })
+
+// Revisando que el usuario no este repetido.
+// Cuando se escriba en el input : <input type="text" class="form-control input-lg" name="nuevoUsuario" id="nuevoUsuario" placeholder = "Ingresar Usuario" required>
+$("#nuevoUsuario").change(function(){
+	// Remueve los mensajes de alerta. 
+	$(".alert").remove();
+
+	// Obtienedo el valor del id=nuevoUsuario.
+	var usuario = $(this).val();
+	//console.log ("usuario desde la etiqueta ",usuario);
+	// Obtener datos de la base de datos
+	var datos = new FormData();
+	datos.append("validarUsuario",usuario);
+	$.ajax({
+		url:"ajax/usuarios.ajax.php",
+		method:"POST",
+		data:datos,
+		cache:false,
+		contentType:false,	
+		processData:false,
+		dataType:"json",
+		success:function(respuesta){
+			// console.log("respuesta",respuesta);
+			// Si "respuesta = Valor, Verdadero "
+			if (respuesta)
+			{
+				// Coloca una barra con mensaje de advertencia  en la etiqueta.
+				$("#nuevoUsuario").parent().after('<div class="alert alert-warning" >Este Usuario Ya Existe </div>');
+				$("#nuevoUsuario").val("");
+			}
+
+		}
+	})
+ 
+
+
+})

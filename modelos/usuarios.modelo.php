@@ -7,7 +7,7 @@
     // "static" debido a que tiene parámetros.
     static public function mdlMostrarUsuarios($tabla,$item,$valor)
     {
-      //print_r($tabla,$item);
+      //var_dump($tabla);
 			//exit;
 			// Determinar si se quiere un registro o todos.
 			if ($item != null)

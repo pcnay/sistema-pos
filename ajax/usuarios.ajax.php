@@ -37,7 +37,19 @@
 
 		}
 
+		public $validarUsuario;
+		public function ajaxValidarUsuario()
+		{
+			$item = "usuario";
+			$valor = $this->validarUsuario;
+
+			$respuesta = ControladorUsuarios::ctrMostrarUsuarios($item,$valor);
+			echo json_encode($respuesta);
+
+		}
+
 	} // class AjaxUsuarios
+
 
 	if (isset($_POST["idUsuario"]))
 	{
@@ -55,6 +67,14 @@
 		$activarUsuario->ajaxActivarUsuario();
 		 
 		 
+	}
+
+	// Validar que NO se repita usuario.
+	if (isset($_POST["validarUsuario"]))
+	{
+		$valUsuario = new AjaxUsuarios();
+		$valUsuario->validarUsuario = $_POST["validarUsuario"];
+		$valUsuario->ajaxValidarUsuario();
 	}
 
 ?>

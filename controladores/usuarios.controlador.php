@@ -20,9 +20,7 @@
           $valor = $_POST["ingUsuario"];
           // Esta forma es para obtener un valor directamente y se almacena en una variable.
           
-					$respuesta = ModeloUsuarios::mdlMostrarUsuarios($tabla,$item,$valor);
-					
-									
+					$respuesta = ModeloUsuarios::mdlMostrarUsuarios($tabla,$item,$valor);							
 
 					if ($respuesta["usuario"] == 'admin')
 					{
@@ -47,17 +45,39 @@
 							$_SESSION["usuario"] = $respuesta["usuario"];
 							$_SESSION["foto"] = $respuesta["foto"];
 							$_SESSION["perfil"] = $respuesta["perfil"];
-	
-							echo '<script>
-										window.location ="inicio";
-										</script>';
+							
+							// Registrando la Fecha y Hora cuando el usuario ingresa la sistema.
+							// https://www.php.net/manual/es/timezones.php, muestra las permitidas por PHP.
+							// Ademas es importante que se escriba esta funcion, ya que los servidores Cloud tienen hora donde se encuentran Call Center, con esta funcion 
+							// "date_default_timezone_set... para que que escriba la fecha y hora local para escribirla en la base de datos  
+							date_default_timezone_set('America/Tijuana');
+
+							// En este orden porque es como se graba en la base de datos.
+							$fecha = date('Y-m-d');
+							$hora = date('H:i:s');
+							$fechaActual = $fecha.' '.$hora;
+							
+							$item1 = "ultimo_login";  
+							$valor1 = $fechaActual;
+
+							$item2 = "id";
+							$valor2 = $respuesta["id"];
+							
+							$ultimoLogin = ModeloUsuarios::mdlActualizarUsuario($tabla,$item1,$valor1,$item2,$valor2);
+							if ($ultimoLogin == "ok")
+							{
+								echo '<script>
+											window.location ="inicio";
+								 			</script>';
+
+							}							  
 
 						} // if ($respuesta["estado"] == 1 )
 						else
 						{
 							echo '<br><div class="alert alert-danger">El Usuario Aun No esta Activado !!</div>';	
 						} // if ($respuesta["estado"] == 1 )
-						
+
 					}
 					
           else

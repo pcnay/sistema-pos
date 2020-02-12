@@ -154,7 +154,8 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
             <div class="form-group">
               <div class = "input-group">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                <input type="text" class="form-control input-lg" name="nuevoUsuario" placeholder = "Ingresar Usuario" required>
+								<!-- id = "nuevoUsuario" se utiliza en "usuarios.js" para validar que sea único el usuario. -->
+                <input type="text" class="form-control input-lg" name="nuevoUsuario" placeholder = "Ingresar Usuario" id="nuevoUsuario" required>
               </div> <!-- <div class = "input-group"> -->           
             </div> <!-- <div class="form-group"> -->
 
