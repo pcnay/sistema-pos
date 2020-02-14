@@ -1,8 +1,10 @@
 <?php
 	// Se vuelve a llamar ya que en el Ajax, trabaja en 2do. plano, porque se tiene que volver a invocarlo.
+// No declarar "static" en esta funcion, no la soporta el servidor Cloud de Google, por lo que deja de trabajar el programa de forma correcta.
 
 	require_once "../controladores/usuarios.controlador.php";
 	require_once "../modelos/usuarios.modelo.php";
+	
 	class AjaxUsuarios
 	{
 		// Editar usuarios.
@@ -24,6 +26,7 @@
 		public $activarUsuario;
 		public $activarId;
 		
+		// No declarar "static" en esta funcion, no la soporte el servidor Cloud de Google.
 		public function ajaxActivarUsuario()
 		{
 			// Accesa directamente al modelo, para actualizar el "estado" del usuario.
@@ -38,6 +41,8 @@
 		}
 
 		public $validarUsuario;
+
+		// No declarar "static" en esta funcion, no la soporte el servidor Cloud de Google.
 		public function ajaxValidarUsuario()
 		{
 			$item = "usuario";

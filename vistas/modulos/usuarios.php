@@ -94,7 +94,8 @@
 													 "#modalEditarUsuario" se define mas adelante en el archivo., btnEditarUsuario, idUsuario= ... Se utiliza Javascript para utilizar AJAX y conectarse a la base de datos, en el archivo "usuario.js", en este archivo se crea un evento $(".btnEditarUsuario").click... -->
 													
 													<button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value["id"].'" data-toggle="modal" data-target= "#modalEditarUsuario" ><i class="fa fa-pencil"></i></button>
-													<button class="btn btn-danger"><i class="fa fa-times"></i></button>
+													<!-- Para borrar usuario se coloca una clase llamada "btnEliminarUsuario"-->
+													<button class="btn btn-danger btnEliminarUsuario" idUsuario="'.$value["id"].'" fotoUsuario="'.$value["foto"].'" usuario="'.$value["usuario"].'"><i class="fa fa-times"></i></button>
 												</div>
 											</td>
 								</tr> ';
@@ -310,3 +311,9 @@ Cuando el usuario oprima el boton de "Editar" (Lapiz)  se activa esta ventana.
   </div> <!-- <div class="modal-dialog"> -->
 
 </div> <!-- <div id="modalAgregarUsuario" class="modal fade" role="dialog"> -->
+
+<?php
+	// Este método se esta ejecutando siempre, pero se realiza el borrado cuando se origina la variable global "$_GET["idUsuario"] en Usuarios.controlador.php -> ctrBorrarUsuario()
+	$borrarUsuario = new ControladorUsuarios();
+	$borrarUsuario->ctrBorrarUsuario();
+?>

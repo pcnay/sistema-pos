@@ -158,6 +158,32 @@ $("#nuevoUsuario").change(function(){
 		}
 	})
  
-
-
 })
+
+
+// Eliminar USUARIO.
+$(".btnEliminarUsuario").click(function(){
+	// Obteniendo los valores de "idUsuario" y "fotoUsuario"
+	var idUsuario = $(this).attr("idUsuario");
+	var fotoUsuario = $(this).attr("fotoUsuario");
+	var usuario = $(this).attr("usuario");
+
+	Swal.fire ({
+		title: "Esta Seguro De Borrar El Usuario",
+		text: "Puedes Cancelar La Accion",
+		type: 'warning',
+		showCancelButton: true,
+		confirmButtonText: "#3085d6",
+		cancelButtonColor: '#d33',
+		cancelButtonText: 'Cancelar',
+		confirmButtonText: 'Si, Borrar Usuarios'
+	}).then((result)=>{ 
+		if (result.value)
+		{
+			window.location = "index.php?ruta=usuarios&idUsuario="+idUsuario+"&usuario="+usuario+"&foto="+fotoUsuario;
+		}
+	})
+
+
+}) // $(".btnEliminarUsuario").click(function(){
+

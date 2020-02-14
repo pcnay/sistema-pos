@@ -444,5 +444,53 @@
 
 		} // static public function ctrEditarUsuario()
 
+		// Borrar Usuario
+		static public function ctrBorrarUsuario()
+		{
+			// Si esta esta variable global tipo GET "idUsuario" es porque se va a borrar el usuario.
+			// Esta variables globales $_GET, se originan cuando se utilizan variables por la URL
+			//		if (result.value)
+			//{
+			//window.location = "index.php?ruta=usuarios&idUsuario="+idUsuario+"&usuario="+usuario  +"&foto="+fotoUsuario;
+
+			if (isset($_GET["idUsuario"]))			
+			{
+				$tabla = "t_Usuario";
+				$datos = $_GET["idUsuario"];
+
+				// Viene con foto
+				if ($_GET["foto"] != "" )
+				{
+					// Se elimina el directorio.
+					unlink ($_GET["foto"]);
+					rmdir ('vistas/img/usuarios/'.$_GET["usuario"]);
+				}
+
+				$respuesta = ModeloUsuarios::mdlBorrarUsuario($tabla,$datos);
+				
+				if ($respuesta == "ok")
+				{
+					echo '<script>
+						Swal.fire ({
+							type: "success",
+							title: "El Usuario ha sido borrado correctamente ",
+							showConfirmButton: true,
+							confirmButtonText: "Cerrar",
+							closeOnConfirm: false
+							}).then((result)=>{
+								if (result.value)
+								{
+									window.location="usuarios";
+								}
+
+								});
+			
+						</script>';          						
+
+				}
+				 
+			}
+		}
+
   } // class  ControladorUsuarios
 ?>
