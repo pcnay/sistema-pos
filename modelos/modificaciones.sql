@@ -1,5 +1,13 @@
 USE pos;
 
+CREATE TABLE t_Categoria
+(
+  id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(80) NOT NULL,
+  fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+/*
 CREATE TABLE t_Usuario
 (
   id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -13,11 +21,13 @@ CREATE TABLE t_Usuario
   ultimo_login DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+*/
 
  
+/*
 INSERT INTO t_Usuario (id,nombre,usuario,clave,perfil,vendedor,foto,estado,ultimo_login,fecha) VALUES
   (1,'Usuario Administrador','admin','123','Administrador','','',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
-
+*/
 
 /*
 INSERT INTO t_Usuario (id,nombre,usuario,clave,perfil,vendedor,foto,estado,ultimo_login,fecha) VALUES

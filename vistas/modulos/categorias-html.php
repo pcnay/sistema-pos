@@ -133,12 +133,6 @@ Cuando el usuario oprima el boton de "Agregar Categoria" se activa esta ventana.
             <button type="submit" class="btn btn-primary">Guardar Categoria</button>
           </div>
 
-					<?php 
-						// Para grabar la categoria.
-						$crearCategoria = new ControladorCategorias();
-						$crearCategoria->ctrCrearCategoria();
-					?>
-
       </form>
 
     </div> <!-- <div class="modal-content"> -->
