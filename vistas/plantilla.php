@@ -48,6 +48,10 @@
 	<!-- https://www.jsdelivr.com/package/npm/sweetalert2 : Se tiene que agregar por separado este archivo, ya que si se agrega solo uno como "sweetalert2.all.js" no funciona, se debe bajar l archivo en formato ".tar", descomprimir y buscar en la carpeta "packages" los dos archivos, tanto ".css" y ".js" -->
 		<link rel="stylesheet" href="vistas/plugins/sweetalert2/sweetalert2.css">
 
+	<!-- By default Sweetalert2 doesn´t support IE. To enable IE 11 support, include Promise polyfill -->	
+	<!-- <script scr = "https://cdnjs.cloudflare.com/ajax/libs/core-js/2.6.11/core.min.js"></ script> -->
+	<script src="vistas/plugins/core-js-2.6.11/core.min.js"></script>
+
   <!-- Plugins de JavaScript -->
     <!-- jQuery 3 -->
   <script src="vistas/bower_components/jquery/dist/jquery.min.js"></script>

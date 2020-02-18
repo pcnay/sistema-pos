@@ -41,8 +41,11 @@ $(".nuevaFoto").change(function(){
 })
 
 /* Editar Usuario*/
-
-$(".btnEditarUsuario").click(function (){
+// Esta modificacion se realiza para cuando se esta utilizando pantallas pequeñas, como celulares, Tablets, 
+// Debido a que cuando se carga, muestra unos botones al editar, los campos se muestran vacios debido a que aun no se define ".btnEditarUsuario" , por lo que se define el comportamiento
+// $(".btnEditarUsuario").click(function (){
+	// Cuando el documento ya este cargado, busque en cualquier momento la clase ".btnEditarUsuario", por lo que no importa si al cargar la primera vez no se haya creado esta clase, pero al hacer click en la clase se ejecutara esta funcion.  
+$(document).on("click",".btnEditarUsuario",function(){	
 	/* <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value["id "] .'" data-toggle="modal"  */
 	var identifUsuario=$(this).attr("idUsuario");
 	// console.log(idUsuario);
@@ -85,7 +88,11 @@ $(".btnEditarUsuario").click(function (){
 echo ' <td><button class="btn btn-success btn-xs btnActivar" idUsuario="'.$value["id"].'" estadoUsuario="0" >Activado</button></td>';
 */
 
-$(".btnActivar").click(function(){
+	// Cuando el documento ya este cargado, busque en cualquier momento la clase ".btnActivar", por lo que no importa si al cargar la primera vez no se haya creado esta clase, pero al hacer click en la clase se ejecutara esta funcion.  
+
+//$(".btnActivar").click(function(){
+
+$(document).on("click",".btnActivar",function(){		
 	var idUsuario = $(this).attr("idUsuario");
 	var estadoUsuario = $(this).attr("estadoUsuario");
 
@@ -96,17 +103,36 @@ $(".btnActivar").click(function(){
 	datos.append("activarId",idUsuario);
 	datos.append("activarUsuario",estadoUsuario);
 
-	$.ajax({
+	$.ajax
+	({
 		url:"ajax/usuarios.ajax.php",
 		method:"POST",
 		data:datos,
 		cache:false,
 		contentType:false,
 		processData:false,
-		success:function(respuesta){
-			 
-		}
-	})
+		success:function(respuesta)
+		{
+			
+			if (window.matchMedia("(max-width:767px)").matches)
+			{
+				Swal.fire({
+					title: "El Usuario ha sido actualizado",					
+					type: 'success',
+					confirmButtonText: "¡ Cerrar !"
+				}).then(function(result){ 
+						if (result.value)
+						{
+							window.location = "usuarios";
+						}
+
+					}); // .then(function(result)
+					
+			}	// if (window.matchMedia("(max-width:767px)").matches)		 
+
+		} // success:function(respuesta)
+
+	}) // $.ajax({
 
 	// Cambiando el color del boton, una vez que se haya actualizado en la base de datos.
 	if(estadoUsuario == 0)
@@ -162,28 +188,33 @@ $("#nuevoUsuario").change(function(){
 
 
 // Eliminar USUARIO.
-$(".btnEliminarUsuario").click(function(){
-	// Obteniendo los valores de "idUsuario" y "fotoUsuario"
-	var idUsuario = $(this).attr("idUsuario");
-	var fotoUsuario = $(this).attr("fotoUsuario");
-	var usuario = $(this).attr("usuario");
 
-	Swal.fire ({
-		title: "Esta Seguro De Borrar El Usuario",
-		text: "Puedes Cancelar La Accion",
-		type: 'warning',
-		showCancelButton: true,
-		confirmButtonText: "#3085d6",
-		cancelButtonColor: '#d33',
-		cancelButtonText: 'Cancelar',
-		confirmButtonText: 'Si, Borrar Usuarios'
-	}).then((result)=>{ 
-		if (result.value)
-		{
-			window.location = "index.php?ruta=usuarios&idUsuario="+idUsuario+"&usuario="+usuario+"&foto="+fotoUsuario;
-		}
-	})
 
+// $(".btnEliminarUsuario").click(function (){
+	// Cuando el documento ya este cargado, busque en cualquier momento la clase ".btnEditarUsuario", por lo que no importa si al cargar la primera vez no se haya creado esta clase, pero al hacer click en la clase se ejecutara esta funcion.  
+	$(document).on("click",".btnEditarUsuario",function()
+	{	
+
+		// Obteniendo los valores de "idUsuario" y "fotoUsuario"
+		var idUsuario = $(this).attr("idUsuario");
+		var fotoUsuario = $(this).attr("fotoUsuario");
+		var usuario = $(this).attr("usuario");
+
+		Swal.fire ({
+			title: "Esta Seguro De Borrar El Usuario",
+			text: "Puedes Cancelar La Accion",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonText: "#3085d6",
+			cancelButtonColor: '#d33',
+			cancelButtonText: 'Cancelar',
+			confirmButtonText: 'Si, Borrar Usuarios'
+		}).then(function(result){ 
+			if (result.value)
+			{
+				window.location = "index.php?ruta=usuarios&idUsuario="+idUsuario+"&usuario="+usuario+"&foto="+fotoUsuario;
+			}
+		})	
 
 }) // $(".btnEliminarUsuario").click(function(){
 

@@ -470,6 +470,7 @@
 				
 				if ($respuesta == "ok")
 				{
+					// .then((result)=> se cambia por function(result), para IE 11
 					echo '<script>
 						Swal.fire ({
 							type: "success",
@@ -477,7 +478,7 @@
 							showConfirmButton: true,
 							confirmButtonText: "Cerrar",
 							closeOnConfirm: false
-							}).then((result)=>{
+							}).then(function(result){
 								if (result.value)
 								{
 									window.location="usuarios";
