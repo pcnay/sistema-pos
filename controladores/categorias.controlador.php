@@ -2,8 +2,21 @@
 	// Manejando Categorias.
   class ControladorCategorias
   {
+
+		// ==================================================================
+		// Extrae los datos desde la base de datos.
+		// ==================================================================
+		static public function ctrMostrarCategorias($item,$valor)
+		{
+			$tabla = "t_Categoria";
+			$respuesta = ModeloCategorias::mdlMostrarCategorias($tabla,$item,$valor);
+			return $respuesta;
+
+		} // static public function ctrMostrarCategorias()
+
+
 		// Crear categorias.
-    static public function ctrCrearCategoria()
+		static public function ctrCrearCategoria()
     {
 			if (isset($_POST["nuevaCategoria"]))
 			{

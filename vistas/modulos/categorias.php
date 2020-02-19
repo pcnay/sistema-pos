@@ -118,7 +118,7 @@ Cuando el usuario oprima el boton de "Agregar Categoria" se activa esta ventana.
             <div class="form-group">
               <div class = "input-group">
                 <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                <input type="text" class="form-control input-lg" name="nuevaCategoria" placeholder = "Ingresar Categoria" required>
+                <input type="text" class="form-control input-lg" name="nuevaCategoria" placeholder = "Ingresar Categoria" id="nuevaCategoria" required>
               </div> <!-- <div class = "input-group"> -->           
 
             </div> <!-- <div class="form-group"> -->

@@ -124,10 +124,12 @@
     }
   ?>
 </div>  
-<!-- ./wrapper -->
-<!-- Los archivos de "JavaScript" incian las busquedas desde el directorio raíz.  -->
-<script src="vistas/js/plantilla.js"></script>
-<!-- Agregar las fotografias de los usuarios del sistema -->
-<script src="vistas/js/usuarios.js"></script>
+	<!-- ./wrapper -->
+	<!-- Los archivos de "JavaScript" incian las busquedas desde el directorio raíz.  -->
+	<script src="vistas/js/plantilla.js"></script>
+	<!-- Agregar las fotografias de los usuarios del sistema -->
+	<script src="vistas/js/usuarios.js"></script>
+	<!-- Agregar las capturas, ediciones y validaciones para las categorias -->
+	<script src="vistas/js/categorias.js"></script>
 </body>
 </html>
