@@ -21,7 +21,29 @@
 
 		}
 
+		// Editar Categorias
+		public $idCategoria;
+		public function ajaxEditarCategoria()
+		{
+			$item = "id";
+			$valor = $this->idCategoria;
+			$respuesta = ControladorCategorias::ctrMostrarCategorias($item,$valor);
+			echo json_encode($respuesta);
+		}
+
+
 	} // class AjaxUsuarios
+
+	// Instanaciando la clase para los objetos que se requieran.
+
+	// Editando Categoria.
+	// datos.append("idCategoria",idCategoria); // Se crea la variable "POST", "idCategoria"
+	if (isset($_POST["idCategoria"]))
+	{
+		$categoria = new AjaxCategorias();
+		$categoria->idCategoria = $_POST["idCategoria"];
+		$categoria->ajaxEditarCategoria();
+	}
 
 	// Validar que NO se repita la categoria.
 	if (isset($_POST["validarCategoria"]))

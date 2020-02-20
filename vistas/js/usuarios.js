@@ -192,7 +192,7 @@ $("#nuevoUsuario").change(function(){
 
 // $(".btnEliminarUsuario").click(function (){
 	// Cuando el documento ya este cargado, busque en cualquier momento la clase ".btnEditarUsuario", por lo que no importa si al cargar la primera vez no se haya creado esta clase, pero al hacer click en la clase se ejecutara esta funcion.  
-	$(document).on("click",".btnEditarUsuario",function()
+	$(document).on("click",".btnEliminarUsuario",function()
 	{	
 
 		// Obteniendo los valores de "idUsuario" y "fotoUsuario"

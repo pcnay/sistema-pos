@@ -60,7 +60,8 @@
 								{
 									// var_dump($value["nombre"]);
 									echo '<tr>
-											<td>'.$value["id"].'</td>
+												<!-- Para mostrar el indice de acuerdo al "$usuarios" -->
+											<td>'.($key+1).'</td>
 											<td>'.$value["nombre"].'</td>
 											<td>'.$value["usuario"].'</td>
 											<!-- Clase de BootStrap -->';
