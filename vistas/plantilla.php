@@ -48,6 +48,9 @@
 	<!-- https://www.jsdelivr.com/package/npm/sweetalert2 : Se tiene que agregar por separado este archivo, ya que si se agrega solo uno como "sweetalert2.all.js" no funciona, se debe bajar l archivo en formato ".tar", descomprimir y buscar en la carpeta "packages" los dos archivos, tanto ".css" y ".js" -->
 		<link rel="stylesheet" href="vistas/plugins/sweetalert2/sweetalert2.css">
 
+	<!-- iCheck for checkboxes and radio inputs, con mascarilla en la presentacion -->
+	<link rel="stylesheet" href="vistas/plugins/iCheck/all.css">
+
 	<!-- By default Sweetalert2 doesn´t support IE. To enable IE 11 support, include Promise polyfill -->	
 	<!-- <script scr = "https://cdnjs.cloudflare.com/ajax/libs/core-js/2.6.11/core.min.js"></ script> -->
 	<script src="vistas/plugins/core-js-2.6.11/core.min.js"></script>
@@ -63,7 +66,8 @@
   <script src="vistas/bower_components/fastclick/lib/fastclick.js"></script>
   <!-- AdminLTE App -->
   <script src="vistas/dist/js/adminlte.min.js"></script>
-  <!-- AdminLTE for demo purposes -->
+	
+	<!-- AdminLTE for demo purposes -->
   <!-- <script src="vistas/dist/js/demo.js"></script> -->
   
   <!-- DataTables-->
@@ -72,10 +76,15 @@
   <script src="vistas/bower_components/datatables.net-bs/js/dataTables.responsive.min.js"></script>
   <script src="vistas/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script>
 
+
+
   <!-- SweetAlert 2 -->
   <!-- <script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script> NO FUNCIONA -->
 	<!-- https://www.jsdelivr.com/package/npm/sweetalert2 : Se tiene que agregar por separado este archivo, ya que si se agrega solo uno como "sweetalert2.all.js" no funciona, se debe bajar l archivo en formato ".tar", descomprimir y buscar en la carpeta "packages" los dos archivos, tanto ".css" y ".js" -->
 	<script src="vistas/plugins/sweetalert2/sweetalert2.js"></script>
+
+	<!-- iCheck 1.0.1 -->
+	<script src="vistas/plugins/iCheck/icheck.min.js"></script>
 
 </head>
 

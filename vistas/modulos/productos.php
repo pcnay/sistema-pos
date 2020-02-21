@@ -216,7 +216,8 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
 								<div class="col-xs-6">
 									<div class="form-group">
 										<label>
-											<input type="checkbox" class = "minimal porcentaje" checked>
+											<!-- minimal, minimal-red, flat-red se debe activar en el "Plantilla.js"-->
+											<input type="checkbox" class = "minimal" checked>
 											Utilizar porcentaje
 										</label>
 
