@@ -124,7 +124,7 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
 -->
 
 <!-- Modal -->
-<div id="modalAgregarUsuario" class="modal fade" role="dialog">
+<div id="modalAgregarProducto" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -136,51 +136,114 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
         <!-- La franja azul de la ventana modal -->
         <div class="modal-header" style= "background:#3c8dbc; color:white">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Agregar Usuario</h4>
+          <h4 class="modal-title">Agregar Producto</h4>
         </div>
 
-
+				<!-- CUERPO DE LA VENTANA MODAL -->
+				<!-- Captura del codigo del producto -->
         <div class="modal-body">
           <div class="box-body">
             <!-- Clases de BootStrap para las formularios-->
+
+						<!-- Capturar el Código -->
             <div class="form-group">
               <div class = "input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" class="form-control input-lg" name="nuevoNombre" placeholder = "Ingresar Nombre" required>
+                <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                <input type="text" class="form-control input-lg" name="nuevoCodigo" placeholder = "Ingresar Codigo" required>
               </div> <!-- <div class = "input-group"> -->           
             </div> <!-- <div class="form-group"> -->
 
+						<!-- Captura de la descripcion del producto -->
             <div class="form-group">
               <div class = "input-group">
-                <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                <input type="text" class="form-control input-lg" name="nuevoUsuario" placeholder = "Ingresar Usuario" required>
+                <span class="input-group-addon"><i class="fa fa-product-hunt"></i></span>
+                <input type="text" class="form-control input-lg" name="nuevaDescripcion" placeholder = "Ingresar Descripcion" required>
               </div> <!-- <div class = "input-group"> -->           
             </div> <!-- <div class="form-group"> -->
 
+						<!-- Captura de la categoria del producto -->
             <div class="form-group">
               <div class = "input-group">
-                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input type="password" class="form-control input-lg" name="nuevoPassword" placeholder = "Ingresar Contraseña" required>
-              </div> <!-- <div class = "input-group"> -->           
-            </div> <!-- <div class="form-group"> -->
-
-            <div class="form-group">
-              <div class = "input-group">
-                <span class="input-group-addon"><i class="fa fa-users"></i></span>
-                <select class="form-control input-lg" name="nuevoPerfil">
-                  <option value="">Seleccionar perfil</option>
-                  <option value="Administrador">Administrador</option>
-                  <option value="Especial">Especial</option>
-                  <option value="Vendedor">Vendedor</option>
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                <select class="form-control input-lg" name="nuevaCategoria">
+                  <option value="">Seleccionar categoria</option>
+                  <option value="Taladros">Taladros</option>
+                  <option value="Andamios">Andamios</option>
+                  <option value="EquipoConstruccion">EquipoConstruccion</option>
                 </select>                
               </div> <!-- <div class = "input-group"> -->           
             </div> <!-- <div class="form-group"> -->
 
+						<!-- Captura del Stock del producto -->
+						<!-- Clases de BootStrap para las formularios-->
+						<div class="form-group">
+							<div class = "input-group">
+								<span class="input-group-addon"><i class="fa fa-check"></i></span>
+								<!-- min="0" Para que solo permita números positivos. -->
+								<input type="number" class="form-control input-lg" name="nuevoStock" min="0"  placeholder = "Ingresar Cantidad" required>
+							</div> <!-- <div class = "input-group"> -->           
+						</div> <!-- <div class="form-group"> -->
+
+
+
+						<!-- Captura de Precio Compra -->
+						<!-- Clases de BootStrap para las formularios-->
+						<!-- Se realizara un cambio en estos dos campos, colocando uno a lado del otro, además cuando se teclee el precio compra, calcule de forma automática el precio de venta. -->
+						<div class="form-group row">
+
+							<div class="col-xs-6">							
+
+								<div class = "input-group">
+									<span class="input-group-addon"><i class="fa fa-arrow-up"></i></span>
+									<!-- min="0" Para que solo permita números positivos. -->
+									<input type="number" class="form-control input-lg" name="nuevoPrecioCompra" min="0"  placeholder = "Ingresar Precio Compra" required>
+								</div> <!-- <div class = "input-group"> -->
+
+							</div> <!-- 	<div class="col-xs-6">	-->
+
+							<!-- Captura de Precio Venta -->
+							<!-- Clases de BootStrap para las formularios-->
+							<div class="col-xs-6">							
+
+								<div class = "input-group">
+									<span class="input-group-addon"><i class="fa fa-arrow-down"></i></span>
+									<!-- min="0" Para que solo permita números positivos. -->
+									<input type="number" class="form-control input-lg" name="nuevoPrecioVenta" min="0"  placeholder = "Ingresar Precio Venta" required>
+								</div> <!-- <div class = "input-group"> -->   
+								<br>
+
+								<!-- Checkbox para porcentaje -->
+								<div class="col-xs-6">
+									<div class="form-group">
+										<label>
+											<input type="checkbox" class = "minimal porcentaje" checked>
+											Utilizar porcentaje
+										</label>
+
+									</div> <!-- <div class="form-group"> -->
+
+								</div> <!-- <div class="col-xs-6"> -->
+
+								<!-- Entrada para el porcentaje -->
+								<div class= "col-xs-6" style="padding:0">
+									<div class="input-group">
+										<input type="number" class="form-control input-lg nuevoPorcentaje" min="0" value="40" required>
+										<span class="input-group-addon"><i class="fa fa-percent"></i></span>
+									</div> <!-- <div class="input-group"> -->
+
+								</div> <!-- <div class= "col-xs-6"> -->
+
+							</div> <!-- 	<div class="col-xs-6">	-->
+
+						</div> <!-- <div class="form-group"> -->
+
+
+						<!-- Subir Imagen del producto -->
             <div class="form-group">
-              <div class="panel text-up">SUBIR FOTO</div> 
-              <input type="file" id="nuevaFoto" name="nuevaFoto">
-              <p class="help-block">Peso Máximo de la foto 200 Mb</p>
-              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail" width = "100px">
+              <div class="panel text-up">SUBIR IMAGEN DEL PRODUCTO</div> 
+              <input type="file" id="nuevaImagen" name="nuevaImagen">
+              <p class="help-block">Peso Máximo de la foto 2 Mb</p>
+              <img src="vistas/img/productos/default/anonymous.png" class="img-thumbnail" width = "100px">
 
             </div> <!-- <div class="form-group"> -->
 
@@ -190,7 +253,7 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
 
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
-            <button type="submit" class="btn btn-primary">Guardar Usuarios</button>
+            <button type="submit" class="btn btn-primary">Guardar Producto</button>
           </div>
 
         </form>
