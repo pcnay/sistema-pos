@@ -49,6 +49,22 @@ CREATE TABLE t_Categoria
   fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE t_Productos
+(
+  id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  id_categoria INTEGER UNSIGNED NOT NULL,
+  codigo VARCHAR(45) NOT NULL,
+  descripcion VARCHAR(80) NOT NULL,
+  imagen VARCHAR(100) NOT NULL,
+  stock INTEGER UNSIGNED NOT NULL DEFAULT 1,
+  precio_compra decimal(10,2) DEFAULT NULL,
+	precio_venta decimal(10,2) DEFAULT NULL,
+  ventas varchar(45) DEFAULT NULL,  
+  fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY(id_categoria) REFERENCES t_Categoria(id)
+	ON DELETE RESTRICT ON UPDATE CASCADE,
+
+);
 
 
 INSERT INTO t_Usuario (id,nombre,usuario,clave,perfil,vendedor,foto,estado,ultimo_login,fecha) VALUES
