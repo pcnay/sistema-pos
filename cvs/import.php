@@ -15,18 +15,28 @@
 				while(($emp_record = fgetcsv($csv_file)) !== FALSE)
 				{
 					// Check if employee already exists with same email
-					$sql_query = "SELECT emp_id, emp_name, emp_salary, emp_age FROM emp WHERE emp_email = '".$emp_record[2]."'";
-					$resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
+					$sql_query = "SELECT id, id_categoria, codigo, descripcion, imagen, stock, precio_compra, precio_venta, ventas, fecha FROM t_Productos WHERE codigo = '".$emp_record[2]."'";
+					$resultset = mysqli_query($conn, $sql_query) or die("database error: - Select". mysqli_error($conn));
+
 					// if employee already exist then update details otherwise insert new record
 					if(mysqli_num_rows($resultset)) 
 					{
-						$sql_update = "UPDATE emp set emp_name='".$emp_record[1]."', emp_salary='".$emp_record[3]."', emp_age='".$emp_record[4]."' WHERE emp_email = '".$emp_record[2]."'";
-						mysqli_query($conn, $sql_update) or die("database error:". mysqli_error($conn));
+						//print_r(' Fecha  = '.$emp_record[8]);
+						$sql_update = "UPDATE t_Productos set id_categoria ='".$emp_record[1]."', codigo ='".$emp_record[2]."',descripcion ='".$emp_record[3]."',imagen ='".$emp_record[4]."',stock ='".$emp_record[6]."',precio_venta ='".$emp_record[7]."',precio_venta ='".$emp_record[8]."',ventas ='".$emp_record[9]."',fecha ='".$emp_record[10]."' WHERE codigo = '".$emp_record[2]."'";
+						mysqli_query($conn, $sql_update) or die("database error: - Update". mysqli_error($conn));
 					} 
 					else
 					{
-						$mysql_insert = "INSERT INTO emp (emp_name, emp_email, emp_salary, emp_age )VALUES('".$emp_record[1]."', '".$emp_record[2]."', '".$emp_record[3]."', '".$emp_record[4]."')";
-						mysqli_query($conn, $mysql_insert) or die("database error:". mysqli_error($conn));
+						//print_r('id_categoria = '.$emp_record[1]);
+						//print_r('codigo = '.$emp_record[2]);
+						//print_r('descripcion = '.$emp_record[3]);						
+						//print_r('stock = '.$emp_record[6]);
+						//print_r('precio_compra = '.$emp_record[7]);
+						//print_r('precio_venta = '.$emp_record[8]);
+						
+
+						$mysql_insert = "INSERT INTO t_Productos (id_categoria,codigo,descripcion,stock,precio_compra,precio_venta)VALUES('".$emp_record[1]."', '".$emp_record[2]."', '".$emp_record[3]."','".$emp_record[6]."','".$emp_record[7]."','".$emp_record[8]."')";
+						mysqli_query($conn, $mysql_insert) or die("database error: - Insert ". mysqli_error($conn));
 					}
 
 				} //while(($emp_record = fgetcsv($csv_file)) !== FALSE)

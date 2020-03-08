@@ -1,4 +1,5 @@
 <?php
+	// https://programacion.net/articulo/importar_un_archivo_csv_a_mysql_utilizando_php_1882
 	require_once("db_connect.php")
 ?>
 <!DOCTYPE html>
@@ -34,37 +35,46 @@
 	<table class="table table-bordered">
 	<thead>
 	<tr>
-	<th>Emp Id</th>
-	<th>Emp Name</th>
-	<th>Emp Email</th>
-	<th>Emp Age</th>
-	<th>Salary ($)</th>
+	<th>Id</th>
+	<th>Id_categoria</th>
+	<th>codigo</th>
+	<th>descripcion</th>
+	<th>imagen</th>
+	<th>stock</th>
+	<th>precio_compra</th>
+	<th>precio_venta</th>
+	<th>venta</th>
+	<th>fecha</th>
 	</tr>
 	</thead>
 	<tbody>
 	<?php
-	$sql = "SELECT id, id_categoria, codigo, descripcion, imagen, stock, precio_compra,  precio_venta,ventas,fecha FROM t_Productos ORDER BY descripcion DESC LIMIT 10";
-	$resultset = mysqli_query($conn, $sql) or die("database error:". mysqli_error($conn));
-	if(mysqli_num_rows($resultset)) {
-	while( $rows = mysqli_fetch_assoc($resultset) ) {
-	?>
-	<tr>
-	<td><?php echo $rows['id']; ?></td>
-	<td><?php echo $rows['id_categoria']; ?></td>
-	<td><?php echo $rows['codigo']; ?></td>
-	<td><?php echo $rows['descripcion']; ?></td>
-	<td><?php echo $rows['imagen']; ?></td>
-	<td><?php echo $rows['stock']; ?></td>
-	<td><?php echo $rows['precio_compra']; ?></td>
-	<td><?php echo $rows['precio_venta']; ?></td>
-	<td><?php echo $rows['ventas']; ?></td>
-	<td><?php echo $rows['fecha']; ?></td>
-	</tr>
-	<?php } } else { ?>
-	<tr><td colspan="5">No records to display.....</td></tr>
-	<?php } ?>
-	</tbody>
+		$sql = "SELECT id, id_categoria, codigo, descripcion, imagen, stock, precio_compra,  precio_venta,ventas,fecha FROM t_Productos ORDER BY descripcion DESC";
+		$resultset = mysqli_query($conn, $sql) or die("database error:". mysqli_error($conn));
+		if(mysqli_num_rows($resultset)) {
+		while( $rows = mysqli_fetch_assoc($resultset) )
+		 {
+			?>
+				<tr>
+				<td><?php echo $rows['id']; ?></td>
+				<td><?php echo $rows['id_categoria']; ?></td>
+				<td><?php echo $rows['codigo']; ?></td>
+				<td><?php echo $rows['descripcion']; ?></td>
+				<td><?php echo $rows['imagen']; ?></td>
+				<td><?php echo $rows['stock']; ?></td>
+				<td><?php echo $rows['precio_compra']; ?></td>
+				<td><?php echo $rows['precio_venta']; ?></td>
+				<td><?php echo $rows['ventas']; ?></td>
+				<td><?php echo $rows['fecha']; ?></td>
+				</tr>
+			<?php } }
+			 else { ?>
+		<tr><td colspan="5">No records to display.....</td></tr>
+		<?php } ?>
+		</tbody>
+
 	</table>
+
 	</div>
 	</div>
 	</div>

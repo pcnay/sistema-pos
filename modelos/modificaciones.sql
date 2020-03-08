@@ -5,7 +5,7 @@ CREATE TABLE t_Productos
   id_categoria INTEGER UNSIGNED NOT NULL,
   codigo VARCHAR(45) NOT NULL,
   descripcion VARCHAR(80) NOT NULL,
-  imagen VARCHAR(100) NOT NULL,
+  imagen VARCHAR(100) NULL,
   stock INTEGER UNSIGNED NOT NULL DEFAULT 1,
   precio_compra decimal(10,2) DEFAULT NULL,
 	precio_venta decimal(10,2) DEFAULT NULL,
