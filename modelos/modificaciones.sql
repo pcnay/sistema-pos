@@ -1,4 +1,10 @@
 USE pos;
+/*
+	Para resetar el ID de categorias se inicie desde 1
+	ALTER TABLE t_Categorias AUTO_INCREMENT = 1;
+
+*/
+
 CREATE TABLE t_Productos
 (
   id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
