@@ -30,7 +30,7 @@
           <!-- Cuerpo de la ventana, donde se encuentran los datos, tablas, se utilizara tDAtaTable de Bootstrap esta completa, contiene buscar, paginador, ordenar las columnas  -->
           <!-- Esta clases de "table" son del plugin "bootstrap"-->
           <!-- "tabla" = Es para enlazarlo con DataTable, se utiliza el archivo  /frontend/vistas/js/plantilla.js-->
-          <table class="table table-bordered tabe-striped dt-responsive tablas">
+          <table class="table table-bordered tabe-striped dt-responsive tablaProductos" width="100%">
             <thead>
               <tr>
                 <th style="width:10px">#</th>
@@ -48,7 +48,12 @@
             
 						<!-- Cuerpo de la Tabla -->
             <tbody>
+
+
 							<?php
+							/*
+								Se suprime para agregar el contenido de la tabla con Ajax al plugin DataTable.
+								
 								$item = null;
 								$valor = null;
 
@@ -82,7 +87,7 @@
 											</td>
 										</tr>'; 
 								}
-								
+								*/
 							?>
 
             </tbody>

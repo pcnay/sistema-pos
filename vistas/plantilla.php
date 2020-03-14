@@ -53,7 +53,7 @@
 
 	<!-- By default Sweetalert2 doesn´t support IE. To enable IE 11 support, include Promise polyfill -->	
 	<!-- <script scr = "https://cdnjs.cloudflare.com/ajax/libs/core-js/2.6.11/core.min.js"></ script> -->
-	<script src="vistas/plugins/core-js-2.6.11/core.min.js"></script>
+	<!-- <script src="vistas/plugins/core-js-2.6.11/core.min.js"></script> -->
 
   <!-- Plugins de JavaScript -->
     <!-- jQuery 3 -->
@@ -140,5 +140,8 @@
 	<script src="vistas/js/usuarios.js"></script>
 	<!-- Agregar las capturas, ediciones y validaciones para las categorias -->
 	<script src="vistas/js/categorias.js"></script>
+	<!-- Agregar las capturas, ediciones y validaciones para los Productos -->
+	<script src="vistas/js/productos.js"></script>
+
 </body>
 </html>
