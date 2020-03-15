@@ -47,7 +47,7 @@
             </thead>
             
 						<!-- Cuerpo de la Tabla -->
-            <tbody>
+            <!-- <tbody>
 
 
 							<?php
@@ -90,7 +90,7 @@
 								*/
 							?>
 
-            </tbody>
+            </tbody> -->
 
           </table> <!-- <table class="table table-bordered tabe-striped"> -->
         </div> <!-- <div class="box-body"> -->
