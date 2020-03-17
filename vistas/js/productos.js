@@ -51,3 +51,40 @@ $('.tabla').DataTable({
 });
 */ 
 
+// Se agrega el código para obtener el último número del codigo a utilizar
+$("#nuevaCategoria").change(function(){
+	// Obtener el último de "codigo" desde la tabla "productos"
+	var idCategoria = $(this).val();
+	var datos = new FormData();
+	datos.append("idCategoria",idCategoria);
+	$.ajax({
+		url:"ajax/productos.ajax.php",
+		method:"POST",
+		data:datos,
+		cache:false,
+		contentType:false,
+		processData:false,
+		dataType:"json",
+		success:function(respuesta)
+		{
+			//console.log("respuesta",respuesta);
+			// Para el caso de que no exista una categoria en la tabla de "t_Productos".
+			if (!respuesta)
+			{
+				// No Categoria mas 01 para completar el numero, ejemplo 9 + 01 = 901
+				var nuevoCodigo = idCategoria+"01";
+				$("#nuevoCodigo").val(nuevoCodigo);
+			}
+			else
+			{
+				// Se obtiene el código de la tabla de "t_Productos"
+				var nuevoCodigo = Number(respuesta["codigo"])+1;
+				//console.log("respuesta",nuevoCodigo);
+				// Se asigna a la etiqueta "codigo" de la vista Captura de Productos.
+				$("#nuevoCodigo").val(nuevoCodigo);
+			}
+			
+
+		}
+	})
+})

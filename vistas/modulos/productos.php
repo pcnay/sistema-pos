@@ -131,11 +131,31 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
           <div class="box-body">
             <!-- Clases de BootStrap para las formularios-->
 
+						<!-- Captura de la categoria del producto -->
+            <div class="form-group">
+              <div class = "input-group">
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                <select class="form-control input-lg" id= "nuevaCategoria" name="nuevaCategoria" required>
+                  <option value="">Seleccionar categoria</option>
+									<?php
+										// Se obtendrán las categorias desdes la base de datos.
+										$item = null;
+										$valor = null;
+										$categorias = ControladorCategorias::ctrMostrarCategorias($item,$valor);
+										foreach ($categorias as $key => $value)
+										{
+											echo '<option value = "'.$value["id"].'">'.$value["nombre"].'</option>';
+										}
+									?>
+                </select>                
+              </div> <!-- <div class = "input-group"> -->           
+            </div> <!-- <div class="form-group"> -->
+
 						<!-- Capturar el Código -->
             <div class="form-group">
               <div class = "input-group">
                 <span class="input-group-addon"><i class="fa fa-code"></i></span>
-                <input type="text" class="form-control input-lg" name="nuevoCodigo" placeholder = "Ingresar Codigo" required>
+                <input type="text" class="form-control input-lg" id = "nuevoCodigo" name="nuevoCodigo" placeholder = "Ingresar Codigo" readonly required>
               </div> <!-- <div class = "input-group"> -->           
             </div> <!-- <div class="form-group"> -->
 
@@ -143,22 +163,11 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
             <div class="form-group">
               <div class = "input-group">
                 <span class="input-group-addon"><i class="fa fa-product-hunt"></i></span>
-                <input type="text" class="form-control input-lg" name="nuevaDescripcion" placeholder = "Ingresar Descripcion" required>
+								<!-- id="nuevaCategoria"  = Se agrega para obtener el último numero del código del producto. -->
+                <input type="text" class="form-control input-lg" id="nuevaCategoria" name="nuevaDescripcion" placeholder = "Ingresar Descripcion" required>
               </div> <!-- <div class = "input-group"> -->           
             </div> <!-- <div class="form-group"> -->
 
-						<!-- Captura de la categoria del producto -->
-            <div class="form-group">
-              <div class = "input-group">
-                <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                <select class="form-control input-lg" name="nuevaCategoria">
-                  <option value="">Seleccionar categoria</option>
-                  <option value="Taladros">Taladros</option>
-                  <option value="Andamios">Andamios</option>
-                  <option value="EquipoConstruccion">EquipoConstruccion</option>
-                </select>                
-              </div> <!-- <div class = "input-group"> -->           
-            </div> <!-- <div class="form-group"> -->
 
 						<!-- Captura del Stock del producto -->
 						<!-- Clases de BootStrap para las formularios-->
