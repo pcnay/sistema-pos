@@ -18,9 +18,9 @@
 			$valor = null;
 			$productos = ControladorProductos::ctrMostrarProductos($item,$valor);
 
-			
-
 			//var_dump($productos);
+			//return;
+			//exit;
 
 			 $datosJson = '{
 				"data": [';
@@ -34,17 +34,17 @@
 					$categoria = ControladorCategorias::ctrMostrarCategorias($item,$valor);
 
 					// Se utilizara un color para determinar el "Stock" de los productos.
-					if ($productos[$i][stock] <= 10)
+					if ($productos[$i]["stock"] <= 10)
 					{
-						$stock = "<button class='btn btn-danger'>".$productos[$i][stock]."</button>";
+						$stock = "<button class='btn btn-danger'>".$productos[$i]["stock"]."</button>";
 					}
-					else if ($productos[$i][stock] > 11 && $productos[$i][stock] <=15)
+					else if ($productos[$i]["stock"] > 11 && $productos[$i]["stock"] <=15)
 					{
-						$stock = "<button class='btn btn-warning'>".$productos[$i][stock]."</button>";
+						$stock = "<button class='btn btn-warning'>".$productos[$i]["stock"]."</button>";
 					}
 					else // if ($productos[$i][stock] <= 10)
 					{
-						$stock = "<button class='btn btn-success'>".$productos[$i][stock]."</button>";
+						$stock = "<button class='btn btn-success'>".$productos[$i]["stock"]."</button>";
 					}
 
 					
@@ -66,13 +66,13 @@
 					$datosJson  .= '[
 							"'.($i+1).'",
 							"'.$imagen.'",
-							"'.$productos[$i][codigo].'",
-							"'.$productos[$i][descripcion].'",
+							"'.$productos[$i]["codigo"].'",
+							"'.$productos[$i]["descripcion"].'",
 							"'.$categoria["nombre"].'", 
 							"'.$stock.'",
-							"'.$productos[$i][precio_compra].'",
-							"'.$productos[$i][precio_venta].'",
-							"'.$productos[$i][fecha].'",							
+							"'.$productos[$i]["precio_compra"].'",
+							"'.$productos[$i]["precio_venta"].'",
+							"'.$productos[$i]["fecha"].'",							
 							"'.$botones.'"
 						],';
 				}

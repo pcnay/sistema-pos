@@ -53,6 +53,7 @@ $('.tabla').DataTable({
 
 // Se agrega el código para obtener el último número del codigo a utilizar
 $("#nuevaCategoria").change(function(){
+	
 	// Obtener el último de "codigo" desde la tabla "productos"
 	var idCategoria = $(this).val();
 	var datos = new FormData();
@@ -87,4 +88,48 @@ $("#nuevaCategoria").change(function(){
 
 		}
 	})
+})
+
+// Agregando Precio de Venta.
+
+$("#nuevoPrecioCompra").change(function(){
+	
+	if ($(".porcentaje").prop("checked"))
+	{			
+		// Viene de la la etiqueta : <!-- Entrada para el porcentaje(producto.php) -->
+		var valorPorcentaje = $(".nuevoPorcentaje").val();
+		//console.log ("valorPorcentaje",valorPorcentaje);
+		var precioVentaConIva = Number(($("#nuevoPrecioCompra").val()*valorPorcentaje)/100)+Number($("#nuevoPrecioCompra").val());
+		//console.log ("valorPorcentaje",precioVentaConIva);
+		$("#nuevoPrecioVenta").val(precioVentaConIva);
+		$("#nuevoPrecioVenta").prop("readonly",true); 
+		// Para que no se pueda modificar.
+	}
+})
+
+// Cuando se cambia el valor del porcentaje.
+$(".nuevoPorcentaje").change(function(){
+
+	if ($(".porcentaje").prop("checked"))
+	{			
+		// Viene de la la etiqueta : <!-- Entrada para el porcentaje(producto.php) -->
+		var valorPorcentaje = $(".nuevoPorcentaje").val();
+		//console.log ("valorPorcentaje",valorPorcentaje);
+		var precioVentaConIva = Number(($("#nuevoPrecioCompra").val()*valorPorcentaje)/100)+Number($("#nuevoPrecioCompra").val());
+		//console.log ("valorPorcentaje",precioVentaConIva);
+		$("#nuevoPrecioVenta").val(precioVentaConIva);
+		$("#nuevoPrecioVenta").prop("readonly",true); 
+		// Para que no se pueda modificar.
+	}
+
+})
+
+// Se utiliza este comando ya que la etiqueta check se esta utilizando con un componente "ickecked"
+$(".porcentaje").on("ifUnchecked",function(){
+	// Para activarlo nuevamente el "checkbox"
+	$("#nuevoPrecioVenta").prop("readonly",false); 
+})
+$(".porcentaje").on("ifChecked",function(){
+	// Para Desactivarlo nuevamente el "checkbox"
+	$("#nuevoPrecioVenta").prop("readonly",true); 
 })

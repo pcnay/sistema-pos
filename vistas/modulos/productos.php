@@ -164,7 +164,7 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
               <div class = "input-group">
                 <span class="input-group-addon"><i class="fa fa-product-hunt"></i></span>
 								<!-- id="nuevaCategoria"  = Se agrega para obtener el último numero del código del producto. -->
-                <input type="text" class="form-control input-lg" id="nuevaCategoria" name="nuevaDescripcion" placeholder = "Ingresar Descripcion" required>
+                <input type="text" class="form-control input-lg" id="nuevaDescripcion" name="nuevaDescripcion" placeholder = "Ingresar Descripcion" required>
               </div> <!-- <div class = "input-group"> -->           
             </div> <!-- <div class="form-group"> -->
 
@@ -191,7 +191,7 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
 								<div class = "input-group">
 									<span class="input-group-addon"><i class="fa fa-arrow-up"></i></span>
 									<!-- min="0" Para que solo permita números positivos. -->
-									<input type="number" class="form-control input-lg" name="nuevoPrecioCompra" min="0"  placeholder = "Ingresar Precio Compra" required>
+									<input type="number" class="form-control input-lg" id="nuevoPrecioCompra" name="nuevoPrecioCompra" placeholder = "Ingresar Precio Compra" required>
 								</div> <!-- <div class = "input-group"> -->
 
 							</div> <!-- 	<div class="col-xs-6">	-->
@@ -203,7 +203,7 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
 								<div class = "input-group">
 									<span class="input-group-addon"><i class="fa fa-arrow-down"></i></span>
 									<!-- min="0" Para que solo permita números positivos. -->
-									<input type="number" class="form-control input-lg" name="nuevoPrecioVenta" min="0"  placeholder = "Ingresar Precio Venta" required>
+									<input type="number" class="form-control input-lg" id="nuevoPrecioVenta" name="nuevoPrecioVenta" min="0"  placeholder = "Ingresar Precio Venta" required>
 								</div> <!-- <div class = "input-group"> -->   
 								<br>
 
@@ -212,7 +212,7 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
 									<div class="form-group">
 										<label>
 											<!-- minimal, minimal-red, flat-red se debe activar en el "Plantilla.js"-->
-											<input type="checkbox" class = "minimal" checked>
+											<input type="checkbox" id="porcentaje" class = "minimal porcentaje" checked>
 											Utilizar porcentaje
 										</label>
 
@@ -253,6 +253,13 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
           </div>
 
         </form>
+
+				<!-- Para Guardar la información. -->
+				<?php
+					$crearProducto = new ControladorProductos();
+					$crearProducto->ctrCrearProducto();
+					
+				?>
 
     </div> <!-- <div class="modal-content"> -->
 
