@@ -185,25 +185,32 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
 						<!-- Clases de BootStrap para las formularios-->
 						<!-- Se realizara un cambio en estos dos campos, colocando uno a lado del otro, además cuando se teclee el precio compra, calcule de forma automática el precio de venta. -->
 						<div class="form-group row">
-
-							<div class="col-xs-6">							
+							
+							<!-- "col-xs-6" = Se cambia debido a que cuando se utiliza cel. o tablet se pierden los valores -->
+							<div class="col-xs-12 col-sm-6">							
 
 								<div class = "input-group">
 									<span class="input-group-addon"><i class="fa fa-arrow-up"></i></span>
-									<!-- min="0" Para que solo permita números positivos. -->
-									<input type="number" class="form-control input-lg" id="nuevoPrecioCompra" name="nuevoPrecioCompra" placeholder = "Ingresar Precio Compra" required>
+									<!-- min="0" Para que solo permita números positivos. 
+										step="any" = Para que acepte decimales.
+									-->
+									<input type="number" class="form-control input-lg" id="nuevoPrecioCompra" name="nuevoPrecioCompra" min="0" step="any" placeholder = "Ingresar Precio Compra" required>
 								</div> <!-- <div class = "input-group"> -->
 
 							</div> <!-- 	<div class="col-xs-6">	-->
 
 							<!-- Captura de Precio Venta -->
 							<!-- Clases de BootStrap para las formularios-->
-							<div class="col-xs-6">							
+							<!-- "col-xs-6" = Se cambia debido a que cuando se utiliza cel. o tablet se pierden los valores -->
+
+							<div class="col-xs-12 col-sm-6">							
 
 								<div class = "input-group">
 									<span class="input-group-addon"><i class="fa fa-arrow-down"></i></span>
-									<!-- min="0" Para que solo permita números positivos. -->
-									<input type="number" class="form-control input-lg" id="nuevoPrecioVenta" name="nuevoPrecioVenta" min="0"  placeholder = "Ingresar Precio Venta" required>
+									<!-- min="0" Para que solo permita números positivos. 
+										step="any" = Para que acepte decimales.
+									-->
+									<input type="number" class="form-control input-lg" id="nuevoPrecioVenta" name="nuevoPrecioVenta" min="0" step="any" placeholder = "Ingresar Precio Venta" required>
 								</div> <!-- <div class = "input-group"> -->   
 								<br>
 

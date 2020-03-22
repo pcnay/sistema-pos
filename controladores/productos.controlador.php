@@ -17,8 +17,8 @@
 			{
 				if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["nuevaCategoria"]) &&
 					preg_match('/^[0-9]+$/',$_POST["nuevoStock"]) &&
-					preg_match('/^[0-9]+$/',$_POST["nuevoPrecioCompra"]) &&
-					preg_match('/^[0-9]+$/',$_POST["nuevoPrecioVenta"]))
+					preg_match('/^[0-9.]+$/',$_POST["nuevoPrecioCompra"]) &&
+					preg_match('/^[0-9.]+$/',$_POST["nuevoPrecioVenta"]))
 				{
 					$tabla = "t_Productos";
 					$ruta = "vistas/img/productos/default/anonymous.png";
