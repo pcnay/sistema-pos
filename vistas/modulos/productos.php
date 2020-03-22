@@ -241,12 +241,14 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
 						</div> <!-- <div class="form-group"> -->
 
 
-						<!-- Subir Imagen del producto -->
+						<!-- Subir Imagen del producto 
+						Se coloca la clase "previsualizar" para poder utilizarla con javascript para subir la imagen del producto.
+						-->
             <div class="form-group">
               <div class="panel text-up">SUBIR IMAGEN DEL PRODUCTO</div> 
-              <input type="file" id="nuevaImagen" name="nuevaImagen">
+              <input type="file" class="nuevaImagen" name="nuevaImagen">
               <p class="help-block">Peso Máximo de la foto 2 Mb</p>
-              <img src="vistas/img/productos/default/anonymous.png" class="img-thumbnail" width = "100px">
+              <img src="vistas/img/productos/default/anonymous.png" class="img-thumbnail previsualizar" width = "100px">
 
             </div> <!-- <div class="form-group"> -->
 
