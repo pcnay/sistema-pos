@@ -275,3 +275,172 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
   </div> <!-- <div class="modal-dialog"> -->
 
 </div> <!-- <div id="modalAgregarUsuario" class="modal fade" role="dialog"> -->
+
+
+<!-- // Editar productos. -->
+<!-- Modal -->
+<div id="modalEditarProducto" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+      <!-- enctype= "multipart/form-data = Para subir archivos. -->
+      <form role="form" method="post" enctype= "multipart/form-data">
+    
+        <!-- La franja azul de la ventana modal -->
+        <div class="modal-header" style= "background:#3c8dbc; color:white">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Editar Producto</h4>
+        </div>
+
+				<!-- CUERPO DE LA VENTANA MODAL -->
+				<!-- Editar el codigo del producto -->
+        <div class="modal-body">
+          <div class="box-body">
+            <!-- Clases de BootStrap para las formularios-->
+
+						<!-- Captura de la categoria del producto -->
+            <div class="form-group">
+              <div class = "input-group">
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                <select class="form-control input-lg" name="editarCategoria"  readonly required>
+								<!-- Se utilizara JavaScript para obtener el valor.-->
+                  <option id= "editarCategoria"></option>
+
+                </select>                
+              </div> <!-- <div class = "input-group"> -->           
+            </div> <!-- <div class="form-group"> -->
+
+						<!-- Capturar el Código -->
+            <div class="form-group">
+              <div class = "input-group">
+                <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                <input type="text" class="form-control input-lg" id = "editarCodigo" name="editarCodigo" readonly required>
+              </div> <!-- <div class = "input-group"> -->           
+            </div> <!-- <div class="form-group"> -->
+
+						<!-- Captura de la descripcion del producto 
+								el contenido de "descripcion" se asignara utilizando JavaScript
+						-->
+            <div class="form-group">
+              <div class = "input-group">
+                <span class="input-group-addon"><i class="fa fa-product-hunt"></i></span>
+                <input type="text" class="form-control input-lg" id="editarDescripcion" name="editarDescripcion"  required>
+              </div> <!-- <div class = "input-group"> -->           
+            </div> <!-- <div class="form-group"> -->
+
+
+						<!-- Captura del Stock del producto 
+							el contenido de "stock" se asignara utilizando JavaScript
+						-->
+						<!-- Clases de BootStrap para las formularios-->
+						<div class="form-group">
+							<div class = "input-group">
+								<span class="input-group-addon"><i class="fa fa-check"></i></span>
+								<!-- min="0" Para que solo permita números positivos. -->
+								<input type="number" class="form-control input-lg" id ="editarStock" name="editarStock" min="0"  required>
+							</div> <!-- <div class = "input-group"> -->           
+						</div> <!-- <div class="form-group"> -->
+
+
+
+						<!-- Captura de Precio Compra -->
+						<!-- Clases de BootStrap para las formularios-->
+						<!-- Se realizara un cambio en estos dos campos, colocando uno a lado del otro, además cuando se teclee el precio compra, calcule de forma automática el precio de venta. 
+						el contenido de "precio_compra" se asignara utilizando JavaScript
+						-->
+						<div class="form-group row">
+							
+							<!-- "col-xs-6" = Se cambia debido a que cuando se utiliza cel. o tablet se pierden los valores -->
+							<div class="col-xs-12 col-sm-6">							
+
+								<div class = "input-group">
+									<span class="input-group-addon"><i class="fa fa-arrow-up"></i></span>
+									<!-- min="0" Para que solo permita números positivos. 
+										step="any" = Para que acepte decimales.
+									-->
+									<input type="number" class="form-control input-lg" id="editarPrecioCompra" name="editarPrecioCompra" min="0" step="any" required>
+								</div> <!-- <div class = "input-group"> -->
+
+							</div> <!-- 	<div class="col-xs-6">	-->
+
+							<!-- Captura de Precio Venta -->
+							<!-- Clases de BootStrap para las formularios-->
+							<!-- "col-xs-6" = Se cambia debido a que cuando se utiliza cel. o tablet se pierden los valores 
+							el contenido de "precio_venta" se asignara utilizando JavaScript
+							-->
+
+							<div class="col-xs-12 col-sm-6">							
+
+								<div class = "input-group">
+									<span class="input-group-addon"><i class="fa fa-arrow-down"></i></span>
+									<!-- min="0" Para que solo permita números positivos. 
+										step="any" = Para que acepte decimales.
+									-->
+									<input type="number" class="form-control input-lg" id="editarPrecioVenta" name="editarPrecioVenta" min="0" step="any"  required readonly > 
+								</div> <!-- <div class = "input-group"> -->   
+								<br>
+
+								<!-- Checkbox para porcentaje -->
+								<div class="col-xs-6">
+									<div class="form-group">
+										<label>
+											<!-- minimal, minimal-red, flat-red se debe activar en el "Plantilla.js"-->
+											<input type="checkbox" id="porcentaje" class = "minimal porcentaje" checked>
+											Utilizar porcentaje
+										</label>
+
+									</div> <!-- <div class="form-group"> -->
+
+								</div> <!-- <div class="col-xs-6"> -->
+
+								<!-- Entrada para el porcentaje -->
+								<div class= "col-xs-6" style="padding:0">
+									<div class="input-group">
+										<input type="number" class="form-control input-lg nuevoPorcentaje" min="0" value="40" required>
+										<span class="input-group-addon"><i class="fa fa-percent"></i></span>
+									</div> <!-- <div class="input-group"> -->
+
+								</div> <!-- <div class= "col-xs-6"> -->
+
+							</div> <!-- 	<div class="col-xs-6">	-->
+
+						</div> <!-- <div class="form-group"> -->
+
+
+						<!-- Subir Imagen del producto 
+						Se coloca la clase "previsualizar" para poder utilizarla con javascript para subir la imagen del producto.
+						-->
+            <div class="form-group">
+              <div class="panel text-up">SUBIR IMAGEN DEL PRODUCTO</div> 
+              <input type="file" class="nuevaImagen" name="editarImagen">
+              <p class="help-block">Peso Máximo de la foto 2 Mb</p>
+              <img src="vistas/img/productos/default/anonymous.png" class="img-thumbnail previsualizar" width = "100px">
+							<!-- Se manda el nombre de la imagen actual, al Javascript utilizando un campo oculto -->
+							<input type = "hidden" name = "imagenActual" id="imagenActual">							 
+
+            </div> <!-- <div class="form-group"> -->
+
+          </div> <!-- <div class="box-body"> -->
+
+        </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+          </div>
+
+        </form>
+
+				<!-- Para Guardar la información. -->
+				<?php
+					$editarProducto = new ControladorProductos();
+					$editarProducto->ctrEditarProducto();					
+				?>
+
+    </div> <!-- <div class="modal-content"> -->
+
+  </div> <!-- <div class="modal-dialog"> -->
+
+</div> <!-- <div id="modalAgregarUsuario" class="modal fade" role="dialog"> -->

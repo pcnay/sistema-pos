@@ -18,6 +18,18 @@
 			 
 		}
 
+		// Editar "Productos"
+		// Para obtener un producto que se va a editar.
+		public $idProducto;
+		public function ajaxEditarProducto()
+		{
+			$item = "id";
+			$valor = $this->idProducto;
+			$respuesta = ControladorProductos::ctrMostrarProductos($item,$valor);
+			echo json_encode($respuesta);
+
+		}
+
 
 	} // class AjaxProductos
 
@@ -27,4 +39,13 @@
 		$codigoProducto->idCategoria = $_POST["idCategoria"];
 		$codigoProducto->ajaxCrearCodigoProducto();
 	}
+
+	// Para editar el producto.
+	if (isset($_POST["idProducto"]))
+	{
+		$editarProducto = new AjaxProductos();
+		$editarProducto->idProducto = $_POST["idProducto"];
+		$editarProducto->ajaxEditarProducto();
+	}
+
 ?>

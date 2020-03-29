@@ -1,9 +1,8 @@
 /* Cargar los datos - Productos de forma dinamica */
-
 // Verificar que los datos Json estan correctos.
-
 // En esta parte se agrega la tabla a la plugin "DataTable" y no quema en el HTML el contenido de los campos.
 // Se agregan tres propiedades últimas para mejorar el desempeño en la carga de la páginas.
+// defenderRender, retrieve, proccesing
 $('.tablaProductos').DataTable({
 	"ajax":"ajax/datatable-productos.ajax.php",
 	"defenderRender":true,
@@ -91,8 +90,8 @@ $("#nuevaCategoria").change(function(){
 })
 
 // Agregando Precio de Venta.
-
-$("#nuevoPrecioCompra").change(function(){
+// Se esta agregando otra clase, para cuando se edite un producto.
+$("#nuevoPrecioCompra, #editarPrecioCompra").change(function(){
 	
 	if ($(".porcentaje").prop("checked"))
 	{			
@@ -100,10 +99,17 @@ $("#nuevoPrecioCompra").change(function(){
 		var valorPorcentaje = $(".nuevoPorcentaje").val();
 		//console.log ("valorPorcentaje",valorPorcentaje);
 		var precioVentaConIva = Number(($("#nuevoPrecioCompra").val()*valorPorcentaje)/100)+Number($("#nuevoPrecioCompra").val());
+
+		var precioVentaConIvaEditado = Number(($("#editarPrecioCompra").val()*valorPorcentaje)/100)+Number($("#editarPrecioCompra").val());
+
 		//console.log ("valorPorcentaje",precioVentaConIva);
 		$("#nuevoPrecioVenta").val(precioVentaConIva);
 		$("#nuevoPrecioVenta").prop("readonly",true); 
 		// Para que no se pueda modificar.
+		$("#editarPrecioVenta").val(precioVentaConIvaEditado);
+		$("#editarPrecioVenta").prop("readonly",true); 
+
+
 	}
 })
 
@@ -113,13 +119,23 @@ $(".nuevoPorcentaje").change(function(){
 	if ($(".porcentaje").prop("checked"))
 	{			
 		// Viene de la la etiqueta : <!-- Entrada para el porcentaje(producto.php) -->
-		var valorPorcentaje = $(".nuevoPorcentaje").val();
+		//var valorPorcentaje = $(".nuevoPorcentaje").val();
+		// Se modifica para utilizarlo en la captura y edicion del producto
+		var valorPorcentaje = $(this).val();
+
 		//console.log ("valorPorcentaje",valorPorcentaje);
 		var precioVentaConIva = Number(($("#nuevoPrecioCompra").val()*valorPorcentaje)/100)+Number($("#nuevoPrecioCompra").val());
+
+		var precioVentaConIvaEditado = Number(($("#editarPrecioCompra").val()*valorPorcentaje)/100)+Number($("#editarPrecioCompra").val());
+
 		//console.log ("valorPorcentaje",precioVentaConIva);
 		$("#nuevoPrecioVenta").val(precioVentaConIva);
 		$("#nuevoPrecioVenta").prop("readonly",true); 
 		// Para que no se pueda modificar.
+
+		$("#editarPrecioVenta").val(precioVentaConIvaEditado);
+		$("#editarPrecioVenta").prop("readonly",true); 
+
 	}
 
 })
@@ -128,10 +144,14 @@ $(".nuevoPorcentaje").change(function(){
 $(".porcentaje").on("ifUnchecked",function(){
 	// Para activarlo nuevamente el "checkbox"
 	$("#nuevoPrecioVenta").prop("readonly",false); 
+	// Se modifica para cuando se esta editando y se activa el CheckBox
+	$("#editarPrecioVenta").prop("readonly",false); 
 })
 $(".porcentaje").on("ifChecked",function(){
 	// Para Desactivarlo nuevamente el "checkbox"
 	$("#nuevoPrecioVenta").prop("readonly",true); 
+	// Se modifica para cuando se esta editando y se desactiva el CheckBox
+	$("#editarPrecioVenta").prop("readonly",true); 
 })
 
 // Se agrega la foto del articulo, viene desde el formulario de captura (vistas/modulos/productos.php)
@@ -175,5 +195,66 @@ $(".nuevaImagen").change(function(){
     })
   }
 
+
+})
+
+// Editar Producto
+// Se va a realizar un cambio, ya que se debe ejecutar el código cuando se termina de cargar el cuerpo de la tabla. Se realiza un click en el Boton Editar
+$(".tablaProductos tbody").on("click","button.btnEditarProducto",function(){
+	var idProducto = $(this).attr("idProducto");
+	// console.log("idProducto",idProducto);
+	// Se esta agregando un dato al Ajax.
+	var datos = new FormData();
+	datos.append("idProducto",idProducto);
+	$.ajax({
+		url:"ajax/productos.ajax.php",
+		method:"POST",
+		data:datos,
+		cache:false,
+		contentType:false,
+		processData:false,
+		dataType:"json",
+		success:function(respuesta)
+		{
+			// console.log("respuesta",respuesta);
+			// Obtener la categoria.
+			var datosCategoria = new FormData();
+			datosCategoria.append("idCategoria",respuesta["id_categoria"]);
+			$.ajax({
+				url:"ajax/categoria.ajax.php",
+				method:"POST",
+				data:datosCategoria,
+				cache:false,
+				contentType:false,
+				processData:false,
+				dataType:"json",
+				success:function(respuesta)
+				{
+					console.log("respuesta",respuesta);					
+					$("#editarCategoria").val(respuesta["id"]);
+					$("#editarCategoria").html(respuesta["nombre"]);
+		
+				}
+		
+			})		
+
+			// SE van asignar los valores a las editas del producto a Editar.
+			$("#editarCodigo").val(respuesta["codigo"]);
+			$("#editarDescripcion").val(respuesta["descripcion"]);
+			$("#editarStock").val(respuesta["stock"]);
+			$("#editarPrecioCompra").val(respuesta["precio_compra"]);
+			$("#editarPrecioVenta").val(respuesta["precio_venta"]);
+			if (respuesta["imagen"] != "")
+			{
+				$("#imagenActual").val(respuesta["imagen"]);
+				//console.log("imagen",respuesta["imagen"]);
+				
+				$(".previsualizar").attr("src",respuesta["imagen"]);
+			}
+
+			
+		}
+
+	})	
 
 })
