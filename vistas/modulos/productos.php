@@ -444,3 +444,7 @@ Cuando el usuario oprima el boton de "Agregar Usuario" se activa esta ventana.
   </div> <!-- <div class="modal-dialog"> -->
 
 </div> <!-- <div id="modalAgregarUsuario" class="modal fade" role="dialog"> -->
+<?php
+	$eliminarProducto = new ControladorProductos();
+	$eliminarProducto->ctrEliminarProducto();
+?>

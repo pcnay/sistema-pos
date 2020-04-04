@@ -1,4 +1,5 @@
 <?php
+	require_once "funciones.php";
 
 	class ControladorProductos
 	{
@@ -138,6 +139,11 @@
 		
 		} // 	static public function ctrCrearProducto() 
 
+
+	// ******************************************************************
+	// Eliminar Producto
+	// ******************************************************************
+
 	// Editar Producto
 	static public function ctrEditarProducto()
 	{
@@ -158,7 +164,6 @@
 				/* Para guardar las fotos, sera de la siguiente manera: 
 				1.- En una carpeta del servidor se subira la foto
 				2.- En la base de datos solo se guardara la ruta donde esta almacenada la foto en el servidor.
-
 					*/
 				
 				// Validando que se encuentre la foto en la etiqueta de "vistas/modulos/usuarios.php" seccion de "modalAgregarUsuario" etiqueta tipo "File" "nuevaImagen"
@@ -270,7 +275,6 @@
 						{
 							window.location="productos";
 						}
-
 						});
 	
 					</script>';          
@@ -280,8 +284,56 @@
 		} //if (isset($_POST["nuevaDescripcion"]))
 	
 	} // static public function ctrEditarProducto() 
+
+
+
+	// ******************************************************************
+	// Borrar Producto
+	// ******************************************************************
+	static public function ctrEliminarProducto()
+	{
+		// Si viene en camino la siguiente variable GET : idProducto
+		if (isset($_GET['idProducto']))
+		{
+			$tabla = "t_Productos";
+			$datos = $_GET["idProducto"];
+			if ($_GET["imagen"] != "" && $_GET["imagen"] != "vistas/img/productos/default/anonymous.png")
+			{
+				// Borrar el archivo
+				unlink ($_GET["imagen"]);
+				//$borrar_directorio = new EliminarDirectorio();
+				//$borrar_directorio->eliminar_directorio('vistas/img/productos/'.$_GET["codigo"]);
+				rmdir('vistas/img/productos/'.$_GET["codigo"]);				
+			}
+
+			$respuesta = ModeloProductos::mdlEliminarProductos($tabla,$datos);
+			if ($respuesta = "ok")
+			{
+				echo '<script>           
+				Swal.fire ({
+					type: "success",
+					title: "El Producto ha sido borrada correctamente ",
+					showConfirmButton: true,
+					confirmButtonText: "Cerrar",
+					closeOnConfirm: false
+					}).then(function(result){
+						if (result.value)
+						{
+							window.location="productos";
+						}
+
+						});
+	
+					</script>';          
+
+			} // if ($respuesta = "ok")
+
+		}
+	} // static public function ctrEliminarProducto() 
+
 	
 } // class ControladorProductos
-	
+
+
 
 ?>

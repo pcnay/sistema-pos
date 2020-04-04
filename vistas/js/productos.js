@@ -258,3 +258,91 @@ $(".tablaProductos tbody").on("click","button.btnEditarProducto",function(){
 	})	
 
 })
+
+
+// Borrar Producto
+// Se va a realizar un cambio, ya que se debe ejecutar el código cuando se termina de cargar el cuerpo de la tabla. Se realiza un click en el Boton Editar
+$(".tablaProductos tbody").on("click","button.btnEliminarProducto",function(){
+	var idProducto = $(this).attr("idProducto");
+	// console.log("idProducto",idProducto);
+	// Obtener el codigo del producto y la ruta de la imagen que esta grabada en la Tabla.
+	var codigo = $(this).attr("codigo");
+	var imagen = $(this).attr("imagen");
+
+	
+	Swal.fire ({
+		type: "success",
+		title: "La categoria ha sido borrada correctamente ",
+		text : "De lo contrario puede cancelar la Acción ",
+		type:'warning',
+		showCancelButton:true,		
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		cancelButtonText: 'Cancelar',
+		confirmButtonText:'Si Para Borrar',
+		closeOnConfirm: false
+		}).then(function(result){
+			if (result.value)
+			{
+				window.location="index.php?ruta=productos&idProducto="+idProducto+"&imagen="+imagen+"&codigo="+codigo;
+			}
+
+			});
+	
+/*	
+	 // Se esta agregando un dato al Ajax.
+	var datos = new FormData();
+	datos.append("idProducto",idProducto);
+	$.ajax({
+		url:"ajax/productos.ajax.php",
+		method:"POST",
+		data:datos,
+		cache:false,
+		contentType:false,
+		processData:false,
+		dataType:"json",
+		success:function(respuesta)
+		{
+			// console.log("respuesta",respuesta);
+			// Obtener la categoria.
+			var datosCategoria = new FormData();
+			datosCategoria.append("idCategoria",respuesta["id_categoria"]);
+			$.ajax({
+				url:"ajax/categoria.ajax.php",
+				method:"POST",
+				data:datosCategoria,
+				cache:false,
+				contentType:false,
+				processData:false,
+				dataType:"json",
+				success:function(respuesta)
+				{
+					console.log("respuesta",respuesta);					
+					$("#editarCategoria").val(respuesta["id"]);
+					$("#editarCategoria").html(respuesta["nombre"]);
+		
+				}
+		
+			})		
+
+			// SE van asignar los valores a las editas del producto a Editar.
+			$("#editarCodigo").val(respuesta["codigo"]);
+			$("#editarDescripcion").val(respuesta["descripcion"]);
+			$("#editarStock").val(respuesta["stock"]);
+			$("#editarPrecioCompra").val(respuesta["precio_compra"]);
+			$("#editarPrecioVenta").val(respuesta["precio_venta"]);
+			if (respuesta["imagen"] != "")
+			{
+				$("#imagenActual").val(respuesta["imagen"]);
+				//console.log("imagen",respuesta["imagen"]);
+				
+				$(".previsualizar").attr("src",respuesta["imagen"]);
+			}
+
+			
+		}
+
+	})	
+*/
+
+})
