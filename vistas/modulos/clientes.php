@@ -49,65 +49,38 @@
             </thead>
             <!-- Cuerpo de la Tabla -->
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Juan Perez</td>
-                <td>92829832</td>
-								<td>correo@correo.com</td>
-								<td>555-555-55-55</td>
-								<td>Direccion entre calles</td>
-								<td>2000-10-10</td>
-								<td>30</td>
-								<td>2000-10-10 13:34:23</td>
-								<td>2020-10-10 15:34:23</td>
+							<!-- Se va ha utilizar el quemado de datos en el HTML, dado el volumen de los datos, pero se puede arreglar para que se utilize el "TDataTable"-->
+							<?php 
+								// Para mostrar los datos en pantalla.
+								$item = null;
+								$item = null;
+								$clientes = ControladorClientes::ctrMostrarClientes($item,$valor);
+								// var_dump ($clientes);
+								foreach ($clientes as $key => $value)
+								{
+									echo ' 
+										<tr>
+											<td>'.($key+1).'</td>
+											<td>'.$value["nombre"].'</td>
+											<td>'.$value["documento"].'</td>
+											<td>'.$value["email"].'</td>
+											<td>'.$value["telefono"].'</td>
+											<td>'.$value["direccion"].'</td>
+											<td>'.$value["fecha_nacimiento"].'</td>
+											<td>'.$value["compras"].'</td>
+											<td>0000-00-00 00:00:00</td>
+											<td>'.$value["fecha"].'</td>
+			
+											<td>
+												<div class="btn-group">
+													<button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+													<button class="btn btn-danger"><i class="fa fa-times"></i></button>
+												</div>
+											</td>
+										</tr>	';
+								}
 
-								<td>
-                  <div class="btn-group">
-                    <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td>2</td>
-                <td>Juan Perez</td>
-                <td>92829832</td>
-								<td>correo@correo.com</td>
-								<td>555-555-55-55</td>
-								<td>Direccion entre calles</td>
-								<td>2000-10-10</td>
-								<td>30</td>
-								<td>2000-10-10 13:34:23</td>
-								<td>2020-10-10 15:34:23</td>
-
-								<td>
-                  <div class="btn-group">
-                    <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td>3</td>
-                <td>Juan Perez</td>
-                <td>92829832</td>
-								<td>correo@correo.com</td>
-								<td>555-555-55-55</td>
-								<td>Direccion entre calles</td>
-								<td>2000-10-10</td>
-								<td>30</td>
-								<td>2000-10-10 13:34:23</td>
-								<td>2020-10-10 15:34:23</td>
-
-								<td>
-                  <div class="btn-group">
-                    <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                  </div>
-                </td>
-              </tr>
+							?>
               
             </tbody>
 
@@ -220,6 +193,12 @@ Cuando el usuario oprima el boton de "Agregar Cliente" se activa esta ventana.
           </div>
 
       </form>
+			<!-- Crear un cliente -->
+			<?php
+				$crearCliente = new ControladorClientes();
+				$crearCliente->ctrCrearCliente();
+
+			?>
 
     </div> <!-- <div class="modal-content"> -->
 

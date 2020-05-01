@@ -1,3 +1,12 @@
+/*
+-- Ejecutarlo desde una terminal de Mysql 
+-- Se debe accesar al directorio donde se encuentra el "script.sql" y ejecutar el comenado "mysql" desde una terminal
+-- $ mysql -u nom-usr -p NombreBaseDatos < script.sql
+-- Otra Forma :
+--    mysql -u usuario -p NombreBaseDatos
+--    source script.sql ó \. script.sql
+*/
+
 DROP DATABASE IF EXISTS pos;
 
 CREATE DATABASE IF NOT EXISTS pos;
@@ -27,6 +36,7 @@ Para borrar un usuario:
   */
 
 /* Es una tabla catalogo */ 
+
 
 CREATE TABLE t_Usuario
 (
@@ -66,6 +76,18 @@ CREATE TABLE t_Productos
 
 );
 
+CREATE TABLE t_Clientes
+(
+  id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,  
+  nombre VARCHAR(100) NULL,
+	documento INTEGER UNSIGNED NULL,
+	email VARCHAR(100) NULL,
+	telefono VARCHAR(80) NULL,
+	direccion VARCHAR(100) NULL,
+	fecha_nacimiento DATE NULL,
+	compras INTEGER UNSIGNED NULL,
+	fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP  
+);
 
 INSERT INTO t_Usuario (id,nombre,usuario,clave,perfil,vendedor,foto,estado,ultimo_login,fecha) VALUES
   (1,'Usuario Administrador','admin','123','Administrador','','',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);

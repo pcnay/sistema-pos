@@ -1,10 +1,32 @@
+/*
+-- Ejecutarlo desde una terminal de Mysql 
+-- Se debe accesar al directorio donde se encuentra el "script.sql" y ejecutar el comenado "mysql" desde una terminal
+-- $ mysql -u nom-usr -p NombreBaseDatos < script.sql
+-- Otra Forma :
+--    mysql -u usuario -p NombreBaseDatos
+--    source script.sql ó \. script.sql
+*/
+
 USE pos;
 /*
 	Para resetar el ID de categorias se inicie desde 1
 	ALTER TABLE t_Categorias AUTO_INCREMENT = 1;
 
 */
+CREATE TABLE t_Clientes
+(
+  id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,  
+  nombre VARCHAR(100) NULL,
+	documento INTEGER UNSIGNED NULL,
+	email VARCHAR(100) NULL,
+	telefono VARCHAR(80) NULL,
+	direccion VARCHAR(100) NULL,
+	fecha_nacimiento DATE NULL,
+	compras INTEGER UNSIGNED NULL,
+	fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP  
+);
 
+/*
 CREATE TABLE t_Productos
 (
   id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -21,6 +43,7 @@ CREATE TABLE t_Productos
 	ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+*/
 
 
 /*
