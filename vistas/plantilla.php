@@ -148,6 +148,8 @@
 	<script src="vistas/js/categorias.js"></script>
 	<!-- Agregar las capturas, ediciones y validaciones para los Productos -->
 	<script src="vistas/js/productos.js"></script>
+	<!-- se edita los Clientes -->
+	<script src="vistas/js/clientes.js"></script>
 
 </body>
 </html>

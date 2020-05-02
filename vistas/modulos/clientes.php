@@ -73,7 +73,7 @@
 			
 											<td>
 												<div class="btn-group">
-													<button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+													<button class="btn btn-warning btnEditarCliente" data-toggle="modal" data-target="#modalEditarCliente" idCliente="'.$value["id"].'"><i class="fa fa-pencil"></i></button>
 													<button class="btn btn-danger"><i class="fa fa-times"></i></button>
 												</div>
 											</td>
@@ -99,7 +99,7 @@
 
 
 <!--Este código se tomo desde el bootstrap - > Table 
-Cuando el usuario oprima el boton de "Agregar Cliente" se activa esta ventana.
+Cuando el cliente el boton de "Agregar Cliente" se activa esta ventana.
 -->
 
 <!-- Modal -->
@@ -197,6 +197,111 @@ Cuando el usuario oprima el boton de "Agregar Cliente" se activa esta ventana.
 			<?php
 				$crearCliente = new ControladorClientes();
 				$crearCliente->ctrCrearCliente();
+
+			?>
+
+    </div> <!-- <div class="modal-content"> -->
+
+  </div> <!-- <div class="modal-dialog"> -->
+
+</div> <!-- <div id="modalAgregarUsuario" class="modal fade" role="dialog"> --> 
+
+
+<!--Este código se tomo desde el bootstrap - > Table 
+Cuando el cliente el boton de "Editar Cliente" se activa esta ventana.
+-->
+
+<!-- Modal -->
+<div id="modalEditarCliente" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+      <!-- enctype= "multipart/form-data = Para subir archivos., se suprime -->
+      <form role="form" method="post">
+    
+        <!-- La franja azul de la ventana modal -->
+        <div class="modal-header" style= "background:#3c8dbc; color:white">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Editar Cliente</h4>
+        </div>
+
+        <div class="modal-body">
+          <div class="box-body">
+            <!-- Clases de BootStrap para las formularios-->
+						<!-- Capturando el Nombre -->
+            <div class="form-group">
+              <div class = "input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" class="form-control input-lg" name="editarCliente" id="editarCliente" required>
+              </div> <!-- <div class = "input-group"> -->           
+
+            </div> <!-- <div class="form-group"> -->
+
+						<!-- Capturando el Documento ID -->
+						<!-- "min=0" es para que no se introduzcan cantidades Negativas.-->
+            <div class="form-group">
+              <div class = "input-group">
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <input type="number" min="0" class="form-control input-lg" name="editarDocumentoId" id="editarDocumentoId"  required>
+              </div> <!-- <div class = "input-group"> -->           
+
+            </div> <!-- <div class="form-group"> -->
+
+						<!-- Capturando el Email -->
+            <div class="form-group">
+              <div class = "input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <input type="email" class="form-control input-lg" name="editarEmail" 	 	id="editarEmail"  required>
+              </div> <!-- <div class = "input-group"> -->           
+
+            </div> <!-- <div class="form-group"> -->
+
+						<!-- Capturando el Teléfono -->
+						<!-- data-inputmask="'mask':'... = Es un plugin de AdminLT para revisar que se requiere.-->
+            <div class="form-group">
+              <div class = "input-group">
+                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                <input type="text" class="form-control input-lg" name="editarTelefono" id="editarTelefono" data-inputmask="'mask':'(999) 999-99-99)'" data-mask required>
+              </div> <!-- <div class = "input-group"> -->           
+
+            </div> <!-- <div class="form-group"> -->
+
+						<!-- Capturando la dirección -->
+            <div class="form-group">
+              <div class = "input-group">
+                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                <input type="text" class="form-control input-lg" name="editarDireccion" name="editarDireccion" required>
+              </div> <!-- <div class = "input-group"> -->           
+
+            </div> <!-- <div class="form-group"> -->
+
+						<!-- Capturando la fecha de Cumpleanos -->
+            <div class="form-group">
+              <div class = "input-group">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="text" class="form-control input-lg" name="editarFechaNacimiento" id="editarFechaNacimiento" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask required>
+              </div> <!-- <div class = "input-group"> -->           
+
+            </div> <!-- <div class="form-group"> -->
+
+          </div> <!-- <div class="box-body"> -->
+
+        </div> <!-- <div class="modal-body"> -->
+
+
+					<!-- Pie Del Modal-->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+          </div>
+
+      </form>
+			<!-- Crear un cliente -->
+			<?php
+				// $crearCliente = new ControladorClientes();
+				// $crearCliente->ctrCrearCliente();
 
 			?>
 
