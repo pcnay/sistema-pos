@@ -31,5 +31,36 @@ $(".btnEditarCliente").click(function(){
 		 
 	})
 
+})
 
+ //================================
+	/* Editar Cliente */
+//================================
+$(".btnEliminarCliente").click(function(){
+	// Obtiene el valor del ID del cliente.
+	var idCliente = $(this).attr("idCliente");
+	
+			
+		Swal.fire ({
+			type: "warning",
+			title: "Está seguro de borrar el cliente ?",
+			text: "Si no lo esta puede Cancelar la Acción ",
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			cancelButtonText: 'Cancelar',
+			confirmButtonText: "Si, borrar cliente !"			
+			}).then(function(result){
+				if (result.value)
+				{
+					window.location="index.php?ruta=clientes&idCliente="+idCliente;
+				}
+
+			});
+
+			
+
+	console.log("idCliente",idCliente);
+
+	
 })

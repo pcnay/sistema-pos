@@ -149,5 +149,42 @@
 
 		} // static public function ctrCrearCliente()
 
+		// ==========================================
+		// Eliminar Cliente 
+		// ==========================================
+		static public function ctrEliminarCliente()
+		{
+			if (isset($_GET["idCliente"]))
+			{
+				$tabla = "t_Clientes";
+				$datos = $_GET["idCliente"];
+
+				$respuesta = ModeloClientes::mdlEliminarCliente($tabla,$datos);
+
+				if ($respuesta == "ok")
+				{
+					echo '<script>           
+					Swal.fire ({
+						type: "error",
+						title: "El cliente ha sido borrado correctamente ",
+						showConfirmButton: true,
+						confirmButtonText: "Cerrar",
+						closeOnConfirm: false
+						}).then(function(result){
+							if (result.value)
+							{
+								window.location="clientes";
+							}
+
+						});
+		
+					</script>';
+
+				} // if ($respuesta == "ok")
+
+			} // if (isset($_GET["idCliente"]))
+
+		}
+
 	} // class ControladorClientes
 ?>
