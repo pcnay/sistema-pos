@@ -73,9 +73,81 @@
 		{
 			$tabla = "t_Clientes";
 			$respuesta = ModeloClientes::mdlMostrarClientes($tabla,$item,$valor);
+			//$respuesta = $tabla;
 
 			return $respuesta;
 		}
+
+		// ******************************************
+		// Editar Cliente.
+		// ******************************************
+
+		static public function ctrEditarCliente()
+		{
+			// Verifica si esta creada la variable Get de la forma.
+			if (isset($_POST["editarCliente"]))
+			{
+				// Validando los datos
+				if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["editarCliente"]) && preg_match('/^[0-9]+$/',$_POST["editarDocumentoId"]) && 
+				preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["editarEmail"]) && 
+			   preg_match('/^[()\-0-9 ]+$/', $_POST["editarTelefono"]) && 
+			   preg_match('/^[#\.\-a-zA-Z0-9 ]+$/', $_POST["editarDireccion"]))			
+				{
+
+					$tabla = "t_Clientes";
+					$datos = array ("id"=>$_POST["idCliente"],
+					"nombre"=>$_POST["editarCliente"],
+					"documento"=>$_POST["editarDocumentoId"],
+					"email"=>$_POST["editarEmail"],
+					"telefono"=>$_POST["editarTelefono"],					
+					"direccion"=>$_POST["editarDireccion"],
+					"fecha_nacimiento"=>$_POST["editarFechaNacimiento"]);
+					$respuesta = ModeloClientes::mdlEditarCliente($tabla,$datos);
+					if ($respuesta == "ok")
+					{
+						echo '<script>           
+						Swal.fire ({
+							type: "success",
+							title: "El Cliente ha sido Editado correctamente ",
+							showConfirmButton: true,
+							confirmButtonText: "Cerrar",
+							closeOnConfirm: false
+							}).then(function(result){
+								if (result.value)
+								{
+									window.location="clientes";
+								}
+							});
+			
+						</script>';          
+
+					}
+
+				}
+				else
+				{
+					echo '<script>           
+					Swal.fire ({
+						type: "error",
+						title: "El cliente no puede ir vacio o llevar caracteres especiales",
+						showConfirmButton: true,
+						confirmButtonText: "Cerrar",
+						closeOnConfirm: false
+						}).then(function(result){
+							if (result.value)
+							{
+								window.location="clientes";
+							}
+
+						});
+		
+					</script>';          
+
+				}
+
+			} // if (isset($_POST["nuevoCliente"]))
+
+		} // static public function ctrCrearCliente()
 
 	} // class ControladorClientes
 ?>

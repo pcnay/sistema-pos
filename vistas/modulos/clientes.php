@@ -53,7 +53,7 @@
 							<?php 
 								// Para mostrar los datos en pantalla.
 								$item = null;
-								$item = null;
+								$valor = null;
 								$clientes = ControladorClientes::ctrMostrarClientes($item,$valor);
 								// var_dump ($clientes);
 								foreach ($clientes as $key => $value)
@@ -235,6 +235,9 @@ Cuando el cliente el boton de "Editar Cliente" se activa esta ventana.
               <div class = "input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
                 <input type="text" class="form-control input-lg" name="editarCliente" id="editarCliente" required>
+								<!-- Este campo se utiliza para obtener el "ID" del cliente que se enviara para obtener los datos en el Ajax. -->
+								<input type="hidden" id="idCliente" name="idCliente" >
+
               </div> <!-- <div class = "input-group"> -->           
 
             </div> <!-- <div class="form-group"> -->
@@ -272,7 +275,7 @@ Cuando el cliente el boton de "Editar Cliente" se activa esta ventana.
             <div class="form-group">
               <div class = "input-group">
                 <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-                <input type="text" class="form-control input-lg" name="editarDireccion" name="editarDireccion" required>
+                <input type="text" class="form-control input-lg" name="editarDireccion" id="editarDireccion" required>
               </div> <!-- <div class = "input-group"> -->           
 
             </div> <!-- <div class="form-group"> -->
@@ -298,11 +301,11 @@ Cuando el cliente el boton de "Editar Cliente" se activa esta ventana.
           </div>
 
       </form>
-			<!-- Crear un cliente -->
-			<?php
-				// $crearCliente = new ControladorClientes();
-				// $crearCliente->ctrCrearCliente();
 
+			<!-- una vez que los campos son tecleados se encuentan estas funciones para Editar Cliente  -->
+			<?php
+				$crearCliente = new ControladorClientes();
+				$crearCliente->ctrEditarCliente();
 			?>
 
     </div> <!-- <div class="modal-content"> -->

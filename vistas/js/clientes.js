@@ -7,8 +7,9 @@ $(".btnEditarCliente").click(function(){
 	// Se crea una variable Global tipo "_GET"
 	datos.append("idCliente",idCliente);
 
+	// clientes.ajax.php
 	$.ajax({
-		url: "ajax/sdd.php",
+		url: "ajax/clientes.ajax.php",
 		method: "POST",
 		data: datos,
 		cache: false,
@@ -17,9 +18,18 @@ $(".btnEditarCliente").click(function(){
 		dataType: "json",
 		success:function(respuesta)
 		{
-			console.log("respuesta",respuesta);
+			// Se inicia a llenar los campos de la pantalla donde se editarn los archivos.
+			//console.log("respuesta",respuesta);
+			$("#idCliente").val(respuesta["id"]);
+			$("#editarCliente").val(respuesta["nombre"]);
+			$("#editarDocumentoId").val(respuesta["documento"]);
+			$("#editarEmail").val(respuesta["email"]);
+			$("#editarTelefono").val(respuesta["telefono"]);
+			$("#editarDireccion").val(respuesta["direccion"]);
+			$("#editarFechaNacimiento").val(respuesta["fecha_nacimiento"]);
 		}
 		 
 	})
+
 
 })
