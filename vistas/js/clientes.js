@@ -34,7 +34,7 @@ $(".btnEditarCliente").click(function(){
 })
 
  //================================
-	/* Editar Cliente */
+	/* Eliminar Cliente */
 //================================
 $(".btnEliminarCliente").click(function(){
 	// Obtiene el valor del ID del cliente.
@@ -60,7 +60,7 @@ $(".btnEliminarCliente").click(function(){
 
 			
 
-	console.log("idCliente",idCliente);
+	//console.log("idCliente",idCliente);
 
 	
 })
