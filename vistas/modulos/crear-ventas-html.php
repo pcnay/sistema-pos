@@ -34,8 +34,7 @@
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-user"></i></span>
-													<input type="text" class="form-control" id="nuevoVendedor" name ="nuevoVendedor" value = "<?php echo $_SESSION["nombre"]; ?>" readonly >						
-													<input type="hidden" name="idVendedor" value = "<?php echo $_SESSION["id"]; ?>" >						
+													<input type="text" class="form-control" id="nuevoVendedor" name ="nuevoVendedor" value = "Usuario Administrador" readonly>						
 												</div>
 
 											</div> <!-- <div class="form-group">-->	
@@ -44,28 +43,7 @@
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-key"></i></span>
-													<?php 
-														$item = null;
-														$valor = null;
-														$ventas = ControladorVentas::ctrMostrarVentas($item,$valor);
-
-														// Para obtener el número de factura y agregar 1 
-														if (!$ventas)
-														{
-															echo '<input type="text" class="form-control" id="nuevaVenta" name ="nuevaVenta" value = "10000" readonly>';
-														}
-														else
-														{
-															foreach ($ventas as $key => $value)
-															{
-
-															}
-															$codigo = $value["codigo"]+1;
-															echo '<input type="text" class="form-control" id="nuevaVenta" name ="nuevaVenta" value = "'.$codigo.'" readonly>';
-
-														}
-													?>
-													
+													<input type="text" class="form-control" id="nuevaVenta" name ="nuevaVenta" value = "10002343" readonly>
 												</div>
 
 											</div> <!-- <div class="form-group">-->	
@@ -78,20 +56,6 @@
 													<!-- Se obtendra el clientes desde la base de datos y es asignado a una etiqueta Select. -->
 													<select class="form-control" id="seleccionarCliente" name ="seleccionarCliente" required>
 														<option value="">Seleccionar Cliente</option>
-														<?php
-															// Obtener los clientes desde la base de datos utilizando 
-															$item = null;
-															$valor = null;
-															$cliente = ControladorClientes::ctrMostrarClientes($item,$valor);
-															
-															// Pasando los clientes a la etiqueta "Select".
-															foreach ($cliente as $key => $value)
-															{
-																echo '<option value="'.$value["id"].'">'.$value["nombre"].'</option>';
-
-															}
-														?>
-
 													</select>
 
 													<span class="input-group-addon"><button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalAgregarCliente" data-dismiss="modal">Agregar Cliente</button></span>
@@ -100,10 +64,33 @@
 											</div> <!-- <div class="form-group"> -->
 
 
-											<!-- Agregar Productos en la captura de la Factura 
-												Para esta pantalla se utilizara Javascript 
-											-->										
+											<!-- Agregar Productos en la captura de la Factura -->
 											<div class= "form-group row nuevoProducto">
+												<div class="col-xs-6" style="padding-right:0px">
+													<div class="input-group">
+														<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+
+														<input type="text" class="form-control" id="agregarProducto" name="agregarProducto" placeholder="Descripcion Del Producto" required>
+
+													</div> <!-- <div class="input-group"> -->
+
+												</div> <!-- <div class="col-xs-6" style="padding-right:0px"> -->
+
+												<!-- Se desplaza a 3 columnas-->
+												<div class ="col-xs-3">
+													<input type="number" class="form-control" id="nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" placeholder="0" required>
+
+												</div> <!-- <div class ="col-xs-3"> -->
+
+												<div class="col-xs-3" style="padding-left:0px">
+													<div class="input-group">
+														<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+														
+														<input type="number" min="1" class="form-control" id="nuevoPrecioProducto" name="nuevoPrecioProducto" placeholder="000000" readonly required>												
+
+													</div> <!-- <div class="input-group"> -->
+
+												</div> <!-- <div class="col-xs-3" style="padding-left:0px"> -->
 
 											</div> <!-- <div class= "form-group row nuevoProducto"> -->
 
@@ -193,7 +180,7 @@
 
 
 					<!-- Tablas de Productos 
-						Para pantalla grandes se mostraran dos pantallas, para poder seleccionar.
+						Para pantalla grandes se mostraran dos pantallas, para podermos seleccionar.
 						Para tablets en forma horizontal, esta tabla se ocultara.
 					-->
 					<!-- Para solo se muestra para pantalla grande, los demas tamaños : medianas, pequeñas, y telefonos, se ocultaran.-->
@@ -202,8 +189,7 @@
 						<div class="box box-warning">
 							<div class="box-header with-border">
 								<div class="box-body">
-								<!-- "tablaVentas" = Es la que se utiliza para DataTable, se utiliza en el archivo "ventas.js" -->
-									<table class="table table-bordered table-striped dt-responsive tablaVentas">
+									<table class="table table-bordered table-striped dt-responsive tablas">
 										<thead>
 											<tr>
 												<th style="width:10px">#</th>
@@ -214,8 +200,20 @@
 												<th>Acciones</th>												
 											</tr>
 										</thead>
-
-										<!-- Se trabaja con tablas dinamicas con DataTable - Como se utilizo en "Mostrar Productos", se elimina el Tbody  se crea en el archivo de "ventas.js" -->
+										<tbody>
+											<tr>
+												<td>1.</td>
+												<td><img src="vistas/img/productos/default/anonymous.png" class="img-thumbnail" width="40px"></td>
+												<td>000123</td>
+												<td>Palaras de pruebas </td>												
+												<td>20</td>
+												<td>
+													<div class="btn-group">
+														<button type="button" class="btn btn-primary">Agregar</button>													
+													</div>
+												</td>
+											</tr>
+										</tbody>
 
 									</table>
 								</div>

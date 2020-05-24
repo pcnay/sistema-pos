@@ -150,6 +150,8 @@
 	<script src="vistas/js/productos.js"></script>
 	<!-- se edita los Clientes -->
 	<script src="vistas/js/clientes.js"></script>
+	<!-- se muestra los productos en el modulo Crear Venta  -->
+	<script src="vistas/js/ventas.js"></script>
 
 </body>
 </html>

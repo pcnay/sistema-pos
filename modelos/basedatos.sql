@@ -89,5 +89,24 @@ CREATE TABLE t_Clientes
 	fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP  
 );
 
+CREATE TABLE t_Ventas
+(
+  id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  codigo INTEGER UNSIGNED NOT NULL,
+	id_cliente INTEGER UNSIGNED NOT NULL,
+	id_vendedor INTEGER UNSIGNED NOT NULL,  
+  productos TEXT,
+  impuesto decimal(10,2) DEFAULT NULL,
+	neto decimal(10,2) DEFAULT NULL,
+	total decimal(10,2) DEFAULT NULL,
+  metodo_pago varchar(80),
+  fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY(id_cliente) REFERENCES t_Clientes(id)
+	ON DELETE RESTRICT ON UPDATE CASCADE,
+	FOREIGN KEY(id_vendedor) REFERENCES t_Usuario(id)
+	ON DELETE RESTRICT ON UPDATE CASCADE
+
+);
+
 INSERT INTO t_Usuario (id,nombre,usuario,clave,perfil,vendedor,foto,estado,ultimo_login,fecha) VALUES
   (1,'Usuario Administrador','admin','123','Administrador','','',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
