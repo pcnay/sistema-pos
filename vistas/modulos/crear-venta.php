@@ -25,7 +25,7 @@
 					<div class="box box-success">
 						<!-- Dibuja una franja blanca en la parte de arriba. -->
 						<div class="box-header with-border "></div>
-						<form role="form" method="post">
+						<form role="form" method="post" class="formularioVenta">
 
 							<div class="box-body">
 
@@ -248,7 +248,7 @@ Cuando el cliente el boton de "Agregar Cliente" se activa esta ventana.
     <div class="modal-content">
 
       <!-- enctype= "multipart/form-data = Para subir archivos., se suprime -->
-      <form role="form" method="post">
+      <form role="form" method="post" class="formularioVenta">
     
         <!-- La franja azul de la ventana modal -->
         <div class="modal-header" style= "background:#3c8dbc; color:white">
