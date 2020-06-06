@@ -125,6 +125,10 @@ $(".tablaVentas tbody").on("click","button.agregarProducto",function(){
 			'</div> <!-- <div class="col-xs-3" style="padding-left:0px"> -->'+ 
 			
 			'</div>')
+
+			// Para que sume el importe y lo despliegue en Total Venta.
+			// Esta función se define en la parte última.
+			sumarTotalPrecios();
 		}
 
 	});
@@ -182,6 +186,17 @@ $(".formularioVenta").on("click","button.quitarProducto",function(){
 
 	$("button.recuperarBoton[idProducto='"+idProducto+"']").removeClass('btn-default');
 	$("button.recuperarBoton[idProducto='"+idProducto+"']").addClass('btn-primary agregarProducto');
+
+	// Para el caso de que se elimine todos los renglones de la venta y no muestre error al refrescar el total
+	// NO se tienen hijos de la etiqueta donde se estan agregando los productos.
+	if ($(".nuevoProducto").children().length == 0)
+	{
+		$("#nuevoTotalVenta").val(0);
+	}
+	else
+	{
+		sumarTotalPrecios(); // para actualizar el saldo, ya que se quita renglones de la venta.
+	}
 })
 
 
@@ -251,9 +266,11 @@ $(".btnAgregarProducto").click(function(){
 				}
 				
 			}
+			// Para actualizar la suma del Total.
+			sumarTotalPrecios();
 
 		}
-
+		
 
 	})
 
@@ -330,5 +347,36 @@ $(".formularioVenta").on("change", "input.nuevaCantidadProducto",function(){
 		});
 
 	}
+	// Sumar total precio
+	sumarTotalPrecios();
 
+	
 })
+
+
+// Sumar el total de las productos que se van agregando.
+function sumarTotalPrecios()
+{
+	// Proviene de este seccion : $(".formularioVenta").on("change","select.nuevaDescripcionProducto",function(){.........
+
+	var precioItem = $(".nuevoPrecioProducto"); // Almacena todas las clases, es decir son todos los renglones de la venta que se esta realizando.
+	var arraySumaPrecio = [];
+	 
+	for (var i=0;i<precioItem.length; i++)
+	{
+		arraySumaPrecio.push(Number($(precioItem[i]).val()));
+
+	}
+	//console.log("arraySumaPrecio",arraySumaPrecio);
+	function sumaArrayPrecios(total,numero)
+	{
+		return total+numero;
+	}
+
+	// Para obtener el precio total de la venta de productos.
+	var sumaTotalPrecio = arraySumaPrecio.reduce(sumaArrayPrecios);
+	//console.log("sumaTotalPrecio",sumaTotalPrecio);
+	$("#nuevoTotalVenta").val(sumaTotalPrecio);
+
+
+}
