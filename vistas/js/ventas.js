@@ -102,7 +102,7 @@ $(".tablaVentas tbody").on("click","button.agregarProducto",function(){
 				'<div class="input-group">'+
 					'<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarProducto" idProducto = "'+idProducto+'"><i class="fa fa-times"></i></button></span>'+
 
-				'<input type="text" class="form-control" id="agregarProducto" name="agregarProducto" value="'+descripcion+'"  readonly required>'+
+				'<input type="text" class="form-control agregarProducto" name="agregarProducto" value="'+descripcion+'"  readonly required>'+
 
 				'</div> <!-- <div class="input-group"> -->'+
 
@@ -110,7 +110,7 @@ $(".tablaVentas tbody").on("click","button.agregarProducto",function(){
 
 				'<!-- Se desplaza a 3 columnas-->'+
 				'<div class ="col-xs-3">'+
-				'<input type="number" class="form-control" id="nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value = "1" stock="'+stock+'" required>'+
+				'<input type="number" class="form-control nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value = "1" stock="'+stock+'" required>'+
 
 				'</div> <!-- <div class ="col-xs-3"> -->'+
 
@@ -118,7 +118,7 @@ $(".tablaVentas tbody").on("click","button.agregarProducto",function(){
 					'<div class="input-group">'+
 					'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
 					
-					'<input type="number" min="1" class="form-control" id="nuevoPrecioProducto" name="nuevoPrecioProducto" value="'+precio+'" readonly required>'+	
+					'<input type="number" min="1" class="form-control nuevoPrecioProducto" name="nuevoPrecioProducto" value="'+precio+'" readonly required>'+	
 
 				'</div> <!-- <div class="input-group"> -->'+
 
@@ -182,4 +182,120 @@ $(".formularioVenta").on("click","button.quitarProducto",function(){
 
 	$("button.recuperarBoton[idProducto='"+idProducto+"']").removeClass('btn-default');
 	$("button.recuperarBoton[idProducto='"+idProducto+"']").addClass('btn-primary agregarProducto');
+})
+
+
+// Agregando el boton "Agregar Productos" para dispositivos mobiles.
+// Se va hacer un ajuste ya que se selecciona un elemento de la etiqueta "select" se duplica.
+var numProducto = 0;
+
+$(".btnAgregarProducto").click(function(){
+	numProducto ++;
+
+	// Se van a traer todos los productos.
+	var datos = new FormData();
+	datos.append("traerProductos","ok");
+	$.ajax
+	({
+		url:"ajax/productos.ajax.php",
+		method:"POST",
+		data:datos,
+		cache:false,
+		contentType:false,
+		processData:false,
+		dataType:"json",
+		success:function(respuesta){
+			// console.log ("respuesta",respuesta);
+			$(".nuevoProducto").append('<div class="row" style="padding:5px 15px">'+			
+				'<div class="col-xs-6" style="padding-right:0px">'+
+				'<div class="input-group">'+
+					'<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarProducto" idProducto ><i class="fa fa-times"></i></button></span>'+
+
+				'<select class="form-control nuevaDescripcionProducto" id="producto'+numProducto+'" idProducto name="nuevaDescripcionProducto" required>'+
+				'<option>Seleccionar el producto</option>'+
+				'</select>'+ 
+
+				'</div> <!-- <div class="input-group"> -->'+
+
+				'</div> <!-- <div class="col-xs-6" style="padding-right:0px"> -->'+
+
+				'<!-- Se desplaza a 3 columnas-->'+
+				'<div class ="col-xs-3 ingresoCantidad">'+
+				'<input type="number" class="form-control nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value = "1" stock required>'+
+
+				'</div> <!-- <div class ="col-xs-3"> -->'+
+
+				'<div class="col-xs-3 ingresoPrecio" style="padding-left:0px">'+
+					'<div class="input-group">'+
+					'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
+					
+					'<input type="number" min="1" class="form-control nuevoPrecioProducto" name="nuevoPrecioProducto" value= readonly required>'+	
+
+				'</div> <!-- <div class="input-group"> -->'+
+
+			'</div> <!-- <div class="col-xs-3" style="padding-left:0px"> -->'+ 
+			
+			'</div>');
+			// Agregar los productos al SELECT.
+			respuesta.forEach(funcionForEach);
+			function funcionForEach(item,index)
+			{
+				// Para determinar el "stock".
+				if(item.stock != 0)
+				{
+					//$(".nuevaDescripcionProducto").append(
+						// Es modificacion se realiza para evitar que se dupliquen los elementos del "select"
+						$("#producto"+numProducto).append(
+						'<option idProducto="'+item.id+'" value="'+item.descripcion+'">'+item.descripcion+'</option>'
+						)
+				}
+				
+			}
+
+		}
+
+
+	})
+
+})
+
+// Seleccionar un producto, para obtener el precio.
+// Cuando cambie de valor un elemento del "select".
+$(".formularioVenta").on("change","select.nuevaDescripcionProducto",function(){
+
+	// $(this) = Indica en cual "item" se encuentra en ese momento
+	var nombreProducto = $(this).val(); // Obtener el idProducto desde la etiqueta "select"
+
+	// Se sale 3 niveles, etiquetas para poder accesar a la etiqueta que esta anidada "nuevoPrecioProducto", se suben los niveles de las etiquetas para poder llegar.
+	var nuevoPrecioProducto = $(this).parent().parent().parent().children(".ingresoPrecio").children().children(".nuevoPrecioProducto");
+	var nuevaCantidadProducto = $(this).parent().parent().parent().children(".ingresoCantidad").children(".nuevaCantidadProducto");
+ 
+	// console.log ("nuevoPrecioProducto",nuevoPrecioProducto);
+	
+	// Se va agregar el valor del "idProducto"
+	var datos = new FormData();
+	datos.append("nombreProducto",nombreProducto);
+	//console.log("nombreProducto",nombreProducto);
+
+	// Se va utilizar el Ajax para obtener el precio del producto.
+	
+	$.ajax
+	({
+		url:"ajax/productos.ajax.php",
+		method:"POST",
+		data:datos,
+		cache:false,
+		contentType:false,
+		processData:false,
+		dataType:"json",
+		success:function(respuesta){
+			//console.log("respuesta",respuesta);
+			// Se asignara a las etiquetas de "Existencia" y "Precio el valor obtenido de la sección del Ajax."
+			$(nuevaCantidadProducto).attr("stock",respuesta["stock"]); // Asignando valor
+			$(nuevoPrecioProducto).val(respuesta["precio_venta"]); // Asignando valor sin repetir a la etiqueta de la pantalla de ventas.
+			
+		}
+	})
+
+
 })

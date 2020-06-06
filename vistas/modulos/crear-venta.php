@@ -107,8 +107,11 @@
 
 											</div> <!-- <div class= "form-group row nuevoProducto"> -->
 
-											<!-- Boton para Agregar Producto, solo se habilitara cuando sean pantallas pequeñas, cuando son grandes desaparece, ya que se agregan de la pantalla Derecha.-->
-											<button type="button" class="btn btn-default hidden-lg">Agregar Producto</button>
+											<!-- Boton para Agregar Producto, solo se habilitara cuando sean pantallas pequeñas, cuando son grandes desaparece, ya que se agregan de la pantalla Derecha.
+											Esta clase "btnAgregarProducto" se utiliza para dispositivos mobiles.
+											-->
+											
+											<button type="button" class="btn btn-default hidden-lg btnAgregarProducto">Agregar Producto</button>
 
 											<hr>
 											<div class= "row" >
