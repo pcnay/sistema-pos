@@ -57,7 +57,7 @@ $('.tablaVentas').DataTable({
 
 $(".tablaVentas tbody").on("click","button.agregarProducto",function(){
 	var idProducto = $(this).attr("idProducto");
-	console.log("idProducto",idProducto);
+	//console.log("idProducto",idProducto);
 	$(this).removeClass("btn-primary agregarProducto");
 	$(this).addClass("btn-default");
 
@@ -114,11 +114,11 @@ $(".tablaVentas tbody").on("click","button.agregarProducto",function(){
 
 				'</div> <!-- <div class ="col-xs-3"> -->'+
 
-				'<div class="col-xs-3" style="padding-left:0px">'+
+				'<div class="col-xs-3 ingresoPrecio" style="padding-left:0px">'+
 					'<div class="input-group">'+
 					'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
 					
-					'<input type="number" min="1" class="form-control nuevoPrecioProducto" name="nuevoPrecioProducto" value="'+precio+'" readonly required>'+	
+					'<input type="number" min="1" class="form-control nuevoPrecioProducto" name="nuevoPrecioProducto" precioReal="'+precio+'" value="'+precio+'" readonly required>'+	
 
 				'</div> <!-- <div class="input-group"> -->'+
 
@@ -229,7 +229,7 @@ $(".btnAgregarProducto").click(function(){
 					'<div class="input-group">'+
 					'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
 					
-					'<input type="number" min="1" class="form-control nuevoPrecioProducto" name="nuevoPrecioProducto" value= readonly required>'+	
+					'<input type="number" min="1" class="form-control nuevoPrecioProducto" precioReal="" name="nuevoPrecioProducto" readonly required>'+	
 
 				'</div> <!-- <div class="input-group"> -->'+
 
@@ -293,9 +293,42 @@ $(".formularioVenta").on("change","select.nuevaDescripcionProducto",function(){
 			// Se asignara a las etiquetas de "Existencia" y "Precio el valor obtenido de la sección del Ajax."
 			$(nuevaCantidadProducto).attr("stock",respuesta["stock"]); // Asignando valor
 			$(nuevoPrecioProducto).val(respuesta["precio_venta"]); // Asignando valor sin repetir a la etiqueta de la pantalla de ventas.
+			$(nuevoPrecioProducto).attr("precioReal",respuesta["precio_venta"]); // Se asigna el precio Real, que no se modifique.
 			
 		}
 	})
 
+
+})
+
+// Modificar la Cantidad
+// El nombre de la clase se aplica es tanto para "Pantalla" y "Tablet"
+$(".formularioVenta").on("change", "input.nuevaCantidadProducto",function(){
+	// Se sube de nivel, para poder llegar a la etiqueta de Precio.
+	var precio = $(this).parent().parent().children(".ingresoPrecio").children().children(".nuevoPrecioProducto");
+	//console.log("precio",precio.val());
+
+	var precioFinal = $(this).val()*precio.attr("precioReal");
+	//console.log("$(this).val()",$(this).val());
+
+	precio.val(precioFinal);
+
+	// Para actualizar el "Stock".
+	// $(this).val() = Es el valor que se tiene en la venta, cambia en la etiqueta.
+	// $(this).attr("stock") = Es lo que se tiene en la base de datos.
+
+
+	if (Number($(this).val()) > Number($(this).attr("stock")))
+	{
+		$(this).val(1);
+		
+		Swal.fire ({
+			title: "La cantidad supera el Stock",
+			text: "Solo hay "+$(this).attr("stock")+"unidades !",				
+			icon: "error",
+			confirmButtonText: "Cerrar"
+		});
+
+	}
 
 })
