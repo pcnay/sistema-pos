@@ -129,6 +129,7 @@ $(".tablaVentas tbody").on("click","button.agregarProducto",function(){
 			// Para que sume el importe y lo despliegue en Total Venta.
 			// Esta función se define en la parte última.
 			sumarTotalPrecios();
+			agregarImpuesto();
 		}
 
 	});
@@ -191,11 +192,14 @@ $(".formularioVenta").on("click","button.quitarProducto",function(){
 	// NO se tienen hijos de la etiqueta donde se estan agregando los productos.
 	if ($(".nuevoProducto").children().length == 0)
 	{
+		$("#nuevoImpuestoVenta").val(0);
 		$("#nuevoTotalVenta").val(0);
+		$("#nuevoTotalVenta").attr("total",0);
 	}
 	else
 	{
 		sumarTotalPrecios(); // para actualizar el saldo, ya que se quita renglones de la venta.
+		agregarImpuesto();
 	}
 })
 
@@ -268,6 +272,7 @@ $(".btnAgregarProducto").click(function(){
 			}
 			// Para actualizar la suma del Total.
 			sumarTotalPrecios();
+			agregarImpuesto();
 
 		}
 		
@@ -338,7 +343,13 @@ $(".formularioVenta").on("change", "input.nuevaCantidadProducto",function(){
 	if (Number($(this).val()) > Number($(this).attr("stock")))
 	{
 		$(this).val(1);
-		
+
+		// Para asignar el valor original cuando no se tenga existencia del producto.
+		var precioFinal = $(this).val()*precio.attr("precioReal");
+		precio.val(precioFinal);
+		sumarTotalPrecios();
+		agregarImpuesto();
+
 		Swal.fire ({
 			title: "La cantidad supera el Stock",
 			text: "Solo hay "+$(this).attr("stock")+"unidades !",				
@@ -349,6 +360,7 @@ $(".formularioVenta").on("change", "input.nuevaCantidadProducto",function(){
 	}
 	// Sumar total precio
 	sumarTotalPrecios();
+	agregarImpuesto();
 
 	
 })
@@ -377,6 +389,34 @@ function sumarTotalPrecios()
 	var sumaTotalPrecio = arraySumaPrecio.reduce(sumaArrayPrecios);
 	//console.log("sumaTotalPrecio",sumaTotalPrecio);
 	$("#nuevoTotalVenta").val(sumaTotalPrecio);
-
+	$("#nuevoTotalVenta").attr("total",sumaTotalPrecio);
 
 }
+
+// Agregar Impuesto.
+function agregarImpuesto()
+{
+	// Esta etiqueta se encuentra en la pantalla de captura de ventas.
+	// 	<input type="number" class="form-control input-lg" min="0" id="nuevoImpuestoVenta" name="nuevoImpuestoVenta" placeholder="0" required>																	
+	//<span class="input-group-addon"><i class="fa fa-percent"></i></span>
+	var impuesto = $("#nuevoImpuestoVenta").val();
+	// Obtener el precio total venta.
+	var precioTotal = $("#nuevoTotalVenta").attr("total");
+
+	var precioImpuesto = Number(precioTotal*impuesto/100);
+	var totalConImpuesto = Number(precioImpuesto)+Number(precioTotal);
+	$("#nuevoTotalVenta").val(totalConImpuesto);
+
+	// se asignan valores a las etiquetas "input" ocultas
+	$("#nuevoPrecioImpuesto").val(precioImpuesto);
+	$("#nuevoPrecioNeto").val(precioTotal);
+
+}
+
+// Cuando cambia el Impuesto.
+// Esta etiqueta se encuentra en la pantalla de captura de ventas.
+// 	<input type="number" class="form-control input-lg" min="0" id="nuevoImpuestoVenta" name="nuevoImpuestoVenta" placeholder="0" required>																	
+
+$("#nuevoImpuestoVenta").change(function(){
+	agregarImpuesto();
+})
