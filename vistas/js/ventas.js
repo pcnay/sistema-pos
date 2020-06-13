@@ -118,7 +118,7 @@ $(".tablaVentas tbody").on("click","button.agregarProducto",function(){
 					'<div class="input-group">'+
 					'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
 					
-					'<input type="number" min="1" class="form-control nuevoPrecioProducto" name="nuevoPrecioProducto" precioReal="'+precio+'" value="'+precio+'" readonly required>'+	
+					'<input type="text" class="form-control nuevoPrecioProducto" name="nuevoPrecioProducto" precioReal="'+precio+'" value="'+precio+'" readonly required>'+	
 
 				'</div> <!-- <div class="input-group"> -->'+
 
@@ -130,6 +130,10 @@ $(".tablaVentas tbody").on("click","button.agregarProducto",function(){
 			// Esta función se define en la parte última.
 			sumarTotalPrecios();
 			agregarImpuesto();
+
+			// Poner formato al precio de los productos.
+			$(".nuevoPrecioProducto").number(true,2);
+
 		}
 
 	});
@@ -248,7 +252,7 @@ $(".btnAgregarProducto").click(function(){
 					'<div class="input-group">'+
 					'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
 					
-					'<input type="number" min="1" class="form-control nuevoPrecioProducto" precioReal="" name="nuevoPrecioProducto" readonly required>'+	
+					'<input type="text" class="form-control nuevoPrecioProducto" precioReal="" name="nuevoPrecioProducto" readonly required>'+	
 
 				'</div> <!-- <div class="input-group"> -->'+
 
@@ -273,6 +277,9 @@ $(".btnAgregarProducto").click(function(){
 			// Para actualizar la suma del Total.
 			sumarTotalPrecios();
 			agregarImpuesto();
+			// Poner formato al precio de los productos.
+			$(".nuevoPrecioProducto").number(true,2);
+
 
 		}
 		
@@ -420,3 +427,6 @@ function agregarImpuesto()
 $("#nuevoImpuestoVenta").change(function(){
 	agregarImpuesto();
 })
+
+// Poner formato al precio total de la venta.
+$("#nuevoTotalVenta").number(true,2);

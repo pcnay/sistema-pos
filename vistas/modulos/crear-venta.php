@@ -141,7 +141,7 @@
 																<td style="width: 50%">
 																	<div class="input-group">
 																		<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-																		<input type="number" class="form-control input-lg" min="0" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" placeholder="000000" readonly required>																	
+																		<input type="text" class="form-control input-lg" min="0" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" placeholder="000000" readonly required>																	
 																	</div>
 																</td>
 															</tr>

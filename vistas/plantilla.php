@@ -90,7 +90,7 @@
 	<script src="vistas/plugins/input-mask/jquery.inputmask.js"></script>
 	<script src="vistas/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 	<script src="vistas/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-
+	<script src="vistas/plugins/jQueryNumber/jquerynumber.min.js"></script>
 
 </head>
 
