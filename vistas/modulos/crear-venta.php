@@ -158,29 +158,24 @@
 
 											<!-- Captura la forma de Pago.-->
 											<div class="form-group row">
-												<div class="col-xs-6" style="padding-right:0px">
+												<div class="col-xs-4" style="padding-right:0px">
 													<div class="input-group">
 														<select class="form-control" id="nuevoMetodoPago" name="nuevoMetodoPago" required>
 															<option value="">Seleccione el método de pago</option>
-															<option value="efectivo">Efectivo</option>
-															<option value="tarjetaCredito">Tarjeta Crédito</option>
-															<option value="tarjetaDebito">Tarjeta Débito</option>
+															<option value="Efectivo">Efectivo</option>
+															<option value="TC">Tarjeta Crédito</option>
+															<option value="TD">Tarjeta Débito</option>
 														</select>
 
 													</div> <!-- <div class="input-group"> -->											
 												
-												</div> <!-- <div class="col-xs-6"> -->
-												
-												<div class="col-xs-6" style="padding-left:0px">
-													<div class="input-group">
-														<input type="text" class="form-control" min="0" id="nuevoCodigoTransaccion" name="nuevoCodigoTransaccion" placeholder="Codigo Transaccion" required>
+												</div> <!-- <div class="col-xs-4"> -->
 
-														<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-		
-													</div> <!-- <div class="input-group"> -->											
-												
-												</div> <!-- <div class="col-xs-6"> -->
-
+												<!-- Para desplegar las opciones de pagos.
+													Esta clase se agregan etiquetas desde JavaScript
+												-->
+												<div class="cajasMetodoPago"></div>
+ 												
 												<br>
 
 											</div> <!-- <div class="form-group row"> -->

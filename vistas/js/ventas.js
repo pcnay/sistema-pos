@@ -430,3 +430,74 @@ $("#nuevoImpuestoVenta").change(function(){
 
 // Poner formato al precio total de la venta.
 $("#nuevoTotalVenta").number(true,2);
+
+/*  ========================== */
+/*  SELECCIONAR METODO DE PAGO */
+/*  ========================== */
+$("#nuevoMetodoPago").change(function(){
+	var metodo = $(this).val(); // obtiene el "id" del Select.
+	if (metodo == "Efectivo")
+	{
+		// <div class="col-xs-4" style="padding-right:0px">
+		$(this).parent().parent().removeClass("col-xs-6");
+
+		//
+		$(this).parent().parent().addClass("col-xs-4");
+		// 	Para llegar a la etiqueta : <div class="cajasMetodoPago"></div>
+		// <div class="input-group"></div>, <div class="col-xs-4" style="padding-right:0px">,<div class="form-group row">.
+		$(this).parent().parent().parent().children(".cajasMetodoPago").html(
+			'<div class="col-xs-4">'+
+				'<div class="input-group">'+
+					'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
+					'<input type="text" class="form-control nuevoValorEfectivo" placeholder="000000" required>'+
+				'</div>'+
+			'</div>'+
+			'<div class="col-xs-4 capturarCambioEfectivo" style="padding-left:0px">'+
+				'<div class="input-group">'+
+					'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
+					'<input type="text" class="form-control nuevoCambioEfectivo" name="nuevoCambioEfectivo" placeholder="000000" readonly required>'+
+				'</div>'+
+			'</div>'
+			);
+
+			// Agregar formato al número a la etiqueta de Efectivo.
+			$('.nuevoValorEfectivo').number(true,2);
+			$('.nuevoCambioEfectivo').number(true,2);
+	}
+	else  // if (metodo == "Efectivo")
+	{
+		// Cuando es con pago de Tarjeta Credito ó Débito.
+		// <div class="col-xs-4" style="padding-right:0px">
+		$(this).parent().parent().removeClass('col-xs-4');
+		$(this).parent().parent().addClass("col-xs-6");
+		$(this).parent().parent().parent().children('.cajasMetodoPago').html(
+			'<div class="col-xs-6" style="padding-left:0px">'+
+				'<div class="input-group">'+
+					'<input type="text" class="form-control" min="0" id="nuevoCodigoTransaccion" name="nuevoCodigoTransaccion" placeholder="Codigo Transaccion" required>'+
+					'<span class="input-group-addon"><i class="fa fa-lock"></i></span>'+
+				'</div> '+		
+			'</div>');
+
+	} // if (metodo == "Efectivo")
+
+
+})
+
+// Cambio cuando se paga en efectivo.
+// Cuando cambio el contenido de la etiqueta "input", es decir cuando el usuario teclea lo que esta pagando el cliente.
+$(".formularioVenta").on("change","input.nuevoValorEfectivo",function(){
+	var efectivo = $(this).val();
+	var cambio = Number(efectivo)-Number($('#nuevoTotalVenta').val());
+	// Se sale a dos niveles.
+	/*
+	'<div class="col-xs-4">'+
+	'<div class="input-group">'+
+		'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
+		'<input type="text" class="form-control nuevoValorEfectivo" placeholder="000000" 		
+	*/
+	// Se parte de la etiqueta "nuevoValorEfectivo"
+	var nuevoCambioEfectivo = $(this).parent().parent().parent().children('.capturarCambioEfectivo').children().children('.nuevoCambioEfectivo');
+
+	nuevoCambioEfectivo.val(cambio);
+	
+})
