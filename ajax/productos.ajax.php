@@ -70,7 +70,7 @@
 		$editarProducto->ajaxEditarProducto();
 	}
 	
-	// Traer el Producto
+	// Traer el Producto, para dispositivos mobiles.
 	if (isset($_POST["traerProductos"]))
 	{
 		$traerProductos = new AjaxProductos();

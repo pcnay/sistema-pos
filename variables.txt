@@ -1,0 +1,8 @@
+codigo = $_POST["nuevaVenta"]
+id_cliente = $_POST["seleccionarCliente"];
+id_vendedor = $_POST["idVendedor"];
+productos = $_POST["listaProductos"]
+impuesto = $_POST["nuevoPrecioImpuesto"]
+neto = $_POST["nuevoPrecioNeto"]
+total = $_POST["nuevoTotalVenta"]
+metodo_pago = $_POST["nuevoMetodoPago"]	

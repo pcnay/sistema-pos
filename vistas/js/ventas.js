@@ -58,6 +58,7 @@ $('.tablaVentas').DataTable({
 $(".tablaVentas tbody").on("click","button.agregarProducto",function(){
 	var idProducto = $(this).attr("idProducto");
 	//console.log("idProducto",idProducto);
+	// Cuando se oprime el boton de "Agregar" lado derecho, se desactiva.
 	$(this).removeClass("btn-primary agregarProducto");
 	$(this).addClass("btn-default");
 
@@ -97,20 +98,23 @@ $(".tablaVentas tbody").on("click","button.agregarProducto",function(){
 			}
 			// Se agrega el renglon de las ventas, 
 			// Se agrega una clase "quitarProducto", se coloca un "idProducto" para utilizarlo al eliminar el registro de una venta.
+			// Se agrega la clase : "nuevaDescripcionProducto", para cuando se guarda en "Json"
+
 			$(".nuevoProducto").append('<div class="row" style="padding:5px 15px">'+			
 				'<div class="col-xs-6" style="padding-right:0px">'+
 				'<div class="input-group">'+
 					'<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarProducto" idProducto = "'+idProducto+'"><i class="fa fa-times"></i></button></span>'+
 
-				'<input type="text" class="form-control agregarProducto" name="agregarProducto" value="'+descripcion+'"  readonly required>'+
+				'<input type="text" class="form-control nuevaDescripcionProducto" idProducto="'+idProducto+'" name="agregarProducto" value="'+descripcion+'"  readonly required>'+
 
 				'</div> <!-- <div class="input-group"> -->'+
 
 				'</div> <!-- <div class="col-xs-6" style="padding-right:0px"> -->'+
 
 				'<!-- Se desplaza a 3 columnas-->'+
+				'<!-- Cantidad Del Producto-->'+
 				'<div class ="col-xs-3">'+
-				'<input type="number" class="form-control nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value = "1" stock="'+stock+'" required>'+
+				'<input type="number" class="form-control nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value = "1" stock="'+stock+'" nuevoStock="'+Number(stock-1)+'" required>'+
 
 				'</div> <!-- <div class ="col-xs-3"> -->'+
 
@@ -130,6 +134,9 @@ $(".tablaVentas tbody").on("click","button.agregarProducto",function(){
 			// Esta función se define en la parte última.
 			sumarTotalPrecios();
 			agregarImpuesto();
+
+			// Se agrupan las ventas en formato JSon
+			listarProductos();
 
 			// Poner formato al precio de los productos.
 			$(".nuevoPrecioProducto").number(true,2);
@@ -158,7 +165,6 @@ $(".tablaVentas").on("draw.dt", function(){
 
 
 })
-
 
 
 // Quitar productos de los renglones cuando se esta realizando la venta, y recuperar el boton.
@@ -204,6 +210,9 @@ $(".formularioVenta").on("click","button.quitarProducto",function(){
 	{
 		sumarTotalPrecios(); // para actualizar el saldo, ya que se quita renglones de la venta.
 		agregarImpuesto();
+		// Se agrupan las ventas en formato JSon
+		listarProductos();
+
 	}
 })
 
@@ -228,13 +237,13 @@ $(".btnAgregarProducto").click(function(){
 		processData:false,
 		dataType:"json",
 		success:function(respuesta){
-			// console.log ("respuesta",respuesta);
+			//console.log ("respuesta",respuesta);
 			$(".nuevoProducto").append('<div class="row" style="padding:5px 15px">'+			
 				'<div class="col-xs-6" style="padding-right:0px">'+
 				'<div class="input-group">'+
 					'<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarProducto" idProducto ><i class="fa fa-times"></i></button></span>'+
 
-				'<select class="form-control nuevaDescripcionProducto" id="producto'+numProducto+'" idProducto name="nuevaDescripcionProducto" required>'+
+				'<select class="form-control nuevaDescripcionProducto" idProducto name="nuevaDescripcionProducto" required>'+
 				'<option>Seleccionar el producto</option>'+
 				'</select>'+ 
 
@@ -244,7 +253,7 @@ $(".btnAgregarProducto").click(function(){
 
 				'<!-- Se desplaza a 3 columnas-->'+
 				'<div class ="col-xs-3 ingresoCantidad">'+
-				'<input type="number" class="form-control nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value = "1" stock required>'+
+				'<input type="number" class="form-control nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value = "1" stock nuevoStock="" required>'+
 
 				'</div> <!-- <div class ="col-xs-3"> -->'+
 
@@ -259,6 +268,7 @@ $(".btnAgregarProducto").click(function(){
 			'</div> <!-- <div class="col-xs-3" style="padding-left:0px"> -->'+ 
 			
 			'</div>');
+			
 			// Agregar los productos al SELECT.
 			respuesta.forEach(funcionForEach);
 			function funcionForEach(item,index)
@@ -269,7 +279,7 @@ $(".btnAgregarProducto").click(function(){
 					//$(".nuevaDescripcionProducto").append(
 						// Es modificacion se realiza para evitar que se dupliquen los elementos del "select"
 						$("#producto"+numProducto).append(
-						'<option idProducto="'+item.id+'" value="'+item.descripcion+'">'+item.descripcion+'</option>'
+						'<option idProducto="'+items.id+'" value="'+item.descripcion+'">'+item.descripcion+'</option>'
 						)
 				}
 				
@@ -277,6 +287,7 @@ $(".btnAgregarProducto").click(function(){
 			// Para actualizar la suma del Total.
 			sumarTotalPrecios();
 			agregarImpuesto();
+
 			// Poner formato al precio de los productos.
 			$(".nuevoPrecioProducto").number(true,2);
 
@@ -321,8 +332,13 @@ $(".formularioVenta").on("change","select.nuevaDescripcionProducto",function(){
 			//console.log("respuesta",respuesta);
 			// Se asignara a las etiquetas de "Existencia" y "Precio el valor obtenido de la sección del Ajax."
 			$(nuevaCantidadProducto).attr("stock",respuesta["stock"]); // Asignando valor
+			$(nuevaCantidadProducto).attr("nuevoStock",Number(respuesta["stock"])-1); // Asignando valor
 			$(nuevoPrecioProducto).val(respuesta["precio_venta"]); // Asignando valor sin repetir a la etiqueta de la pantalla de ventas.
 			$(nuevoPrecioProducto).attr("precioReal",respuesta["precio_venta"]); // Se asigna el precio Real, que no se modifique.
+
+			// Agrupar productos en Json.
+			listarProductos();
+
 			
 		}
 	})
@@ -341,6 +357,10 @@ $(".formularioVenta").on("change", "input.nuevaCantidadProducto",function(){
 	//console.log("$(this).val()",$(this).val());
 
 	precio.val(precioFinal);
+	var nuevoStock = Number($(this).attr("stock")) - $(this).val();
+
+	// Se asigna el nuevo stock en la clase : "nuevoStock"
+	$(this).attr("nuevoStock",nuevoStock);
 
 	// Para actualizar el "Stock".
 	// $(this).val() = Es el valor que se tiene en la venta, cambia en la etiqueta.
@@ -356,6 +376,9 @@ $(".formularioVenta").on("change", "input.nuevaCantidadProducto",function(){
 		precio.val(precioFinal);
 		sumarTotalPrecios();
 		agregarImpuesto();
+		// Se agrupan las ventas en formato JSon
+		listarProductos();
+
 
 		Swal.fire ({
 			title: "La cantidad supera el Stock",
@@ -368,7 +391,8 @@ $(".formularioVenta").on("change", "input.nuevaCantidadProducto",function(){
 	// Sumar total precio
 	sumarTotalPrecios();
 	agregarImpuesto();
-
+	// Se agrupan las ventas en formato JSon
+	listarProductos();
 	
 })
 
@@ -463,6 +487,9 @@ $("#nuevoMetodoPago").change(function(){
 			// Agregar formato al número a la etiqueta de Efectivo.
 			$('.nuevoValorEfectivo').number(true,2);
 			$('.nuevoCambioEfectivo').number(true,2);
+			
+			// Para obtener el método de pago, efectivo.
+			listarMetodos();
 	}
 	else  // if (metodo == "Efectivo")
 	{
@@ -501,3 +528,81 @@ $(".formularioVenta").on("change","input.nuevoValorEfectivo",function(){
 	nuevoCambioEfectivo.val(cambio);
 	
 })
+
+
+// Cambio Transacción , Modificar esta parte del código.
+
+
+
+$(".formularioVenta").on("change","input.nuevoValorEfectivo",function(){
+	var efectivo = $(this).val();
+	var cambio = Number(efectivo)-Number($('#nuevoTotalVenta').val());
+	// Se sale a dos niveles.
+	/*
+	'<div class="col-xs-4">'+
+	'<div class="input-group">'+
+		'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
+		'<input type="text" class="form-control nuevoValorEfectivo" placeholder="000000" 		
+	*/
+	// Se parte de la etiqueta "nuevoValorEfectivo"
+	var nuevoCambioEfectivo = $(this).parent().parent().parent().children('.capturarCambioEfectivo').children().children('.nuevoCambioEfectivo');
+
+	nuevoCambioEfectivo.val(cambio);
+	
+})
+
+
+
+
+
+
+//=================================================================================
+// Agrupar todos los productos de la venta , en un objeto Json.
+// ================================================================================
+function listarProductos()
+{
+	var listarProductos = [];
+	//var id = 
+	// Contiene todas los input que se generan cuando se realiza la venta.
+	var descripcion = $(".nuevaDescripcionProducto"); 
+	var cantidad = $(".nuevaCantidadProducto");
+	var precio = $(".nuevoPrecioProducto");
+	//var total  =  
+	for (var i=0;i<descripcion.length;i++)
+	{
+		listaProductos.push({"id":$(descripcion[i]).attr("idProducto"),
+													"descripcion":$(descripcion[i]).val(),
+													"cantidad":$(cantidad[i]).val(),
+													"stock":$(cantidad[i]).attr("nuevoStock"),
+													"precio":$(precio[i]).attr("precioReal"),
+													"total":$(precio[i]).val()
+	});
+	}
+	// Mostrando el contenido del JSon.
+	// Se convierte a formato JSon.
+	//console.log("listarProductos",JSON.stringify(listarProductos));
+
+	/* <!-- Para llenar los datos para los productos a guardar en la base de datos. -->
+		<input type="hidden" id="listaProductos" name="listaProductos">
+	*/
+	// Se llena la etiqueta desde JavaScript.
+	$("#listaProductos").val(JSON.stringify(listaProductos));
+
+}
+
+// Listar Métodos de Pago
+function listarMetodos()
+{
+	var listaMetodos = "";
+	if ($("#nuevoMetodoPago").val() == "Efectivo")
+	{
+		$("#listaMetodoPago").val("Efectivo");
+	}
+	else
+	{
+		// Se graba la forma de pago con Tarjeta Crédito ó Débito mas el código de transacción.
+		$("#listaMetodoPago").val($("#nuevoMetodoPago").val()+"-"+$("#nuevoCodigoTransaccion").val());
+	}
+
+
+}

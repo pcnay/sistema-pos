@@ -107,6 +107,9 @@
 
 											</div> <!-- <div class= "form-group row nuevoProducto"> -->
 
+											<!-- Para llenar los datos para los productos a guardar en la base de datos. -->
+											<input type="hidden" id="listaProductos" name="listaProductos">
+											
 											<!-- Boton para Agregar Producto, solo se habilitara cuando sean pantallas pequeñas, cuando son grandes desaparece, ya que se agregan de la pantalla Derecha.
 											Esta clase "btnAgregarProducto" se utiliza para dispositivos mobiles.
 											-->
@@ -176,6 +179,9 @@
 												-->
 												<div class="cajasMetodoPago"></div>
  												
+												<!-- Este valor se manda atraves del "form" para poder usarlo desde JavaScript y poder asignar valores. -->
+												<input type="hidden" name="listaMetodoPago" id="listaMetodoPago">
+												
 												<br>
 
 											</div> <!-- <div class="form-group row"> -->
