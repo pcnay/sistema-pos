@@ -4,5 +4,8 @@ id_vendedor = $_POST["idVendedor"];
 productos = $_POST["listaProductos"]
 impuesto = $_POST["nuevoPrecioImpuesto"]
 neto = $_POST["nuevoPrecioNeto"]
-total = $_POST["nuevoTotalVenta"]
-metodo_pago = $_POST["nuevoMetodoPago"]	
+// total = $_POST["nuevoTotalVenta"]
+total = $_POST["totalVenta"]
+//metodo_pago = $_POST["nuevoMetodoPago"]	
+metodo_pago = $_POST["listaMetodoPago"]
+	

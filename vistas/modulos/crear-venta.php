@@ -144,7 +144,9 @@
 																<td style="width: 50%">
 																	<div class="input-group">
 																		<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-																		<input type="text" class="form-control input-lg" min="0" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" placeholder="000000" readonly required>																	
+																		<input type="text" class="form-control input-lg" min="0" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" placeholder="000000" readonly required>	
+																		<!-- -Se agrega este campo oculto para poder grabarlo en la tablas -->
+																		<input type="hidden" name="totalVenta" id="totalVenta">															
 																	</div>
 																</td>
 															</tr>
@@ -197,6 +199,14 @@
 							</div> <!-- <div class="box-footer"> -->
 
 						</form>
+
+						<!-- Se utiliza para guardar la venta en la tabla de Ventas  -->
+						<?php 
+							$guardarVenta = new ControladorVentas();
+							$guardarVenta->ctrCrearVenta();
+							
+						?>
+
 
 				</div> <!-- <div class = "col-lg-5 col-xs-12"> -->
 

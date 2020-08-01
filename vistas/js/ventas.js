@@ -204,6 +204,7 @@ $(".formularioVenta").on("click","button.quitarProducto",function(){
 	{
 		$("#nuevoImpuestoVenta").val(0);
 		$("#nuevoTotalVenta").val(0);
+		$("#totalVenta").val(0);
 		$("#nuevoTotalVenta").attr("total",0);
 	}
 	else
@@ -420,6 +421,7 @@ function sumarTotalPrecios()
 	var sumaTotalPrecio = arraySumaPrecio.reduce(sumaArrayPrecios);
 	//console.log("sumaTotalPrecio",sumaTotalPrecio);
 	$("#nuevoTotalVenta").val(sumaTotalPrecio);
+	$("#totalVenta").val(sumaTotalPrecio);
 	$("#nuevoTotalVenta").attr("total",sumaTotalPrecio);
 
 }
@@ -437,6 +439,7 @@ function agregarImpuesto()
 	var precioImpuesto = Number(precioTotal*impuesto/100);
 	var totalConImpuesto = Number(precioImpuesto)+Number(precioTotal);
 	$("#nuevoTotalVenta").val(totalConImpuesto);
+	$("#totalVenta").val(totalConImpuesto);
 
 	// se asignan valores a las etiquetas "input" ocultas
 	$("#nuevoPrecioImpuesto").val(precioImpuesto);
@@ -473,20 +476,20 @@ $("#nuevoMetodoPago").change(function(){
 			'<div class="col-xs-4">'+
 				'<div class="input-group">'+
 					'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
-					'<input type="text" class="form-control nuevoValorEfectivo" placeholder="000000" required>'+
+					'<input type="text" class="form-control" id="nuevoValorEfectivo" placeholder="000000" required>'+
 				'</div>'+
 			'</div>'+
-			'<div class="col-xs-4 capturarCambioEfectivo" style="padding-left:0px">'+
+			'<div class="col-xs-4" id="capturarCambioEfectivo" style="padding-left:0px">'+
 				'<div class="input-group">'+
 					'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
-					'<input type="text" class="form-control nuevoCambioEfectivo" name="nuevoCambioEfectivo" placeholder="000000" readonly required>'+
+					'<input type="text" class="form-control" id="nuevoCambioEfectivo" name="nuevoCambioEfectivo" placeholder="000000" readonly required>'+
 				'</div>'+
 			'</div>'
 			);
 
 			// Agregar formato al número a la etiqueta de Efectivo.
-			$('.nuevoValorEfectivo').number(true,2);
-			$('.nuevoCambioEfectivo').number(true,2);
+			$('#nuevoValorEfectivo').number(true,2);
+			$('#nuevoCambioEfectivo').number(true,2);
 			
 			// Para obtener el método de pago, efectivo.
 			listarMetodos();
@@ -512,7 +515,7 @@ $("#nuevoMetodoPago").change(function(){
 
 // Cambio cuando se paga en efectivo.
 // Cuando cambio el contenido de la etiqueta "input", es decir cuando el usuario teclea lo que esta pagando el cliente.
-$(".formularioVenta").on("change","input.nuevoValorEfectivo",function(){
+$(".formularioVenta").on("change","input#nuevoValorEfectivo",function(){
 	var efectivo = $(this).val();
 	var cambio = Number(efectivo)-Number($('#nuevoTotalVenta').val());
 	// Se sale a dos niveles.
@@ -523,45 +526,26 @@ $(".formularioVenta").on("change","input.nuevoValorEfectivo",function(){
 		'<input type="text" class="form-control nuevoValorEfectivo" placeholder="000000" 		
 	*/
 	// Se parte de la etiqueta "nuevoValorEfectivo"
-	var nuevoCambioEfectivo = $(this).parent().parent().parent().children('.capturarCambioEfectivo').children().children('.nuevoCambioEfectivo');
+	var nuevoCambioEfectivo = $(this).parent().parent().parent().children('#capturarCambioEfectivo').children().children('.nuevoCambioEfectivo');
 
 	nuevoCambioEfectivo.val(cambio);
 	
 })
 
 
-// Cambio Transacción , Modificar esta parte del código.
-
-
-
-$(".formularioVenta").on("change","input.nuevoValorEfectivo",function(){
-	var efectivo = $(this).val();
-	var cambio = Number(efectivo)-Number($('#nuevoTotalVenta').val());
-	// Se sale a dos niveles.
-	/*
-	'<div class="col-xs-4">'+
-	'<div class="input-group">'+
-		'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
-		'<input type="text" class="form-control nuevoValorEfectivo" placeholder="000000" 		
-	*/
-	// Se parte de la etiqueta "nuevoValorEfectivo"
-	var nuevoCambioEfectivo = $(this).parent().parent().parent().children('.capturarCambioEfectivo').children().children('.nuevoCambioEfectivo');
-
-	nuevoCambioEfectivo.val(cambio);
+// Cambio Transacción , cuando en la etiqueta de "nuevoCodigoTransaccion" sufre un cambio
+$(".formularioVenta").on("change","input#nuevoCodigoTransaccion",function(){
+	// Listar método en la entrada.
+	listarMetodos();
 	
 })
-
-
-
-
-
 
 //=================================================================================
 // Agrupar todos los productos de la venta , en un objeto Json.
 // ================================================================================
 function listarProductos()
 {
-	var listarProductos = [];
+	var listaProductos = [];
 	//var id = 
 	// Contiene todas los input que se generan cuando se realiza la venta.
 	var descripcion = $(".nuevaDescripcionProducto"); 
