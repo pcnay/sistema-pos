@@ -28,7 +28,7 @@
 
         </div>
  
-        <div class="box-body">				
+        <div class="box-body">
 
 					<!-- Es la tabla donde se mostrara los datos iniciales para la Venta. -->
           <table class="table table-bordered table-striped dt-responsive tablas">
@@ -41,62 +41,66 @@
 								<th>Forma De Pago</th>
 								<th>Neto</th>
 								<th>Total</th>
-                <th>Acciones <th>
+                <th>Acciones </th>
 								
               </tr>
-            </thead>
-
+            </thead
+						>
             <!-- Cuerpo de la Tabla -->
             <tbody>
 							<!-- Se va ha utilizar el quemado de datos en el HTML, dado el volumen de los datos, pero se puede arreglar para que se utilize el "TDataTable"-->
+							<tr>
+								<td>1</td>
+								<td>93382938494</td>
+								<td>Juan Villegas</td>
+								<td>Julio Gomez</td>
+								<td>TC-2123123123 </td>
+								<td>$1,000</td>
+								<td>$1,190</td>								
+							
+									<td>
+										<div class="btn-group">
+											<!-- Imprimir la transacción --> 
+											<button class="btn btn-info"><i class="fa fa-print"></i></button>
+											<button class="btn btn-danger"><i class="fa fa-times"></i></button>
+										</div>
+									</td>
+							</tr>						
 
 							<?php 
-								// Se obtendran las ventas desde la tabla "t_Ventas"
+							/*
+								// Para mostrar los datos en pantalla.
 								$item = null;
 								$valor = null;
-								$respuesta = ControladorVentas::ctrMostrarVentas($item, $valor);
-								// var_dump($repuesta);
-
-								// Mostrando los datos en pantalla, se esta quemando enel HTML, no se utiliza DataTable.
-
-								foreach ($respuesta as $key => $value)
+								$clientes = ControladorClientes::ctrMostrarClientes($item,$valor);
+								// var_dump ($clientes);
+								foreach ($clientes as $key => $value)
 								{
-									echo '<tr>
-										<td>'.($key+1).'</td>
-										<td>'.$value["codigo"].'</td>';
-
-										// Obteniendo el nombre del cliente, ya que en la tabla de "t_Productos" solo tiene el ID
-										$itemCliente = "id";
-										$valorCliente = $value["id_cliente"];
-										$respuestaCliente = ControladorClientes::ctrMostrarClientes($itemCliente,$valorCliente);
-
-									echo '<td>'.$respuestaCliente["nombre"].'</td>';
-										
-									// Obteniendo el nombre del vendedor ya que en la tabla de "t_Productos" solo tiene el "id_vendedor"
-
-									$itemUsuario = "id";
-									$valorUsuario = $value["id_vendedor"];
-									$respuestaUsuario = ControladorUsuarios::ctrMostrarUsuarios($itemUsuario,$valorUsuario);
-
-
-									echo '<td>'.$respuestaUsuario["nombre"].'</td>';
-
-									echo '<td>'.$value["metodo_pago"].'</td>
-										<td>'.number_format($value["neto"],2).'</td>
-										<td>'.number_format($value["total"],2).'</td>
-										<td>'.$value["fecha"].'</td>
+									echo ' 
+										<tr>
+											<td>'.($key+1).'</td>
+											<td>'.$value["nombre"].'</td>
+											<td>'.$value["documento"].'</td>
+											<td>'.$value["email"].'</td>
+											<td>'.$value["telefono"].'</td>
+											<td>'.$value["direccion"].'</td>
+											<td>'.$value["fecha_nacimiento"].'</td>
+											<td>'.$value["compras"].'</td>
+											<td>0000-00-00 00:00:00</td>
+											<td>'.$value["fecha"].'</td>
+			
 											<td>
 												<div class="btn-group">
-													<!-- Imprimir la transacción --> 
-													<button class="btn btn-info"><i class="fa fa-print"></i></button>
-													<button class="btn btn-danger"><i class="fa fa-times"></i></button>
+													<button class="btn btn-warning btnEditarCliente" data-toggle="modal" data-target="#modalEditarCliente" idCliente="'.$value["id"].'"><i class="fa fa-pencil"></i></button>
+													<button class="btn btn-danger btnEliminarCliente" idCliente="'.$value["id"].'"><i class="fa fa-times"></i></button>
 												</div>
 											</td>
-								</tr>	';
+										</tr>	';
 								}
+								*/
 
 							?>
-
+             
             </tbody>
 
           </table> <!-- <table class="table table-bordered tabe-striped"> -->

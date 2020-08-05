@@ -479,10 +479,10 @@ $("#nuevoMetodoPago").change(function(){
 					'<input type="text" class="form-control" id="nuevoValorEfectivo" placeholder="000000" required>'+
 				'</div>'+
 			'</div>'+
-			'<div class="col-xs-4" id="capturarCambioEfectivo" style="padding-left:0px">'+
+			'<div class="col-xs-4 capturarCambioEfectivo" style="padding-left:0px">'+
 				'<div class="input-group">'+
 					'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
-					'<input type="text" class="form-control" id="nuevoCambioEfectivo" name="nuevoCambioEfectivo" placeholder="000000" readonly required>'+
+					'<input type="text" class="form-control nuevoCambioEfectivo"  name="nuevoCambioEfectivo" placeholder="000000" readonly required>'+
 				'</div>'+
 			'</div>'
 			);
@@ -516,8 +516,11 @@ $("#nuevoMetodoPago").change(function(){
 // Cambio cuando se paga en efectivo.
 // Cuando cambio el contenido de la etiqueta "input", es decir cuando el usuario teclea lo que esta pagando el cliente.
 $(".formularioVenta").on("change","input#nuevoValorEfectivo",function(){
+	//console.log("Cambio de valor ");
 	var efectivo = $(this).val();
 	var cambio = Number(efectivo)-Number($('#nuevoTotalVenta').val());
+
+	//console.log(cambio);
 	// Se sale a dos niveles.
 	/*
 	'<div class="col-xs-4">'+
@@ -526,9 +529,11 @@ $(".formularioVenta").on("change","input#nuevoValorEfectivo",function(){
 		'<input type="text" class="form-control nuevoValorEfectivo" placeholder="000000" 		
 	*/
 	// Se parte de la etiqueta "nuevoValorEfectivo"
-	var nuevoCambioEfectivo = $(this).parent().parent().parent().children('#capturarCambioEfectivo').children().children('.nuevoCambioEfectivo');
+	var nuevoCambioEfectivo = $(this).parent().parent().parent().children('.capturarCambioEfectivo').children().children('.nuevoCambioEfectivo');
 
 	nuevoCambioEfectivo.val(cambio);
+	console.log(nuevoCambioEfectivo.val());
+	//console.log("arraySumaPrecio",arraySumaPrecio);
 	
 })
 

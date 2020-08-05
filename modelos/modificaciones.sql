@@ -8,12 +8,22 @@
 */
 
 USE pos;
+	
+	
+	/*
+	
+	/* Para agregar una columna a la tabla t_Clientes . 
+	ALTER TABLE t_Clientes ADD ultima_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
+	*/
+
+
 /*
 	Para resetar el ID de categorias se inicie desde 1
 	ALTER TABLE t_Categorias AUTO_INCREMENT = 1;
 
 */
 
+/*
 CREATE TABLE t_Ventas
 (
   id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,

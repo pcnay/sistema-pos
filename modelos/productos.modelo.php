@@ -22,8 +22,7 @@
 			$stmt=null;
 		}
 
-		// Guardar el Producto.
-
+		// Guardar el Producto, en la tabla "t_Productos"
 		static public function mdlIngresarProducto($tabla,$datos)
 		{
 			$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(id_categoria,codigo, descripcion,imagen,stock,precio_compra,precio_venta) VALUES (:id_categoria,:codigo,:descripcion,:imagen,:stock,:precio_compra,:precio_venta)");

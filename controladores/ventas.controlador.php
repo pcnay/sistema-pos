@@ -39,7 +39,7 @@
 
 					//var_dump($traerProducto);
 					// $traerProducto["ventas"], se refiere a la cantidad de veces que se ha vendido el producto.
-					var_dump($traerProducto["ventas"]);
+					//var_dump($traerProducto["ventas"]);
 					$item1a = "ventas";
 
 					// Actualiza el valor de las veces que se ha vendido el producto
@@ -68,10 +68,18 @@
 				// Ahora solo mostrar el campo de "compras"
 				//var_dump ($traerCliente["compras"]);
 				$item1 = "compras";
-
 				// Suma todas las cantidades de los productos comprados.
 				$valor1 = array_sum($totalProductosComprados) + $traerCliente["compras"];
 				$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes,$item1,$valor1,$valor);
+
+				$item1b = "ultima_compra";
+				
+				$fecha = date('Y-m-d');
+				$hora = date('H:i:s');
+				$fechaActual = $fecha.' '.$hora;
+
+				$valor1b = $fechaActual; 
+				$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes,$item1b,$valor1b,$valor);
 
 				// Ahora se guardara la Compra en la tabla de "t_Ventas"
 				$tabla = "t_Ventas";

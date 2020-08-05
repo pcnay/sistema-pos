@@ -10,11 +10,12 @@
 				$stmt = Conexion::conectar()->prepare ("SELECT * FROM $tabla WHERE $item = :$item ORDER BY fecha DESC");
 				$stmt->bindParam(":".$item,$valor,PDO::PARAM_STR);
 				$stmt->execute();
-				return $stmt->fetcha();				
+				return $stmt->fetch();				
 			}
 			else
 			{
-				$stmt = Conexion::conectar()->prepare ("SELECT * FROM $tabla ORDER BY fecha DESC");
+				// Para que tome el último número de factura de la tabla.
+				$stmt = Conexion::conectar()->prepare ("SELECT * FROM $tabla ORDER BY fecha ASC");
 				$stmt->execute();
 				return $stmt->fetchAll();
 			}

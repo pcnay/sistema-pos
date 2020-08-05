@@ -48,7 +48,8 @@
 														$item = null;
 														$valor = null;
 														$ventas = ControladorVentas::ctrMostrarVentas($item,$valor);
-
+														//var_dump($ventas);
+														
 														// Para obtener el número de factura y agregar 1 
 														if (!$ventas)
 														{
@@ -58,11 +59,11 @@
 														{
 															foreach ($ventas as $key => $value)
 															{
-
+																
 															}
-															$codigo = $value["codigo"]+1;
-															echo '<input type="text" class="form-control" id="nuevaVenta" name ="nuevaVenta" value = "'.$codigo.'" readonly>';
 
+															$codigo = $value["codigo"]+1;
+															echo '<input type="text" class="form-control" id="nuevaVenta" name ="nuevaVenta" value = "'.$codigo.'" readonly>';	
 														}
 													?>
 													
