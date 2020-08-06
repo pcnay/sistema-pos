@@ -28,6 +28,13 @@
 						<form role="form" method="post" class="formularioVenta">
 
 							<div class="box-body">
+								<?php
+									$item = "id";
+									$valor = $_GET["idVenta"];								
+									$venta = ControladorVentas::ctrMostrarVentas($item,$valor);
+									var_dump($venta);
+
+								?>
 
 										<div class="box">
 											<!-- Es la captura del vendedor -->
@@ -45,8 +52,6 @@
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-key"></i></span>
 													<?php 
-														$item = null;
-														$valor = null;
 														$ventas = ControladorVentas::ctrMostrarVentas($item,$valor);
 														//var_dump($ventas);
 														

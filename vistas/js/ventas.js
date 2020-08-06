@@ -593,5 +593,10 @@ function listarMetodos()
 		$("#listaMetodoPago").val($("#nuevoMetodoPago").val()+"-"+$("#nuevoCodigoTransaccion").val());
 	}
 
+}
 
+// Se define el boton para editar Venta.
+$(".btnEditarVenta")
+{
+	
 }
