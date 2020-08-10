@@ -4,11 +4,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Crear Ventas        
+        Editar Ventas        
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Crear Ventas</li>
+        <li class="active">Editar Ventas</li>
       </ol>
     </section>
 
@@ -30,9 +30,23 @@
 							<div class="box-body">
 								<?php
 									$item = "id";
-									$valor = $_GET["idVenta"];								
+									$valor = $_GET["idVenta"];	// Esta variable viene por window.location = "index.php?ruta=editar-venta&idVenta="+idVenta; de "ventas.js"							
 									$venta = ControladorVentas::ctrMostrarVentas($item,$valor);
-									var_dump($venta);
+									//var_dump($venta["codigo"]);
+
+									// Obteniendo los datos del vendedor.
+									$itemUsuario = "id";
+									$valorUsuario = $venta["id_vendedor"];
+									$vendedor = ControladorUsuarios::ctrMostrarUsuarios($itemUsuario,$valorUsuario);
+
+									
+
+									// Obteniendo los datos del cliente
+									$itemCliente = "id";
+									$valorCliente = $venta["id_cliente"];
+									$cliente = ControladorClientes::ctrMostrarClientes($itemCliente,$valorCliente);
+
+									$porcentajeImpuesto = ($venta["impuesto"]*100)/$venta["neto"];
 
 								?>
 
@@ -41,8 +55,8 @@
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-user"></i></span>
-													<input type="text" class="form-control" id="nuevoVendedor" name ="nuevoVendedor" value = "<?php echo $_SESSION["nombre"]; ?>" readonly >						
-													<input type="hidden" name="idVendedor" value = "<?php echo $_SESSION["id"]; ?>" >						
+													<input type="text" class="form-control" id="nuevoVendedor" name ="nuevoVendedor" value = "<?php echo $vendedor["nombre"]; ?>" readonly >						
+													<input type="hidden" name="idVendedor" id = "idVendedor" value = "<?php echo $vendedor["id"]; ?>" >						
 												</div>
 
 											</div> <!-- <div class="form-group">-->	
@@ -51,28 +65,7 @@
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-key"></i></span>
-													<?php 
-														$ventas = ControladorVentas::ctrMostrarVentas($item,$valor);
-														//var_dump($ventas);
-														
-														// Para obtener el número de factura y agregar 1 
-														if (!$ventas)
-														{
-															echo '<input type="text" class="form-control" id="nuevaVenta" name ="nuevaVenta" value = "10000" readonly>';
-														}
-														else
-														{
-															foreach ($ventas as $key => $value)
-															{
-																//var_dump($value["codigo"]);
-																// Se deja en blanco para recorrerlo 
-															}
-
-															$codigo = $value["codigo"]+1;
-															//print_r($codigo);
-															echo '<input type="text" class="form-control" id="nuevaVenta" name ="nuevaVenta" value = "'.$codigo.'" readonly>';	
-														}
-													?>
+													<input type="text" class="form-control" id="editarVenta" name ="editarVenta" value = "<?php echo $venta["codigo"]; ?>" readonly>	
 													
 												</div>
 
@@ -85,7 +78,7 @@
 
 													<!-- Se obtendra el clientes desde la base de datos y es asignado a una etiqueta Select. -->
 													<select class="form-control" id="seleccionarCliente" name ="seleccionarCliente" required>
-														<option value="">Seleccionar Cliente</option>
+														<option value="<?php echo $cliente["id"]; ?>"><?php echo $cliente["nombre"]; ?></option>
 														<?php
 															// Obtener los clientes desde la base de datos utilizando 
 															$item = null;
@@ -112,7 +105,50 @@
 												Para esta pantalla se utilizara Javascript 
 											-->										
 											<div class= "form-group row nuevoProducto">
+												<?php
+													$listaProducto = json_decode($venta["productos"],true);
+													//var_dump($listaProducto);
+													foreach ($listaProducto as $key => $value)
+													{
+														$item = "id";
+														$valor = $value["id"];
+														$respuesta = ControladorProductos::ctrMostrarProductos($item,$valor);
+														$stockAntiguo = $respuesta["stock"]+$value["cantidad"];
 
+
+														echo '<div class="row" style="padding:5px 15px">			
+														<div class="col-xs-6" style="padding-right:0px">
+														<div class="input-group">
+														<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarProducto" idProducto = "'.$value["id"].'"><i class="fa fa-times"></i></button></span>
+										
+														<input type="text" class="form-control nuevaDescripcionProducto" idProducto="'.$value["id"].'" name="agregarProducto" value="'.$value["descripcion"].'"  readonly required>
+										
+														</div> <!-- <div class="input-group"> -->
+										
+														</div> <!-- <div class="col-xs-6" style="padding-right:0px"> -->
+										
+														<!-- Se desplaza a 3 columnas-->
+														<!-- Cantidad Del Producto-->
+														<div class ="col-xs-3">
+														<input type="number" class="form-control nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value = "'.$value["cantidad"].'" stock="'.$stockAntiguo.'" nuevoStock="'.$value["stock"].'" required>
+										
+														</div> <!-- <div class ="col-xs-3"> -->
+										
+														<div class="col-xs-3 ingresoPrecio" style="padding-left:0px">
+															<div class="input-group">
+															<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+															
+															<input type="text" class="form-control nuevoPrecioProducto" name="nuevoPrecioProducto" precioReal="'.$respuesta["precio_venta"].'" value="'.$value[total].'" readonly required>
+										
+														</div> <!-- <div class="input-group"> -->
+										
+													</div> <!-- <div class="col-xs-3" style="padding-left:0px"> -->
+													
+													</div>';
+
+													}																								
+
+												?>
 											</div> <!-- <div class= "form-group row nuevoProducto"> -->
 
 											<!-- Para llenar los datos para los productos a guardar en la base de datos. -->
@@ -139,11 +175,11 @@
 															<tr>
 																<td style="width: 50%">
 																	<div class="input-group">																	
-																		<input type="number" class="form-control input-lg" min="0" id="nuevoImpuestoVenta" name="nuevoImpuestoVenta" placeholder="0" required>			
+																		<input type="number" class="form-control input-lg" min="0" id="nuevoImpuestoVenta" name="nuevoImpuestoVenta" value ="<?php echo $porcentajeImpuesto; ?>" required>			
 
 																		<!-- Se utiliza para poder guardarlo en la base de datos.-->
-																		<input type="hidden" name="nuevoPrecioImpuesto" id="nuevoPrecioImpuesto" required>
-																		<input type="hidden" name="nuevoPrecioNeto" id="nuevoPrecioNeto" required>
+																		<input type="hidden" name="nuevoPrecioImpuesto" id="nuevoPrecioImpuesto" value = "<?php echo $venta["impuesto"]; ?>" required>
+																		<input type="hidden" name="nuevoPrecioNeto" id="nuevoPrecioNeto" value = "<?php echo $venta["neto"]; ?> " required>
 
 																		<span class="input-group-addon"><i class="fa fa-percent"></i></span>
 																	</div>																
@@ -152,9 +188,9 @@
 																<td style="width: 50%">
 																	<div class="input-group">
 																		<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-																		<input type="text" class="form-control input-lg" min="0" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" placeholder="000000" readonly required>	
+																		<input type="text" class="form-control input-lg" min="0" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" value = "<?php echo $venta["total"]; ?>" readonly required>	
 																		<!-- -Se agrega este campo oculto para poder grabarlo en la tablas -->
-																		<input type="hidden" name="totalVenta" id="totalVenta">															
+																		<input type="hidden" name="totalVenta" value = "<?php echo $venta["total"]; ?>" id="totalVenta">															
 																	</div>
 																</td>
 															</tr>
@@ -208,10 +244,10 @@
 
 						</form>
 
-						<!-- Se utiliza para guardar la venta en la tabla de Ventas  -->
+						<!-- Se utiliza para Editar la venta en la tabla de Ventas  -->
 						<?php 
-							$guardarVenta = new ControladorVentas();
-							$guardarVenta->ctrCrearVenta();
+							 $editarVenta = new ControladorVentas();
+							 $editarVenta->ctrEditarVenta();
 							
 						?>
 
@@ -263,107 +299,3 @@
 
 
 
-<!--Este código se tomo desde el bootstrap - > Table 
-Cuando el cliente el boton de "Agregar Cliente" se activa esta ventana.
--->
-
-<!-- Modal -->
-<div id="modalAgregarCliente" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-
-      <!-- enctype= "multipart/form-data = Para subir archivos., se suprime -->
-      <form role="form" method="post" class="formularioVenta">
-    
-        <!-- La franja azul de la ventana modal -->
-        <div class="modal-header" style= "background:#3c8dbc; color:white">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Agregar Cliente</h4>
-        </div>
-
-
-        <div class="modal-body">
-          <div class="box-body">
-            <!-- Clases de BootStrap para las formularios-->
-						<!-- Capturando el Nombre -->
-            <div class="form-group">
-              <div class = "input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" class="form-control input-lg" name="nuevoCliente" placeholder = "Ingresar Nombre" required>
-              </div> <!-- <div class = "input-group"> -->           
-
-            </div> <!-- <div class="form-group"> -->
-
-						<!-- Capturando el Documento ID -->
-						<!-- "min=0" es para que no se introduzcan cantidades Negativas.-->
-            <div class="form-group">
-              <div class = "input-group">
-                <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                <input type="number" min="0" class="form-control input-lg" name="nuevoDocumentoId" placeholder = "Ingresar Documento ID " required>
-              </div> <!-- <div class = "input-group"> -->           
-
-            </div> <!-- <div class="form-group"> -->
-
-						<!-- Capturando el Email -->
-            <div class="form-group">
-              <div class = "input-group">
-                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                <input type="email" class="form-control input-lg" name="nuevoEmail" placeholder = "Ingresar Email" required>
-              </div> <!-- <div class = "input-group"> -->           
-
-            </div> <!-- <div class="form-group"> -->
-
-						<!-- Capturando el Teléfono -->
-						<!-- data-inputmask="'mask':'... = Es un plugin de AdminLT para revisar que se requiere.-->
-            <div class="form-group">
-              <div class = "input-group">
-                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                <input type="text" class="form-control input-lg" name="nuevoTelefono" placeholder = "Ingresar Telefono" data-inputmask="'mask':'(999) 999-99-99)'" data-mask required>
-              </div> <!-- <div class = "input-group"> -->           
-
-            </div> <!-- <div class="form-group"> -->
-
-						<!-- Capturando la dirección -->
-            <div class="form-group">
-              <div class = "input-group">
-                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-                <input type="text" class="form-control input-lg" name="nuevaDireccion" placeholder = "Ingresar Direccion" required>
-              </div> <!-- <div class = "input-group"> -->           
-
-            </div> <!-- <div class="form-group"> -->
-
-						<!-- Capturando la fecha de Cumpleanos -->
-            <div class="form-group">
-              <div class = "input-group">
-                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                <input type="text" class="form-control input-lg" name="nuevaFechaNacimiento" placeholder = "Ingresar Fecha Nacimiento" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask required>
-              </div> <!-- <div class = "input-group"> -->           
-
-            </div> <!-- <div class="form-group"> -->
-
-          </div> <!-- <div class="box-body"> -->
-
-        </div> <!-- <div class="modal-body"> -->
-
-
-					<!-- Pie Del Modal-->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
-            <button type="submit" class="btn btn-primary">Guardar Cliente</button>
-          </div>
-
-      </form>
-			<!-- Crear un cliente -->
-			<?php
-				$crearCliente = new ControladorClientes();
-				$crearCliente->ctrCrearCliente();
-
-			?>
-
-    </div> <!-- <div class="modal-content"> -->
-
-  </div> <!-- <div class="modal-dialog"> -->
-
-</div> <!-- <div id="modalAgregarUsuario" class="modal fade" role="dialog"> --> 
