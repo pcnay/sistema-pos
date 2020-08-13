@@ -139,8 +139,36 @@
 				// Obtiene el Producto de la tabla de : "t_Productos"
 				$traerVenta = ModeloVentas::mdlMostrarVentas($tabla,$item,$valor);
 
+				// Preguntara si vienen o no productos editados, ya que cuando se graba y se despliega la tabla nos muestra error.
+				if ($_POST["listaProductos"] == "")
+				{
+					// Si no se editaron los productos, obtiene los  valores que se asignaron al momento de cargar la pantalla de edición de la venta. Es decir es la información que ya esta en la base de datos.
+					$listaProductos = $traerVenta["productos"]; 
+					//var_dump($listaProductos);
+					//exit;
+				}
+				else
+				{
+					// Son los datos que fueron editados de la Venta, es decir lo que el usuario modifico.
+					$listaProductos = JSON.stringify($_POST["listaProductos"]); 
+					//$("#listaProductos").val(JSON.stringify(listaProductos));
+				}
+
 				// Lo decodifica para pasarlo a un arreglo este dato JSon, es el campo de "productos", es decir es la venta realizada.
+				
+				//$productos = json_decode($listaProductos,true);
 				$productos = json_decode($traerVenta["productos"],true);
+/*
+				if (json_last_error() === JSON_ERROR_NONE) {
+					// JSON is valid
+					print_r("Es valido el JSon");						
+				}				
+				else
+				{
+					print_r("NO Es valido el JSon");						
+				}
+			exit; 
+*/
 
 				// var_dump($productos);
 
@@ -148,7 +176,7 @@
 				$totalProductosComprados = array();
 
 				// Se va a recorrer el contenido del arreglo "$productos" para actualizar la tabla de "Productos" y "Clientes"
-				foreach ($producto as $key => $value)
+				foreach ($productos as $key => $value)
 				{
 					array_push($totalProductosComprados,$value["cantidad"]);
 					// Ahora actualizando el Stock en la tabla de "t_Productos"
@@ -170,7 +198,8 @@
 					$valor1b = $value["cantidad"]+$traerProducto["stock"];
 					$nuevoStock = ModeloProductos::mdlActualizarProducto($tablaProductos,$item1b,$valor1b,$valor);
 
-				}
+				} // 	foreach ($productos as $key => $value)
+
 					// Actualizando en la tabla de clientes, el monto de las compras realizadas.				
 					$tablaClientes = "t_Clientes";				
 					$itemCliente = "id";
@@ -195,13 +224,28 @@
 				// Aumentar las ventas de los clientes.
 
 				// Obteniedo los productos que se vendieron
-				$listaProductos = json_decode($_POST["listaProductos"],true);
+				//$listaProductos = json_decode($listaProductos,true);
+
+	/*			
+				if (json_last_error() === JSON_ERROR_NONE) {
+					// JSON is valid
+					print_r("Es valido el JSon 2da prueba realizada  	s");						
+				}				
+				else
+				{
+					print_r("NO Es valido el JSon");						
+				}
+				
+				exit; 
+		*/		
 
 				$totalProductosComprados = array();
 
 
 				// revisando el contenido del arreglo $listaProductos.
-				// var_dump($listaProductos);
+				//var_dump($listaProductos);
+				//exit;
+
 				foreach ($listaProductos as $key => $value)
 				{
 					array_push($totalProductosComprados,$value["cantidad"]);
@@ -257,19 +301,36 @@
 				$valor1b = $fechaActual; 
 				$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes,$item1b,$valor1b,$valor);
 
+				//var_dump($listaProductos);
+				//exit;
+
+				//$result = json_decode($json);
+/*
+				if (json_last_error() === JSON_ERROR_NONE) {
+						// JSON is valid
+						print_r("Es valido el JSon");						
+					}				
+					else
+					{
+						print_r("NO Es valido el JSon");						
+					}
+				exit; 
+*/
+
 				// Ahora se guardara los cambios en la tabla de "t_Ventas"
 				$tabla = "t_Ventas";
 				$datos = array("id_vendedor"=>$_POST["idVendedor"],
 											"id_cliente"=>$_POST["seleccionarCliente"],
 											"codigo"=>$_POST["editarVenta"],
-											"productos"=>$_POST["listaProductos"],
+											"productos"=>$listaProductos,
 											"impuesto"=>$_POST["nuevoPrecioImpuesto"],
 											"neto"=>$_POST["nuevoPrecioNeto"],
 											"total"=>$_POST["totalVenta"],
 											"metodo_pago"=>$_POST["listaMetodoPago"]);
 
-				var_dump($datos);
-
+				//var_dump($datos);
+				//exit;
+				
 				$respuesta = ModeloVentas::mdlEditarVenta($tabla,$datos);
 
 				//print_r($respuesta);

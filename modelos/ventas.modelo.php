@@ -53,8 +53,10 @@
 		// Actualizar la venta en la tabla "t_Ventas".
 		static public function mdlEditarVenta($tabla,$datos)
 		{
-			var_dump($tabla);
-
+			var_dump($datos);
+			//var_dump($datos["productos"]);
+			//var_dump($datos["codigo"]);
+			
 			$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET id_cliente = :id_cliente, id_vendedor = :id_vendedor, productos = :productos, impuesto = :impuesto, neto = :neto, total = :total, metodo_pago = :metodo_pago WHERE codigo = :codigo");
 
 			$stmt->bindParam(":codigo",$datos["codigo"],PDO::PARAM_INT);

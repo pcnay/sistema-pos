@@ -138,7 +138,7 @@
 															<div class="input-group">
 															<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
 															
-															<input type="text" class="form-control nuevoPrecioProducto" name="nuevoPrecioProducto" precioReal="'.$respuesta["precio_venta"].'" value="'.$value[total].'" readonly required>
+															<input type="text" class="form-control nuevoPrecioProducto" name=""nuevoPrecioProducto" precioReal="'.$respuesta["precio_venta"].'" value="'.$value["total"].'" readonly required>
 										
 														</div> <!-- <div class="input-group"> -->
 										
@@ -239,16 +239,16 @@
 							</div> <!-- <div class="box box-success"> -->
 							
 							<div class="box-footer">						
-								<button type="submit" class="btn btn-primary pull-right">Guardar Venta</button>
+								<button type="submit" class="btn btn-primary pull-right">Editar Venta</button>
 							</div> <!-- <div class="box-footer"> -->
 
 						</form>
 
-						<!-- Se utiliza para Editar la venta en la tabla de Ventas  -->
+						<!-- Se utiliza para Editar la venta en la tabla de Ventas, como no se define accion en el "form" se ejecuta de forma secuencial por esta razon que se coloca la etiqueta de "php"						
+						  -->
 						<?php 
 							 $editarVenta = new ControladorVentas();
-							 $editarVenta->ctrEditarVenta();
-							
+							 $editarVenta->ctrEditarVenta();							
 						?>
 
 
