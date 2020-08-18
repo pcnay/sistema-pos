@@ -595,7 +595,7 @@ function listarMetodos()
 
 }
 
-// Se define el boton para editar Venta.
+// Se define el boton para editar Venta, se realiza un click izquierdo
 $(".btnEditarVenta").click(function(){
 	// Obtiene el valor de la variable que se paso por $_GET.
 	var idVenta = $(this).attr("idVenta");

@@ -30,16 +30,16 @@
 							<div class="box-body">
 								<?php
 									$item = "id";
-									$valor = $_GET["idVenta"];	// Esta variable viene por window.location = "index.php?ruta=editar-venta&idVenta="+idVenta; de "ventas.js"							
+									$valor = $_GET["idVenta"];	// Esta variable viene por window.location = "index.php?ruta=editar-venta&idVenta="+idVenta; de "ventas.js"
+
+									// Va extraer la venta que se va editar.							
 									$venta = ControladorVentas::ctrMostrarVentas($item,$valor);
 									//var_dump($venta["codigo"]);
 
 									// Obteniendo los datos del vendedor.
 									$itemUsuario = "id";
 									$valorUsuario = $venta["id_vendedor"];
-									$vendedor = ControladorUsuarios::ctrMostrarUsuarios($itemUsuario,$valorUsuario);
-
-									
+									$vendedor = ControladorUsuarios::ctrMostrarUsuarios($itemUsuario,$valorUsuario);						
 
 									// Obteniendo los datos del cliente
 									$itemCliente = "id";
@@ -108,44 +108,50 @@
 												<?php
 													$listaProducto = json_decode($venta["productos"],true);
 													//var_dump($listaProducto);
+													
+													// Mostrara el contenido de los productos que se le vendieron al cliente.
+
 													foreach ($listaProducto as $key => $value)
 													{
+														// Obtener el stock de (los) articulo(s)
 														$item = "id";
 														$valor = $value["id"];
 														$respuesta = ControladorProductos::ctrMostrarProductos($item,$valor);
+														// $respuesta["stock"] = Stock Producto
+														// $value["cantidad"] = Es un campo del jSon de Producto, es decir es la cantidad que se esta vendiendo al cliente.
 														$stockAntiguo = $respuesta["stock"]+$value["cantidad"];
 
-
-														echo '<div class="row" style="padding:5px 15px">			
-														<div class="col-xs-6" style="padding-right:0px">
-														<div class="input-group">
-														<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarProducto" idProducto = "'.$value["id"].'"><i class="fa fa-times"></i></button></span>
+														// Despliega el contenido de la venta.
+														echo 
+															'<div class="row" style="padding:5px 15px">			
+																<div class="col-xs-6" style="padding-right:0px">
+																	<div class="input-group">
+																		<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarProducto" idProducto = "'.$value["id"].'"><i class="fa fa-times"></i></button></span>
 										
-														<input type="text" class="form-control nuevaDescripcionProducto" idProducto="'.$value["id"].'" name="agregarProducto" value="'.$value["descripcion"].'"  readonly required>
+																		<input type="text" class="form-control nuevaDescripcionProducto" idProducto="'.$value["id"].'" name="agregarProducto" value="'.$value["descripcion"].'"  readonly required>
 										
-														</div> <!-- <div class="input-group"> -->
+																	</div> <!-- <div class="input-group"> -->
 										
-														</div> <!-- <div class="col-xs-6" style="padding-right:0px"> -->
+																</div> <!-- <div class="col-xs-6" style="padding-right:0px"> -->
 										
-														<!-- Se desplaza a 3 columnas-->
-														<!-- Cantidad Del Producto-->
-														<div class ="col-xs-3">
-														<input type="number" class="form-control nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value = "'.$value["cantidad"].'" stock="'.$stockAntiguo.'" nuevoStock="'.$value["stock"].'" required>
+																<!-- Se desplaza a 3 columnas-->
+																<!-- Cantidad Del Producto-->
+																<div class ="col-xs-3">
+																	<input type="number" class="form-control nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value = "'.$value["cantidad"].'" stock="'.$stockAntiguo.'" nuevoStock="'.$value["stock"].'" required>
 										
-														</div> <!-- <div class ="col-xs-3"> -->
+																</div> <!-- <div class ="col-xs-3"> -->
 										
-														<div class="col-xs-3 ingresoPrecio" style="padding-left:0px">
-															<div class="input-group">
-															<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+																<div class="col-xs-3 ingresoPrecio" style="padding-left:0px">
+																	<div class="input-group">
+																		<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
 															
-															<input type="text" class="form-control nuevoPrecioProducto" name=""nuevoPrecioProducto" precioReal="'.$respuesta["precio_venta"].'" value="'.$value["total"].'" readonly required>
+																		<input type="text" class="form-control nuevoPrecioProducto" precioReal="'.$respuesta["precio_venta"].'" name="nuevoPrecioProducto"  value="'.$value["total"].'" readonly required>
 										
-														</div> <!-- <div class="input-group"> -->
+																	</div> <!-- <div class="input-group"> -->
 										
-													</div> <!-- <div class="col-xs-3" style="padding-left:0px"> -->
+																</div> <!-- <div class="col-xs-3" style="padding-left:0px"> -->
 													
-													</div>';
-
+															</div> <!-- <div class="row" style="padding:5px 15px"> -->' ;
 													}																								
 
 												?>
@@ -239,7 +245,7 @@
 							</div> <!-- <div class="box box-success"> -->
 							
 							<div class="box-footer">						
-								<button type="submit" class="btn btn-primary pull-right">Editar Venta</button>
+								<button type="submit" class="btn btn-primary pull-right">Guardar Cambios</button>
 							</div> <!-- <div class="box-footer"> -->
 
 						</form>
