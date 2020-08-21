@@ -53,7 +53,7 @@
 		// Actualizar la venta en la tabla "t_Ventas".
 		static public function mdlEditarVenta($tabla,$datos)
 		{
-			var_dump($datos);
+			//var_dump($datos);
 			//var_dump($datos["productos"]);
 			//var_dump($datos["codigo"]);
 			

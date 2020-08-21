@@ -139,113 +139,181 @@
 					$item = "codigo";
 					$valor = $_POST["editarVenta"];
 	
-					// Obtener la venta que se de sea editar "t_Ventas"
+					// Obtener las venta que realizo el cliente, es el campo JSon, que se utilizara para poder editar la compra.
 					$traerVenta = ModeloVentas::mdlMostrarVentas($tabla,$item,$valor);
+
+					// ===========================================================
+					// Revisar si viene productos editados 
+					// ===========================================================
+					if ($_POST["listaProductos"] == "")
+					{
+						// El arreglo "$listaProductos" es donde se vaciara la venta que se encuentra en la base de datos, ya que no se modifico el detalle de la venta.
+						$listaProductos = $traerVenta["productos"];
+					}
+					else
+					{
+						$listaProductos = $_POST["listaProductos"];						
+					}
+
+
 					$productos = json_decode($traerVenta["productos"],true);
-					var_dump($productos);
-					exit;
+					//var_dump($productos);
+					//exit;
 					
+					$totalProductosComprados = array();
+
+					foreach ($productos as $key => $value)
+					{
+						// Agregandolo al arreglo.
+						array_push($totalProductosComprados,$value["cantidad"]);
+						$tablaProductos = "t_Productos";
+						$item = "id";
+						$valor = $value["id"];
+		
+						// Obtiene el Producto de la tabla de : "t_Productos", el "Id" viene desde el JSon (Arreglo)
+						$traerProducto = ModeloProductos::mdlMostrarProductos($tablaProductos,$item,$valor);
+
+						// Ahora se restara la venta.
+						// Actualiza el valor de las veces que se ha vendido el producto
+						$item1a = "t_Ventas";
+						$valor1a = $traerProducto["ventas"] - $value["cantidad"];
+						
+						// Actualizar en la tabla de "t_Productos"
+						$nuevasVentas = ModeloProductos::mdlActualizarProducto($tablaProductos, $item1a, $valor1a,$valor);
+
+
+						// Ahora actualizando el Stock en la tabla de "t_Productos"
+						$item1b = "stock";
+						// Cantidad = JSon es el que esta guardado.
+						// $traerProducto["stock"]; = Es la existencia que esta registrado en la tabla de "t_Productos"
+						$valor1b = $value["cantidad"]+$traerProducto["stock"];
+						$nuevoStock = ModeloProductos::mdlActualizarProducto($tablaProductos, $item1b, $valor1b,$valor);
+
+					} // for ($productos as $key => $value)
+
+					// Actualizando en la tabla de clientes, el monto de las compras realizadas.				
+					$tablaClientes = "t_Clientes";				
+					$itemCliente = "id";
+					// Este valor viene desde el Select donde se selecciona el cliente, es valor de identificador del cliente.
+					$valorCliente = $_POST["seleccionarCliente"];
+					
+					$traerCliente = ModeloClientes::mdlMostrarClientes($tablaClientes,$itemCliente,$valorCliente);
+					// var_dump ($traerCliente);
+					// Ahora solo mostrar el campo de "compras"
+					//var_dump ($traerCliente["compras"]);
+
+					$item1 = "compras";
+					// Suma todas las cantidades de los productos comprados.
+					$valor1 = $traerCliente["compras"] - array_sum($totalProductosComprados);
+					$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes,$item1,$valor1,$valor);
+					
+
+					//==================================================================================
+					// Actualizar las compras del cliente y reducir el Stock y aumentar las ventas de los productos.
+					// ==================================================================================
+
+					$listaProductos2 = json_decode($listaProductos,true);
+					$totalProductosComprados = array();
+					foreach ($listaProductos2 as $key =>$value)
+					{
+						// Agregandolo al arreglo.
+						array_push($totalProductosComprados,$value["cantidad"]);
+						$tablaProductos2 = "t_Productos";
+						$item2 = "id";
+						$valor2 = $value["id"];
+		
+						// Obtiene el Producto de la tabla de : "t_Productos", el "Id" viene desde el JSon (Arreglo)
+						$traerProducto2 = ModeloProductos::mdlMostrarProductos($tablaProductos2,$item2,$valor2);
+						// Ahora se restara la venta.
+						// Actualiza el valor de las veces que se ha vendido el producto
+						$item1a2 = "t_Ventas";
+						$valor1a2 = $value["cantidad"] + $traerProducto2["ventas"];
+
+						// Actualizar en la tabla de "t_Productos"
+						$nuevasVentas = ModeloProductos::mdlActualizarProducto($tablaProductos, $item1a, $valor1a,$valor);
+
+						// Ahora actualizando el Stock en la tabla de "t_Productos"
+						$item1b2 = "stock";
+						// Cantidad = JSon es el que esta guardado.
+						// $traerProducto["stock"]; = Es la existencia que esta registrado en la tabla de "t_Productos"
+						$valor1b2 = $value["stock"];
+						$nuevoStock = ModeloProductos::mdlActualizarProducto($tablaProductos2, $item1b2, $valor1b2,$valor2);
+	
+						// Actualizando en la tabla de clientes, el monto de las compras realizadas.				
+						$tablaClientes2 = "t_Clientes";				
+						$itemCliente2 = "id";
+						// Este valor viene desde el Select donde se selecciona el cliente, es valor de identificador del cliente.
+						$valorCliente2 = $_POST["seleccionarCliente"];
+						
+						$traerCliente2 = ModeloClientes::mdlMostrarClientes($tablaClientes2,$itemCliente2,$valorCliente2);
+						// var_dump ($traerCliente);
+						// Ahora solo mostrar el campo de "compras"
+						//var_dump ($traerCliente["compras"]);
+
+						$item12 = "compras";
+						// Suma todas las cantidades de los productos comprados.
+						$valor12 = array_sum($totalProductosComprados)+$traerCliente2["compras"];
+						$comprasCliente2 = ModeloClientes::mdlActualizarCliente($tablaClientes2,$item12,$valor12,$valorCliente2);
+
+						$item1b2 = "ultima_compra";
+				
+						$fecha_2 = date('Y-m-d');
+						$hora_2 = date('H:i:s');
+						$fechaActual = $fecha_2.' '.$hora_2;
+		
+						$valor1b2 = $fechaActual; 
+						$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes2,$item1b2,$valor1b2,$valorCliente2);
+
+						// Ahora se editara la Venta "t_Ventas"
+						$tabla = "t_Ventas";
+						$datos = array("id_vendedor"=>$_POST["idVendedor"],
+													"id_cliente"=>$_POST["seleccionarCliente"],
+													"codigo"=>$_POST["editarVenta"],
+													"productos"=>$listaProductos,
+													"impuesto"=>$_POST["nuevoPrecioImpuesto"],
+													"neto"=>$_POST["nuevoPrecioNeto"],
+													"total"=>$_POST["totalVenta"],
+													"metodo_pago"=>$_POST["listaMetodoPago"]);
+
+						$respuesta = ModeloVentas::mdlEditarVenta($tabla,$datos);
+
+						if ($respuesta == "ok")
+						{
+							echo '<script>  
+								localStorage.removeItem("rango");
+												
+								Swal.fire ({
+									type: "success",
+									title: "La venta ha sido editada correctamente ",
+									showConfirmButton: true,
+									confirmButtonText: "Cerrar",
+									closeOnConfirm: false
+									}).then(function(result){
+										if (result.value)
+										{
+											window.location="crear-venta";
+										}
+			
+										});
+				
+								</script>';          
+
+						} // if ($respuesta == "ok")
+
 
 /*
 
-				// Obteniedo los productos que se vendieron
-				$listaProductos = json_decode($_POST["listaProductos"],true);
-
-				$totalProductosComprados = array();
+						
 
 
-				// revisando el contenido del arreglo $listaProductos.
-				// var_dump($listaProductos);
-				foreach ($listaProductos as $key => $value)
-				{
-					array_push($totalProductosComprados,$value["cantidad"]);
-					
-					$tablaProductos = "t_Productos";
-					$item = "id";
-					$valor = $value["id"];
-	
-					// Obtiene el Producto de la tabla de : "t_Productos"
-					$traerProducto = ModeloProductos::mdlMostrarProductos($tablaProductos,$item,$valor);
 
-					//var_dump($traerProducto);
-					// $traerProducto["ventas"], se refiere a la cantidad de veces que se ha vendido el producto.
-					//var_dump($traerProducto["ventas"]);
-					$item1a = "ventas";
+*/
+					}
 
-					// Actualiza el valor de las veces que se ha vendido el producto
-					$valor1a = $value["cantidad"] + $traerProducto["ventas"];
+/*
 
-					// Actualizar en la tabla de "t_Productos"
-					$nuevasVentas = ModeloProductos::mdlActualizarProducto($tablaProductos, $item1a, $valor1a,$valor);
 
-					// Ahora actualizando el Stock en la tabla de "t_Productos"
-					$item1b = "stock";
-					$valor1b = $value["stock"];
-					$nuevoStock = ModeloProductos::mdlActualizarProducto($tablaProductos, $item1b, $valor1b,$valor);
-					
 
-				} // foreach ($listaProductos as $key => $value)
-
-				// Actualizando en la tabla de clientes, el monto de las compras realizadas.				
-				$tablaClientes = "t_Clientes";				
-				$item = "id";
-				// Este valor viene desde el Select donde se selecciona el cliente, es valor de identificador del cliente.
-				$valor = $_POST["seleccionarCliente"];
-				
-				$traerCliente = ModeloClientes::mdlMostrarClientes($tablaClientes,$item,$valor);
-				// var_dump ($traerCliente);
-
-				// Ahora solo mostrar el campo de "compras"
-				//var_dump ($traerCliente["compras"]);
-				$item1 = "compras";
-				// Suma todas las cantidades de los productos comprados.
-				$valor1 = array_sum($totalProductosComprados) + $traerCliente["compras"];
-				$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes,$item1,$valor1,$valor);
-
-				$item1b = "ultima_compra";
-				
-				$fecha = date('Y-m-d');
-				$hora = date('H:i:s');
-				$fechaActual = $fecha.' '.$hora;
-
-				$valor1b = $fechaActual; 
-				$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes,$item1b,$valor1b,$valor);
-
-				// Ahora se guardara la Compra en la tabla de "t_Ventas"
-				$tabla = "t_Ventas";
-				$datos = array("id_vendedor"=>$_POST["idVendedor"],
-											"id_cliente"=>$_POST["seleccionarCliente"],
-											"codigo"=>$_POST["editarVenta"],
-											"productos"=>$_POST["listaProductos"],
-											"impuesto"=>$_POST["nuevoPrecioImpuesto"],
-											"neto"=>$_POST["nuevoPrecioNeto"],
-											"total"=>$_POST["totalVenta"],
-											"metodo_pago"=>$_POST["listaMetodoPago"]);
-
-				$respuesta = ModeloVentas::mdlIngresarVenta($tabla,$datos);
-
-				if ($respuesta == "ok")
-				{
-					echo '<script>  
-						localStorage.removeItem("rango");
-						         
-						Swal.fire ({
-							type: "success",
-							title: "La venta ha sido guardado correctamente ",
-							showConfirmButton: true,
-							confirmButtonText: "Cerrar",
-							closeOnConfirm: false
-							}).then(function(result){
-								if (result.value)
-								{
-									window.location="crear-venta";
-								}
-	
-								});
-		
-						</script>';          
-
-				} // if ($respuesta == "ok")
 
 */
 			} // if(isset($_POST["editarVenta"]))
