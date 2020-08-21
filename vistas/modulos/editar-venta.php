@@ -194,7 +194,8 @@
 																<td style="width: 50%">
 																	<div class="input-group">
 																		<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-																		<input type="text" class="form-control input-lg" min="0" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" value = "<?php echo $venta["total"]; ?>" readonly required>	
+																		<!-- Se agrega $venta["neto"] para el calculo correcto del importe con IVA modificado -->
+																		<input type="text" class="form-control input-lg" min="0" id="nuevoTotalVenta" name="nuevoTotalVenta" total="<?php echo $venta["neto"]; ?>" value = "<?php echo $venta["total"]; ?>" readonly required>	
 																		<!-- -Se agrega este campo oculto para poder grabarlo en la tablas -->
 																		<input type="hidden" name="totalVenta" value = "<?php echo $venta["total"]; ?>" id="totalVenta">															
 																	</div>
