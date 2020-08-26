@@ -10,7 +10,10 @@
 DROP DATABASE IF EXISTS pos;
 
 CREATE DATABASE IF NOT EXISTS pos;
+SET time_zone = 'America/Tijuana';
+
 USE pos;
+
 
 /* Solo se ejecuta la primera vez.*/
 CREATE USER 'ventas-pos'@'localhost' IDENTIFIED BY 'pcnay2003';

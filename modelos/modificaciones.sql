@@ -8,7 +8,7 @@
 */
 
 USE pos;
-	
+SET time_zone = 'America/Tijuana';	
 	
 	/*
 	

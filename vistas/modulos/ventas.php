@@ -42,7 +42,7 @@
 								<th>Neto</th>
 								<th>Total</th>
 								<th>Fecha</th>
-                <th>Acciones <th>
+                <th>Acciones</th>
 								
               </tr>
             </thead>
@@ -56,52 +56,63 @@
 								$item = null;
 								$valor = null;
 								$respuesta = ControladorVentas::ctrMostrarVentas($item, $valor);
-								// var_dump($repuesta);
+								//var_dump($respuesta);
+								//exit;
 
 								// Mostrando los datos en pantalla, se esta quemando enel HTML, no se utiliza DataTable.
 
 								foreach ($respuesta as $key => $value)
 								{
-									echo '<tr>
-										<td>'.($key+1).'</td>
-										<td>'.$value["codigo"].'</td>';
+									echo 
+									'<tr>
+											<td>'.($key+1).'</td>
+											<td>'.$value["codigo"].'</td>';
 
-										// Obteniendo el nombre del cliente, ya que en la tabla de "t_Productos" solo tiene el ID
-										$itemCliente = "id";
-										$valorCliente = $value["id_cliente"];
-										$respuestaCliente = ControladorClientes::ctrMostrarClientes($itemCliente,$valorCliente);
+											// Obteniendo el nombre del cliente, ya que en la tabla de "t_Productos" solo tiene el ID
+											$itemCliente = "id";
+											$valorCliente = $value["id_cliente"];
+											$respuestaCliente = ControladorClientes::ctrMostrarClientes($itemCliente,$valorCliente);
 
-									echo '<td>'.$respuestaCliente["nombre"].'</td>';
-										
-									// Obteniendo el nombre del vendedor ya que en la tabla de "t_Productos" solo tiene el "id_vendedor"
+										echo '<td>'.$respuestaCliente["nombre"].'</td>';
+											
+										// Obteniendo el nombre del vendedor ya que en la tabla de "t_Productos" solo tiene el "id_vendedor"
 
-									$itemUsuario = "id";
-									$valorUsuario = $value["id_vendedor"];
-									$respuestaUsuario = ControladorUsuarios::ctrMostrarUsuarios($itemUsuario,$valorUsuario);
+										$itemUsuario = "id";
+										$valorUsuario = $value["id_vendedor"];
+										$respuestaUsuario = ControladorUsuarios::ctrMostrarUsuarios($itemUsuario,$valorUsuario);
 
 
-									echo '<td>'.$respuestaUsuario["nombre"].'</td>';
+										echo '<td>'.$respuestaUsuario["nombre"].'</td>';
 
-									echo '<td>'.$value["metodo_pago"].'</td>
-										<td>'.number_format($value["neto"],2).'</td>
-										<td>'.number_format($value["total"],2).'</td>
-										<td>'.$value["fecha"].'</td>
-											<td>
-												<div class="btn-group">
-													<!-- Imprimir la transacción --> 
-													<button class="btn btn-info"><i class="fa fa-print"></i></button>
-													<button class="btn btn-warning btnEditarVenta" idVenta="'.$value["id"].'"><i class="fa fa-pencil"></i></button></a>
-													<button class="btn btn-danger"><i class="fa fa-times"></i></button>
-												</div>
-											</td>
-								</tr>	';
+										echo '<td>'.$value["metodo_pago"].'</td>
+											<td>'.number_format($value["neto"],2).'</td>
+											<td>'.number_format($value["total"],2).'</td>
+											<td>'.$value["fecha"].'</td>
+												<td>
+													<div class="btn-group">
+														<!-- Imprimir la transacción --> 
+														<button class="btn btn-info"><i class="fa fa-print"></i></button>
+														<button class="btn btn-warning btnEditarVenta" idVenta="'.$value["id"].'"><i class="fa fa-pencil"></i></button>
+														<button class="btn btn-danger btnEliminarVenta" idVenta="'.$value["id"].'"><i class="fa fa-times"></i></button>
+													</div>
+												</td>
+									</tr>';
+
 								}
 
+								//exit;
+								//
 							?>
 
             </tbody>
 
           </table> <!-- <table class="table table-bordered tabe-striped"> -->
+
+					<?php
+						// Se coloca aqui para realizar las pruebas.
+						$eliminarVenta = new ControladorVentas();
+						$eliminarVenta->ctrEliminarVenta();
+					?>
 
         </div> <!-- <div class="box-body"> -->
 
@@ -113,5 +124,10 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+<?php
+	//$eliminarVenta = new ControladorVentas();
+	//$eliminarVenta->ctrEliminarVenta();
+?>
 
 

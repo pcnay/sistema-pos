@@ -601,3 +601,26 @@ $(".btnEditarVenta").click(function(){
 	var idVenta = $(this).attr("idVenta");
 	window.location = "index.php?ruta=editar-venta&idVenta="+idVenta;
 })
+
+// Se define el boton para eliminar.
+$(".btnEliminarVenta").click(function(){
+	// Obtiene el valor de la variable que se paso por $_GET.
+	var idVenta = $(this).attr("idVenta");
+
+	Swal.fire ({
+		title: 'Esta seguro(a) de borrar la venta ?',
+		text: 'Si no lo esta puede cancelar la accion',
+		showCancelButton: true,
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: '#d33',
+		cancelButtonText: 'Cancelar',
+		confirmButtonText: 'Si, borrar venta ! ',		
+		}).then(function(result){
+			if (result.value)
+			{
+				window.location="index.php?ruta=ventas&idVenta="+idVenta;
+			}
+
+			});
+	
+})

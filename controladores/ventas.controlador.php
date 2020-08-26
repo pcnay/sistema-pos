@@ -73,7 +73,8 @@
 				$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes,$item1,$valor1,$valor);
 
 				$item1b = "ultima_compra";
-				
+
+				date_default_timezone_set('America/Tijuana');				
 				$fecha = date('Y-m-d');
 				$hora = date('H:i:s');
 				$fechaActual = $fecha.' '.$hora;
@@ -158,7 +159,7 @@
 						$listaProductos = $_POST["listaProductos"];						
 						$cambioProducto = 1;
 					}
-
+					
 			
 
 					if ($cambioProducto == 1)
@@ -316,5 +317,74 @@
 			} // if(isset($_POST["editarVenta"]))
 
 		} // static public function ctrEditarVenta()
+
+		// =================================================
+		// ELIMINAR VENTA 
+		//==================================================
+
+
+		static public function ctrEliminarVenta()
+		{
+			if (isset($_GET["idVenta"]))
+			{
+				$tabla = "t_Ventas";
+				$item = "id";
+				$valor = $_GET["idVenta"];
+				$traerVenta = ModeloVentas::mdlMostrarVentas($tabla,$item,$valor);
+
+				//================================================
+				// Actualizar Fecha Ultima Compra
+				//================================================
+
+				// Traer todas las ventas de la tabla.
+				$itemVentas = null;
+				$valorVentas = null;
+				$traerVentas = ModeloVentas::mdlMostrarVentas($tabla,$itemVentas,$valorVentas);
+				
+				$guardarFechas = array();
+
+				foreach ($traerVentas as $key => $value)
+				{
+					// Obteniendo todas la ventas del cliente de la tabla de "t_Ventas"
+					if ($value["id_cliente"] == $traerVenta["id_cliente"])
+					{
+						//var_dump($value["fecha"]);
+						array_push($guardarFechas,$value["fecha"]);						
+
+					}	// if ($value["id_cliente"]== $traerVenta["id_cliente"])
+
+				} // foreach ($traerVentas as $key => $value)
+
+				// var_dump($guardarFechas);
+				$tablaClientes = "t_Clientes";
+
+				if (count($guardarFechas) > 1)
+				{
+					// Para el caso de que se borre la penultima venta.
+					if ($traerVenta["fecha"] > $guardarFechas[count($guardarFechas)-2])
+					{
+						$item = "ultima_compra";
+						$valor = $guardarFechas[count($guardarFechas)-2];
+						$valorIdCliente = $traerVenta["id_cliente"];
+						$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes,$item,$valor,$valorIdCliente);
+
+					} // if ($traerVenta["fecha"])
+
+				}
+				else
+				{
+					$item = "ultima_compra";
+					$valor = "0000-00-00 00:00:00";					
+					$valorIdCliente = $traerVenta["id_cliente"];
+					
+					$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes,$item,$valor,$valorIdCliente);
+
+				} // if (count($guardarFechas) > 1)
+				
+				//
+			} // if (isset($_GET["idVenta"]))
+
+		} // public function ctrEliminarVenta()
+
 
 	} // class ControladorVentas
