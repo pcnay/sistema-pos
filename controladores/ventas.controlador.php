@@ -367,8 +367,15 @@
 						$valor = $guardarFechas[count($guardarFechas)-2];
 						$valorIdCliente = $traerVenta["id_cliente"];
 						$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes,$item,$valor,$valorIdCliente);
+					} // if ($traerVenta["fecha"] > $guardarFechas[count($guardarFechas)-2]))
+					else
+					{
+						$item = "ultima_compra";
+						$valor = $guardarFechas[count($guardarFechas)-1];
+						$valorIdCliente = $traerVenta["id_cliente"];
+						$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes,$item,$valor,$valorIdCliente);
 
-					} // if ($traerVenta["fecha"])
+					}
 
 				}
 				else
@@ -380,6 +387,91 @@
 					$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes,$item,$valor,$valorIdCliente);
 
 				} // if (count($guardarFechas) > 1)
+
+				// ===============================================
+				// Formatear la tabla de productos y la de clientes
+				// Son los ajustes que se realizan para cuando se borra una venta, se acctualizan los inventarios 
+				//===============================================
+				$productos = json_decode($traerVenta["productos"],true);
+				//var_dump($productos);
+				//exit;
+				
+				$totalProductosComprados = array();
+
+				foreach ($productos as $key => $value)
+				{
+					// Agregandolo al arreglo.
+					array_push($totalProductosComprados,$value["cantidad"]);
+					$tablaProductos = "t_Productos";
+					$item = "id";
+					$valor = $value["id"];
+	
+					// Obtiene el Producto de la tabla de : "t_Productos", el "Id" viene desde el JSon (Arreglo)
+					$traerProducto = ModeloProductos::mdlMostrarProductos($tablaProductos,$item,$valor);
+
+					// Ahora se restara la venta.
+					// Actualiza el valor de las veces que se ha vendido el producto
+					$item1a = "t_Ventas";
+					$valor1a = $traerProducto["ventas"] - $value["cantidad"];
+					
+					// Actualizar en la tabla de "t_Productos"
+					$nuevasVentas = ModeloProductos::mdlActualizarProducto($tablaProductos, $item1a, $valor1a,$valor);
+
+
+					// Ahora actualizando el Stock en la tabla de "t_Productos"
+					$item1b = "stock";
+					// Cantidad = JSon es el que esta guardado.
+					// $traerProducto["stock"]; = Es la existencia que esta registrado en la tabla de "t_Productos"
+					$valor1b = $value["cantidad"]+$traerProducto["stock"];
+					$nuevoStock = ModeloProductos::mdlActualizarProducto($tablaProductos, $item1b, $valor1b,$valor);
+
+				} // for ($productos as $key => $value)
+
+				// Actualizando en la tabla de clientes, el monto de las compras realizadas.				
+				$tablaClientes = "t_Clientes";				
+				$itemCliente = "id";
+				// Este valor viene desde el Select donde se selecciona el cliente, es valor de identificador del cliente.
+				$valorCliente = $traerVenta["id_cliente"];
+				
+				$traerCliente = ModeloClientes::mdlMostrarClientes($tablaClientes,$itemCliente,$valorCliente);
+				// var_dump ($traerCliente);
+				// Ahora solo mostrar el campo de "compras"
+				//var_dump ($traerCliente["compras"]);
+
+				$item1 = "compras";
+				// Suma todas las cantidades de los productos comprados.
+				$valor1 = $traerCliente["compras"] - array_sum($totalProductosComprados);
+				$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes,$item1,$valor1,$valorCliente);
+
+				//======================================================================
+				// Eliminar la Venta 
+				// =====================================================================
+
+				$respuesta = ModeloVentas::mdlEliminarVenta($tabla,$_GET["idVenta"]);
+
+				if ($respuesta == "ok")
+				{
+					echo '<script>           
+					Swal.fire ({
+						type: "error",
+						title: "La venta ha sido borrado correctamente",
+						showConfirmButton: true,
+						confirmButtonText: "Cerrar",
+						closeOnConfirm: false
+						}).then(function(result){
+							if (result.value)
+							{
+								window.location="ventas";
+							}
+
+						});
+		
+					</script>';          
+
+
+				}
+
+		
 				
 				//
 			} // if (isset($_GET["idVenta"]))
