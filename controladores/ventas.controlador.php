@@ -322,7 +322,6 @@
 		// ELIMINAR VENTA 
 		//==================================================
 
-
 		static public function ctrEliminarVenta()
 		{
 			if (isset($_GET["idVenta"]))
