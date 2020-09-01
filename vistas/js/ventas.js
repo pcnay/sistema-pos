@@ -634,7 +634,8 @@ $(".tablas").on("click",".btnImprimirFactura",function(){
 	// <button class="btn btn-info btnImprimirFactura" codigoVenta="'.$value["codigo"].'"><i class="fa fa-print"></i></button>
 	var codigoVenta = $(this).attr("codigoVenta");
 	// Busca este archivos (pdf.php) y abre una página nueva.
-	window.open("extensiones/tcpdf/pdf/factura.php","_blank");
+	// Para pasarlo como variable "$_GET"
+	window.open("extensiones/tcpdf/pdf/factura.php?codigo="+codigoVenta,"_blank");
 	// Se tiene que renombrar el archivo que esta en la carpeta de /pdf/image_demo.jpg"
 
 

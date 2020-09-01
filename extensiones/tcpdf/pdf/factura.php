@@ -1,4 +1,27 @@
 <?php
+// Para llegar a este archivo, se regresan tres carpetas : /pdf/tcpdf/extenciones
+
+require_once("../../../controladores/ventas.controlador.php");
+require_once("../../../modelos/ventas.modelo.php");
+
+class imprimirFactura
+{
+	public $codigo;
+	public function traerImpresionFactura()
+	{
+		// Traer la información de la Venta.
+		$itemVenta = "codigo";
+		$valorVenta = $this->codigo;
+		$respuestaVenta = ControladorVentas::ctrMostrarVentas($itemVenta,$valorVenta);
+		$fecha = substr($repuestaVenta["Fecha"],0,-8); // Le quita la hora al campo 
+		// Viene en formato Json, es la venta realizada, lo decofica pasando a Arreglo.
+		$productos = json_decode($repuestaVenta["productos"],true);
+		$neto = number_format($repuestaVenta["neto"],2);
+		$impuesto = number_format($repuestaVenta["impuesto"],2);
+		$total = number_format($repuestaVenta["total"],2);
+
+
+
 // Include the main TCPDF library (search for installation path).
 // Se debe respetar esta alineacion a la izquierda.
 require_once('tcpdf_include.php');
@@ -13,10 +36,32 @@ $pdf->AddPage();
 // Dentro de esta seccion se pueden utilizar tab sin problemas
 // Se recomienda utilizar tablas para trabajar en TCPDF
 // Ancho maximo para la hoja carta es de 540 pixeles.
+// Se debe revisar la longuitud cuando se colocan los titulos en la hoja.
 $bloque1 = <<<EOF
 	<table>
 		<tr>
 			<td style ="width:150px"><img src="images/logo-negro-bloque.png"></td>
+			<td style="background-color:white; width:140px">
+				<div style="font-size:8.5px; text-align:right; line-height:15px;">
+					<br>
+					NIT:71.759.963-9
+					<br>
+					Dirección: Calle 44B 92-11
+				</div>
+			</td>
+			<td style="background-color:white; width:140px">
+				<div style="font-size:8.5px; text-align:right; line-height:15px;">
+					<br>
+					Telefono: 300 786 62 49
+					<br>
+					ventas@inventorysystem.com
+				</div>
+			</td>
+			<td style="background-color:white; width:110px; text-align:center; color:red">
+				<br>
+				<br>FACTURA N.<br>$valorVenta</td>
+
+			</td>
 
 		</tr>
 
@@ -27,6 +72,14 @@ EOF;
 $pdf->writeHTML($bloque1,false,false,false,false,'');
 
 $pdf->Output('factura.pdf');
+
+	} // public function traerImpresionFactura()
+	
+} // class imprimirFactura
+
+$factura = new imprimirFactura();
+$factura->codigo = $_GET["codigo"];
+$factura->traerImpresionFactura();
 
 
 
