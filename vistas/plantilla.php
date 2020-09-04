@@ -43,7 +43,11 @@
   <!-- DataTables-->
   <link rel="stylesheet" href="vistas/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <link rel="stylesheet" href="vistas/bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
-	
+
+		<!-- Se agrega el "css" para el plug ins de DateRangePicker -->
+  <link rel="stylesheet" href="vistas/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+
+
 	<!-- <script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script> NO FUNCIONA -->
 	<!-- https://www.jsdelivr.com/package/npm/sweetalert2 : Se tiene que agregar por separado este archivo, ya que si se agrega solo uno como "sweetalert2.all.js" no funciona, se debe bajar l archivo en formato ".tar", descomprimir y buscar en la carpeta "packages" los dos archivos, tanto ".css" y ".js" -->
 		<link rel="stylesheet" href="vistas/plugins/sweetalert2/sweetalert2.css">
@@ -77,7 +81,6 @@
   <script src="vistas/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script>
 
 
-
   <!-- SweetAlert 2 -->
   <!-- <script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script> NO FUNCIONA -->
 	<!-- https://www.jsdelivr.com/package/npm/sweetalert2 : Se tiene que agregar por separado este archivo, ya que si se agrega solo uno como "sweetalert2.all.js" no funciona, se debe bajar l archivo en formato ".tar", descomprimir y buscar en la carpeta "packages" los dos archivos, tanto ".css" y ".js" -->
@@ -91,6 +94,10 @@
 	<script src="vistas/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 	<script src="vistas/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 	<script src="vistas/plugins/jQueryNumber/jquerynumber.min.js"></script>
+
+	<!-- El archivo de JS para el DateRangePicker, http://www.daterangepicker.com/ -->
+	<script src="vistas/bower_components/moment/min/moment.min.js"></script>
+	<script src="vistas/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 
 </head>
 

@@ -26,6 +26,14 @@
 						</button>       
 					</a>
 
+					<!-- Agregando el boton para la captura de rangos de ventas realizadas.-->
+					<button type="button" class="btn btn-default pull-right" id="daterange-btn">
+						<span>
+							<i class="fa fa-calendar"></i>  Rango De Fecha   
+						</span>
+						<i class="fa fa-caret-down"></i>
+
+					</button>
         </div>
  
         <div class="box-body">				

@@ -596,14 +596,18 @@ function listarMetodos()
 }
 
 // Se define el boton para editar Venta, se realiza un click izquierdo
-$(".btnEditarVenta").click(function(){
+// se quita el evento "click" ya que cuando se utiliza tablet o celular, este boton se pierde.
+// Pero se agrea el evento desde la clase "tablas"
+$(".tablas").on("click",".btnEditarVenta",function(){
 	// Obtiene el valor de la variable que se paso por $_GET.
 	var idVenta = $(this).attr("idVenta");
 	window.location = "index.php?ruta=editar-venta&idVenta="+idVenta;
 })
 
 // Se define el boton para eliminar.
-$(".btnEliminarVenta").click(function(){
+// se quita el evento "click" ya que cuando se utiliza tablet o celular, este boton se pierde.
+// Pero se agrea el evento desde la clase "tablas"
+$(".tablas").on("click",".btnEliminarVenta",function(){
 	// Obtiene el valor de la variable que se paso por $_GET.
 	var idVenta = $(this).attr("idVenta");
 
@@ -637,7 +641,25 @@ $(".tablas").on("click",".btnImprimirFactura",function(){
 	// Para pasarlo como variable "$_GET"
 	window.open("extensiones/tcpdf/pdf/factura.php?codigo="+codigoVenta,"_blank");
 	// Se tiene que renombrar el archivo que esta en la carpeta de /pdf/image_demo.jpg"
-
-
-
 })
+
+
+// Boton de Rango de Fecha.
+$('#daterange-btn').daterangepicker(
+	{
+		ranges : {
+			'Today'						: [moment(),moment()],
+			'Yesterday'				: [moment().subtract(1,'days'),moment().subtract(1,'days')],
+			'Last 7 Days'			: [moment().subtract(6,'days'),moment()],
+			'Last 30 Days'		: [moment().subtract(29,'days'),moment()],
+			'This Month'			: [moment().startOf('month'),moment().endOf('month')],
+			'Last Month'			: [moment().subtract(1,'month').startOf('month'),moment().subtract(1,'month').endOf('month')] 
+		},
+		startDate: moment().subtract(29,'days'),
+		endDate: moment()
+	},
+	function (start,end)
+	{
+		$('#daterange-btn span').html(start.format('MMMM D, YYYY')+' - '+end.format('MMMM D, YYYY'));
+	}
+)
