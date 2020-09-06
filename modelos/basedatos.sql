@@ -10,12 +10,12 @@
 DROP DATABASE IF EXISTS pos;
 
 CREATE DATABASE IF NOT EXISTS pos;
-SET time_zone = 'America/Tijuana';
+/* SET time_zone = 'America/Tijuana'; */
 
 USE pos;
 
 
-/* Solo se ejecuta la primera vez.*/
+/* Solo se ejecuta la primera vez. */
 CREATE USER 'ventas-pos'@'localhost' IDENTIFIED BY 'pcnay2003';
 GRANT ALL on pos.* to 'ventas-pos'  IDENTIFIED BY 'pcnay2003';
 
@@ -23,8 +23,15 @@ GRANT ALL on pos.* to 'ventas-pos'  IDENTIFIED BY 'pcnay2003';
 Mostrar todos los usuarios 
   select user from mysql.user;
 Para borrar un usuario:
+Para borrar un usuario para todos los hosts:
 	drop user ventas-pos;
+
+Para borrar un usuario en especifico
+	delete from mysql.user where user = ‘ventas-pos’
+
+Para borrar mas de un usuario en el host
 	drop user ‘ventas-pos’@’localhost’;
+	
 	flush privileges;
 
 */
@@ -40,7 +47,6 @@ Para borrar un usuario:
 
 /* Es una tabla catalogo */ 
 
-
 CREATE TABLE t_Usuario
 (
   id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -55,30 +61,6 @@ CREATE TABLE t_Usuario
   fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE t_Categoria
-(
-  id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-  nombre VARCHAR(80) NOT NULL,
-  fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE t_Productos
-(
-  id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-  id_categoria INTEGER UNSIGNED NOT NULL,
-  codigo VARCHAR(45) NOT NULL,
-  descripcion VARCHAR(80) NOT NULL,
-  imagen VARCHAR(100) NOT NULL,
-  stock INTEGER UNSIGNED NOT NULL DEFAULT 1,
-  precio_compra decimal(10,2) DEFAULT NULL,
-	precio_venta decimal(10,2) DEFAULT NULL,
-  ventas varchar(45) DEFAULT NULL,  
-  fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	FOREIGN KEY(id_categoria) REFERENCES t_Categoria(id)
-	ON DELETE RESTRICT ON UPDATE CASCADE,
-
-);
-
 CREATE TABLE t_Clientes
 (
   id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,  
@@ -89,7 +71,15 @@ CREATE TABLE t_Clientes
 	direccion VARCHAR(100) NULL,
 	fecha_nacimiento DATE NULL,
 	compras INTEGER UNSIGNED NULL,
+	ultima_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP  
+);
+
+CREATE TABLE t_Categoria
+(
+  id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(80) NOT NULL,
+  fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE t_Ventas
@@ -108,8 +98,31 @@ CREATE TABLE t_Ventas
 	ON DELETE RESTRICT ON UPDATE CASCADE,
 	FOREIGN KEY(id_vendedor) REFERENCES t_Usuario(id)
 	ON DELETE RESTRICT ON UPDATE CASCADE
-
 );
+
+CREATE TABLE t_Productos
+(
+  id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  id_categoria INTEGER UNSIGNED NOT NULL,
+  codigo VARCHAR(45) NOT NULL,
+  descripcion VARCHAR(80) NOT NULL,
+  imagen VARCHAR(100) NULL,
+  stock INTEGER UNSIGNED NOT NULL DEFAULT 1,
+  precio_compra decimal(10,2) DEFAULT NULL,
+	precio_venta decimal(10,2) DEFAULT NULL,
+  ventas varchar(45) DEFAULT NULL,  
+  fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY(id_categoria) REFERENCES t_Categoria(id)
+	ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+
+/*
+INSERT INTO t_Usuario (id,nombre,usuario,clave,perfil,vendedor,foto,estado,ultimo_login,fecha) VALUES
+  (1,'Usuario Administrador','admin','123','Administrador','','',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
+*/
+
 
 INSERT INTO t_Usuario (id,nombre,usuario,clave,perfil,vendedor,foto,estado,ultimo_login,fecha) VALUES
   (1,'Usuario Administrador','admin','123','Administrador','','',1,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
+

@@ -8,13 +8,13 @@
 */
 
 USE pos;
-SET time_zone = 'America/Tijuana';	
+/* SET time_zone = 'America/Tijuana';	*/
 	
-	/*
+
 	
-	/* Para agregar una columna a la tabla t_Clientes . 
+	/* Para agregar una columna a la tabla t_Clientes . */
 	ALTER TABLE t_Clientes ADD ultima_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
-	*/
+	
 
 
 /*
@@ -56,6 +56,7 @@ CREATE TABLE t_Clientes
 	direccion VARCHAR(100) NULL,
 	fecha_nacimiento DATE NULL,
 	compras INTEGER UNSIGNED NULL,
+	ultima_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP  
 );
 

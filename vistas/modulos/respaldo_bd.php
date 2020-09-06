@@ -1,4 +1,8 @@
 <?php
+	// Para respaldar la base de datos 
+	// Se ejecuta desde la carpeta donde esta el arhivo "pos-2020...."
+	// 		mysql -u root -p pos(nombre BaseDeDatos) < pos-20200906-191217.sql (archivo que tiene la 		informacion respaldada)
+	//
 	echo "Iniciando el respaldo ... ";
   $db_host = 'localhost';
   $db_name = 'pos';
