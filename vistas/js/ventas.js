@@ -1,3 +1,15 @@
+// Variables Local Storage, para el boton que se encuentra en "Administrar Ventas" permanezca la fecha.
+if (localStorage.getItem("capturarRango") != null)
+{
+	// Se va asignar en boton donde despliega el rango seleccionado.
+	$("#daterange-btn span").html(localStorage.getItem("capturarRango"));	
+}
+else
+{
+	$("#daterange-btn span").html('<i class="fa fa-calendar"></i>Rango De Fecha');
+}
+
+
 /* Cargar los datos - Productos de forma dinamica */
 // Verificar que los datos Json estan correctos.
 // En esta parte se agrega la tabla a la plugin "DataTable" y no quema en el HTML el contenido de los campos.
@@ -648,12 +660,12 @@ $(".tablas").on("click",".btnImprimirFactura",function(){
 $('#daterange-btn').daterangepicker(
 	{
 		ranges : {
-			'Today'						: [moment(),moment()],
-			'Yesterday'				: [moment().subtract(1,'days'),moment().subtract(1,'days')],
-			'Last 7 Days'			: [moment().subtract(6,'days'),moment()],
-			'Last 30 Days'		: [moment().subtract(29,'days'),moment()],
-			'This Month'			: [moment().startOf('month'),moment().endOf('month')],
-			'Last Month'			: [moment().subtract(1,'month').startOf('month'),moment().subtract(1,'month').endOf('month')] 
+			'Hoy'						: [moment(),moment()],
+			'Ayer'				: [moment().subtract(1,'days'),moment().subtract(1,'days')],
+			'Ultimos 7 Dias'			: [moment().subtract(6,'days'),moment()],
+			'Ultimos 30 Dias'		: [moment().subtract(29,'days'),moment()],
+			'Este Mes'			: [moment().startOf('month'),moment().endOf('month')],
+			'Ultimo Mes'			: [moment().subtract(1,'month').startOf('month'),moment().subtract(1,'month').endOf('month')] 
 		},
 		startDate: moment().subtract(29,'days'),
 		endDate: moment()
@@ -661,5 +673,29 @@ $('#daterange-btn').daterangepicker(
 	function (start,end)
 	{
 		$('#daterange-btn span').html(start.format('MMMM D, YYYY')+' - '+end.format('MMMM D, YYYY'));
+
+		// Obteniendo la fecha inicial
+		var fechaInicial = start.format('YYYY-M-D');
+		// console.log("fechaInicial",fechaInicial);
+		var fechaFinal = end.format('YYYY-M-D');
+		// console.log("fechaFinal",fechaFinal);
+
+		var capturarRango = $("#daterange-btn span").html();
+		console.log("Rango Fecha ",capturarRango);
+		// Se va enviar por $_GET esta variable, se utilizara "LocalStorage"
+		localStorage.setItem("capturarRango",capturarRango);
+
+
 	}
 )
+
+// =======================================================================================
+// Cancelar Rangos de Fecha
+// =======================================================================================
+// Es la ubicacion del boton.
+// Despues de que haya cargado en el HTML.
+$(".daterangepicker .range_inputs .cancelBtn").on("click",function(){
+	localStorage.removeItem("capturarRango");
+	localStorage.clear();
+	window.location = "ventas";
+})
