@@ -60,10 +60,24 @@
 							<!-- Se va ha utilizar el quemado de datos en el HTML, dado el volumen de los datos, pero se puede arreglar para que se utilize el "TDataTable"-->
 
 							<?php 
+								// Se van a capturar las variables $_GET que viene desde "ventas.js"
+								if (isset($_GET["fechaInicial"]))
+								{
+									$fechaInicial = $_GET["fechaInicial"];
+									$fechaFinal = $_GET["fechaFinal"];
+								}
+								else
+								{
+									$fechaInicial = null;
+									$fechaFinal = null;
+								}
+
+
 								// Se obtendran las ventas desde la tabla "t_Ventas"
 								$item = null;
 								$valor = null;
-								$respuesta = ControladorVentas::ctrMostrarVentas($item, $valor);
+								//$respuesta = ControladorVentas::ctrMostrarVentas($item, $valor);
+								$respuesta = ControladorVentas::ctrRangoFechasVentas($fechaInicial, $fechaFinal);
 								//var_dump($respuesta);
 								//exit;
 

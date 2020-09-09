@@ -667,7 +667,7 @@ $('#daterange-btn').daterangepicker(
 			'Este Mes'			: [moment().startOf('month'),moment().endOf('month')],
 			'Ultimo Mes'			: [moment().subtract(1,'month').startOf('month'),moment().subtract(1,'month').endOf('month')] 
 		},
-		startDate: moment().subtract(29,'days'),
+		startDate: moment(),
 		endDate: moment()
 	},
 	function (start,end)
@@ -675,15 +675,19 @@ $('#daterange-btn').daterangepicker(
 		$('#daterange-btn span').html(start.format('MMMM D, YYYY')+' - '+end.format('MMMM D, YYYY'));
 
 		// Obteniendo la fecha inicial
-		var fechaInicial = start.format('YYYY-M-D');
-		// console.log("fechaInicial",fechaInicial);
-		var fechaFinal = end.format('YYYY-M-D');
-		// console.log("fechaFinal",fechaFinal);
+		var fechaInicial = start.format('YYYY-MM-DD');
+		 console.log("fechaInicial",fechaInicial);
+		var fechaFinal = end.format('YYYY-MM-DD');
+		 console.log("fechaFinal",fechaFinal);
 
 		var capturarRango = $("#daterange-btn span").html();
-		console.log("Rango Fecha ",capturarRango);
+		// console.log("Rango Fecha ",capturarRango);
 		// Se va enviar por $_GET esta variable, se utilizara "LocalStorage"
 		localStorage.setItem("capturarRango",capturarRango);
+
+		// Se va a pasar los datos por $_GET debido a que se maneja el Plugin DataTable, ya que si se utiliza Ajax afectaria.
+		// En el archivo "ventas.php" se tiene que capturar estas variables globales.
+		window.location = "index.php?ruta=ventas&fechaInicial="+fechaInicial+"&fechaFinal="+fechaFinal
 
 
 	}

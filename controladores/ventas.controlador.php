@@ -477,5 +477,16 @@
 
 		} // public function ctrEliminarVenta()
 
+		
+		// ========================================================
+		// Rangos de Fechas
+		// ========================================================
+		static public function ctrRangoFechasVentas($fechaInicial,$fechaFinal)
+		{
+			$tabla = "t_Ventas";
+			$respuesta = ModeloVentas::mdlRangoFechasVentas($tabla,$fechaInicial,$fechaFinal);
+			return $respuesta;
+
+		}
 
 	} // class ControladorVentas
