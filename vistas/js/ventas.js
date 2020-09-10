@@ -676,9 +676,9 @@ $('#daterange-btn').daterangepicker(
 
 		// Obteniendo la fecha inicial
 		var fechaInicial = start.format('YYYY-MM-DD');
-		 console.log("fechaInicial",fechaInicial);
+		 //console.log("fechaInicial",fechaInicial);
 		var fechaFinal = end.format('YYYY-MM-DD');
-		 console.log("fechaFinal",fechaFinal);
+		 //console.log("fechaFinal",fechaFinal);
 
 		var capturarRango = $("#daterange-btn span").html();
 		// console.log("Rango Fecha ",capturarRango);
@@ -702,4 +702,54 @@ $(".daterangepicker .range_inputs .cancelBtn").on("click",function(){
 	localStorage.removeItem("capturarRango");
 	localStorage.clear();
 	window.location = "ventas";
+})
+
+// ===================================================================
+// Capturar la opción HOY desde el menu de "Rangos de Fecha"
+// ===================================================================
+// Se busca toda la ruta del Boton en el Rango de fecha para capturar el evento "click"
+$(".daterangepicker .ranges li").on("click",function(){	
+	// Se los nombres de clases no se escriben correctamente no muestra nada en el console.log, y no muestra error.
+	var textoHoy = $(this).attr("data-range-key");
+	if (textoHoy == "Hoy")
+	{
+		var d = new Date(); // Se va obtener la fecha, desde JavaScript
+		//console.log("d",d);
+
+		var dia = d.getDate();
+		var mes = d.getMonth()+1;
+		var anno = d.getFullYear();
+
+		// En la base de datos se registra la fecha : 2020-09-09, por esta razon se realizan las siguientes condicionales.
+		if (mes < 10)
+		{
+			var fechaInicial = anno+"-0"+mes+"-"+dia;
+			var fechaFinal = anno+"-0"+mes+"-"+dia;
+		}
+		if(dia < 10)
+		{
+			var fechaInicial = anno+"-"+mes+"-0"+dia;
+			var fechaFinal = anno+"-"+mes+"-0"+dia;
+		}
+		if ((mes < 10) && (dia < 10))
+		{
+			var fechaInicial = anno+"-0"+mes+"-0"+dia;
+			var fechaFinal = anno+"-0"+mes+"-0"+dia;
+			var texto = "mes < 10, dia < 10";
+		}
+		if ((mes > 10) && (dia > 10))
+		{
+			var fechaInicial = anno+"-"+mes+"-"+dia;
+			var fechaFinal = anno+"-"+mes+"-"+dia;	
+		}
+
+		localStorage.setItem("capturarRango","Hoy");
+		//console.log ("fecha Inicial ",fechaInicial);
+		//console.log ("fecha Final ",fechaFinal);
+		//console.log("texto ",texto);
+
+		// Se llama a la pantalla para la ventas, asignando los parámetros  de fechas.
+		window.location = "index.php?ruta=ventas&fechaInicial="+fechaInicial+"&fechaFinal="+fechaFinal;
+
+	}
 })
