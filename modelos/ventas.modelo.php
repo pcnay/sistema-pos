@@ -124,7 +124,26 @@
 			} // if ($fehaInicial == null)
 			else
 			{
-				$stmt = Conexion::conectar()->prepare ("SELECT * FROM $tabla WHERE fecha BETWEEN '$fechaInicial' AND '$fechaFinal'");
+				$fechaActual = new DateTime();
+				
+				// Para agregar un dia, a la fecha actual
+				$fechaActual->add(new DateInterval("P1D")); 
+				$fechaActualMasUno = $fechaActual->format("Y-m-d");
+
+				// $fechaFinal ; viene desde el parámetro de la función.
+				$fechaFinal2 = new DateTime($fechaFinal);
+				$fechaFinal2->add(new DateInterval("P1D")); 
+				$fechaFinal2MasUno = $fechaFinal2->format("Y-m-d");
+
+				if ($fechaFinal2MasUno == $fechaActualMasUno)
+				{
+					$stmt = Conexion::conectar()->prepare ("SELECT * FROM $tabla WHERE fecha BETWEEN '$fechaInicial' AND '$fechaFinalMasUno'");
+				}
+				else
+				{
+					$stmt = Conexion::conectar()->prepare ("SELECT * FROM $tabla WHERE fecha BETWEEN '$fechaInicial' AND '$fechaFinal'");
+				}
+
 				$stmt->execute();
 				return $stmt->fetchAll(); 
 			}
