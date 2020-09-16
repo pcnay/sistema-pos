@@ -147,6 +147,7 @@
   ?>
 </div>  
 	<!-- ./wrapper -->
+
 	<!-- Los archivos de "JavaScript" incian las busquedas desde el directorio raíz.  -->
 	<script src="vistas/js/plantilla.js"></script>
 	<!-- Agregar las fotografias de los usuarios del sistema -->
@@ -159,6 +160,8 @@
 	<script src="vistas/js/clientes.js"></script>
 	<!-- se muestra los productos en el modulo Crear Venta  -->
 	<script src="vistas/js/ventas.js"></script>
+	<!-- Es para los reportes que se utilizaran en el sistema  -->
+	<script src="vistas/js/reportes.js"></script>	
 
 </body>
 </html>

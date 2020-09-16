@@ -698,7 +698,7 @@ $('#daterange-btn').daterangepicker(
 // =======================================================================================
 // Es la ubicacion del boton.
 // Despues de que haya cargado en el HTML.
-$(".daterangepicker .range_inputs .cancelBtn").on("click",function(){
+$(".daterangepicker.opensleft .range_inputs .cancelBtn").on("click",function(){
 	localStorage.removeItem("capturarRango");
 	localStorage.clear();
 	window.location = "ventas";
@@ -708,7 +708,7 @@ $(".daterangepicker .range_inputs .cancelBtn").on("click",function(){
 // Capturar la opción HOY desde el menu de "Rangos de Fecha"
 // ===================================================================
 // Se busca toda la ruta del Boton en el Rango de fecha para capturar el evento "click"
-$(".daterangepicker .ranges li").on("click",function(){	
+$(".daterangepicker .opensleft .ranges li").on("click",function(){	
 	// Se los nombres de clases no se escriben correctamente no muestra nada en el console.log, y no muestra error.
 	var textoHoy = $(this).attr("data-range-key");
 	if (textoHoy == "Hoy")
