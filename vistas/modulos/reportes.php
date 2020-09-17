@@ -30,6 +30,15 @@
           </div>
         </div>
         <div class="box-body">
+					<!-- Se inicia el codigo para los gráficos que se utilizan en los reportes. -->
+					<div class="row">
+						<!-- Se utiliza para dispositivos grandes -->
+						<div class="col-xs-12">
+							<?php
+								include "reportes/graficos-ventas.php";
+							?>
+						</div>
+					</div>
         </div>
         <!-- /.box-body -->
 

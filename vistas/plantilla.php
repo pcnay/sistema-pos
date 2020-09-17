@@ -47,6 +47,9 @@
 		<!-- Se agrega el "css" para el plug ins de DateRangePicker -->
   <link rel="stylesheet" href="vistas/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 
+		<!-- Morris Chart  para los graficos en los reportes, seccion de CSS -->
+		<link rel="stylesheet" href="vistas/bower_components/morris.js/morris.css">
+
 
 	<!-- <script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script> NO FUNCIONA -->
 	<!-- https://www.jsdelivr.com/package/npm/sweetalert2 : Se tiene que agregar por separado este archivo, ya que si se agrega solo uno como "sweetalert2.all.js" no funciona, se debe bajar l archivo en formato ".tar", descomprimir y buscar en la carpeta "packages" los dos archivos, tanto ".css" y ".js" -->
@@ -98,6 +101,12 @@
 	<!-- El archivo de JS para el DateRangePicker, http://www.daterangepicker.com/ -->
 	<script src="vistas/bower_components/moment/min/moment.min.js"></script>
 	<script src="vistas/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+	<!-- Morris.js Charts  Para las gráficas en los reportes
+				https://morrisjs.github.io/morris.js/
+	-->
+	<script src="vistas/bower_components/raphael/raphael.min.js"></script>
+	<script src="vistas/bower_components/morris.js/morris.min.js"></script>
 
 </head>
 
