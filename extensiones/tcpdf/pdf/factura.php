@@ -145,7 +145,7 @@ foreach ($productos as $key => $item)
 {
 	$itemProducto = "descripcion";
 	$valorProducto = $item["descripcion"];
-	$orden = null;
+	$orden = "id";
 
 	$respuestaProducto = ControladorProductos::ctrMostrarProductos($itemProducto,$valorProducto,$orden);
 

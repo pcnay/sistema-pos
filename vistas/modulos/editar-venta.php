@@ -116,7 +116,8 @@
 														// Obtener el stock de (los) articulo(s)
 														$item = "id";
 														$valor = $value["id"];
-														$respuesta = ControladorProductos::ctrMostrarProductos($item,$valor);
+														$orden = ""
+														$respuesta = ControladorProductos::ctrMostrarProductos($item,$valor,$orden);
 														// $respuesta["stock"] = Stock Producto
 														// $value["cantidad"] = Es un campo del jSon de Producto, es decir es la cantidad que se esta vendiendo al cliente.
 														$stockAntiguo = $respuesta["stock"]+$value["cantidad"];

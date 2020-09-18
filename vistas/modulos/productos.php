@@ -56,8 +56,9 @@
 								
 								$item = null;
 								$valor = null;
+								$orden = "id";
 
-								$productos = controladorProductos::ctrMostrarProductos($item,$valor);
+								$productos = controladorProductos::ctrMostrarProductos($item,$valor,$orden);
 								// Para mostrarlos en pantalla en las pruebas
 								// var_dump($productos); 
 								foreach ($productos as $key => $value)

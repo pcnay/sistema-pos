@@ -4,10 +4,10 @@
 	class ControladorProductos
 	{
 		// Mostrar productos
-		static public function ctrMostrarProductos($item, $valor)
+		static public function ctrMostrarProductos($item, $valor,$orden)
 		{
 			$tabla = "t_Productos";
-			$respuesta = ModeloProductos::mdlMostrarProductos($tabla,$item,$valor);
+			$respuesta = ModeloProductos::mdlMostrarProductos($tabla,$item,$valor,$orden);
 			return $respuesta;			
 		}
 
@@ -331,6 +331,15 @@
 		}
 	} // static public function ctrEliminarProducto() 
 
+	// ===================================================
+	// Mostrar Suma De Ventas 
+	// ===================================================
+	static public function ctrMostrarSumaVentas()
+	{
+		$tabla = "t_Productos";
+		$respuesta = ModeloProductos::mdlMostrarSumaVentas($tabla);
+		return $respuesta;
+	}
 	
 } // class ControladorProductos
 
