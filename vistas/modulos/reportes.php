@@ -38,6 +38,17 @@
 								include "reportes/graficos-ventas.php";
 							?>
 						</div>
+
+						<!-- Se utiliza para el gráfico de pastel. 
+							Pantalla para dispositivo mobiles y tablet vertical 
+						-->
+						<div class="col-md-6 col-xs-12">
+							<?php
+								include "reportes/productos-mas-vendidos.php";
+							?>							
+						</div>
+
+
 					</div>
         </div>
         <!-- /.box-body -->
