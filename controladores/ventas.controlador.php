@@ -33,9 +33,10 @@
 					$tablaProductos = "t_Productos";
 					$item = "id";
 					$valor = $value["id"];
+					$orden = "id";
 	
 					// Obtiene el Producto de la tabla de : "t_Productos"
-					$traerProducto = ModeloProductos::mdlMostrarProductos($tablaProductos,$item,$valor);
+					$traerProducto = ModeloProductos::mdlMostrarProductos($tablaProductos,$item,$valor,$orden);
 
 					//var_dump($traerProducto);
 					// $traerProducto["ventas"], se refiere a la cantidad de veces que se ha vendido el producto.

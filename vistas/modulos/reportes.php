@@ -48,6 +48,23 @@
 							?>							
 						</div>
 
+						<!-- Se utiliza para el gráfico de Barras, el que mas vende. (quien vende mas)
+							Pantalla para dispositivo mobiles y tablet vertical 
+						-->
+						<div class="col-md-6 col-xs-12">
+							<?php
+								include "reportes/vendedores.php";
+							?>							
+						</div>
+
+						<!-- Se utiliza para el gráfico de Barras, para los compradores (quien compra mas).
+							Pantalla para dispositivo mobiles y tablet vertical 
+						-->
+						<div class="col-md-6 col-xs-12">
+							<?php
+								include "reportes/compradores.php";
+							?>							
+						</div>
 
 					</div>
         </div>
