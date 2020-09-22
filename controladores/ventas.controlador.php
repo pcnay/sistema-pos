@@ -487,7 +487,43 @@
 			$tabla = "t_Ventas";
 			$respuesta = ModeloVentas::mdlRangoFechasVentas($tabla,$fechaInicial,$fechaFinal);
 			return $respuesta;
+		}
 
+		// ========================================================
+		// Descargar Excel
+		// ========================================================
+		public function ctrDescargarReporte()
+		{
+			if (isset($_GET["reporte"]))
+			{
+				$tabla = "t_Ventas";
+				if (isset($_GET["fechaInicial"]) && isset($_GET["fechafinal"]))
+				{
+					$ventas = ModeloVentas::mdlRangoFechasVentas($tabla, $_GET["fechaInicial"],$_GET["fechaFinal"]);
+
+				} // if (isset($_GET["fechaInicial"]) && isset($_GET["fechafinal"]))
+				else
+				{
+					$item = null;
+					$valor = null;
+					$ventas = ModeloVentas::mdlRangoFechasVentas($tabla,$item,$valor);
+					// Se obtiene el reporte con todo el rango.
+				}
+				// ===========================
+				// Crear el archivo de Excel 
+				// ==========================
+				$Name = $_GET["reporte"].'xls';
+				header('Expires: 0');
+				header('Cache-control: private');
+				header("Content-type: application/vrd.ms-excel");
+				header("Cache-Control: cache, must-revalidate");
+				header('Content-Description: File Transfer');
+				header('Last-Modified: '.date('D, d M Y H:i:s'));
+				header("Pragma: public");
+				header('Content-Disposition:; filename="'.$Name.'"');
+				header("Content-Transfer-Encoding: binary");
+
+			} // if (isset($_GET["reporte"]))
 		}
 
 	} // class ControladorVentas

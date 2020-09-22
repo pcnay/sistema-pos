@@ -18,16 +18,33 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-					<!-- Agregando el boton para la captura de rangos de ventas realizadas.-->
-					<button type="button" class="btn btn-default" id="daterange-btn2">
-						<span>
-							<i class="fa fa-calendar"></i>  Rango De Fecha   
-						</span>
-						<i class="fa fa-caret-down"></i>
-					</button>
+					<div class="input-group">
+						<!-- Agregando el boton para la captura de rangos de ventas realizadas.-->
+						<button type="button" class="btn btn-default" id="daterange-btn2">
+							<span>
+								<i class="fa fa-calendar"></i>  Rango De Fecha   
+							</span>
+							<i class="fa fa-caret-down"></i>
+						</button>
+					</div>
 
+					<!-- El boton para exportar a Excel -->
           <div class="box-tools pull-right">
-          </div>
+						<?php
+							if (isset($_GET["fechaInicial"]))
+							{
+								echo '<a href="vistas/modulos/descargar-reporte.php?reporte=reporte&fechaInicial="'.$_GET["fechaInicial"].'&fechaFinal='.$_GET["fechaFinal"].'">';
+							}
+							else
+							{
+								echo '<a href="vistas/modulos/descargar-reporte.php?reporte=reporte">';
+							}							
+						?>
+						
+							<button class="btn btn-success" style="margin-top:5px">Descargar Reporte En Excel</button>
+						</a>
+					</div>
+
         </div>
         <div class="box-body">
 					<!-- Se inicia el codigo para los gráficos que se utilizan en los reportes. -->
