@@ -150,6 +150,20 @@
 
 		} //  static public function mdlRangoFechasVentas($tabla,$fechaInicial,$fechaFinal)
 
+		// ===================================================
+		// Suma Total De Ventas
+		// ==================================================
+		static public function mdlSumaTotalVentas($tabla)
+		{
+			$stmt = Conexion::conectar()->prepare("SELECT SUM(neto) AS total FROM $tabla");
+			
+			$stmt->execute();
+			
+			return $stmt->fetch();
+			$stmt->close();
+			$stmt=null;		
+		}
+
 	} // class ModeloVentas 
 	
 ?>

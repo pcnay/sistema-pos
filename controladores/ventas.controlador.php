@@ -574,6 +574,17 @@
 
 
 			} // if (isset($_GET["reporte"]))
+
+		}	// public function ctrDescargarReporte()
+
+		// =========================================
+		// Suma Total De Ventas 
+		//=========================================
+		public function ctrSumaTotalVentas()
+		{
+			$tabla = "t_Ventas";
+			$respuesta = ModeloVentas::mdlSumaTotalVentas($tabla);
+			return $respuesta;
 		}
 
 	} // class ControladorVentas
