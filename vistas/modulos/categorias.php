@@ -62,10 +62,14 @@
 														<div class="btn-group">
 															<!-- data-toggle="modal" data-target="#modalEditarCategoria" para activar una ventana modal -->
 															<!-- "btnEditarCategoria" = Para utilizar JavaScript para conectarse a la base de datos.-->
-															<button class="btn btn-warning btnEditarCategoria" idCategoria="'.$value["id"].'" data-toggle="modal" data-target="#modalEditarCategoria"><i class="fa fa-pencil"></i></button>
-															<!-- Se pasa btnEliminarCategoria, idCategoria="'.$value["id"].'" para utilizarlo con Ajax, como variable GET en la URL -->
-															<button class="btn btn-danger btnEliminarCategoria" idCategoria="'.$value["id"].'"><i class="fa fa-times"></i></button>
-														</div>
+															<button class="btn btn-warning btnEditarCategoria" idCategoria="'.$value["id"].'" data-toggle="modal" data-target="#modalEditarCategoria"><i class="fa fa-pencil"></i></button>';
+															if ($_SESSION["perfil"] == "Administrador")
+															{
+																echo '<!-- Se pasa btnEliminarCategoria, idCategoria="'.$value["id"].'" para utilizarlo con Ajax, como variable GET en la URL -->
+															<button class="btn btn-danger btnEliminarCategoria" idCategoria="'.$value["id"].'"><i class="fa fa-times"></i></button>';
+															}
+																
+														echo '</div>
 													</td>
 												</tr>';
 								}
