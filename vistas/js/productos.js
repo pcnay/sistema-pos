@@ -1,10 +1,18 @@
 /* Cargar los datos - Productos de forma dinamica */
+
+// Para hacer que las variables de sesion se puedan usar en Datatable.
+var perfilOculto = $("#perfilOculto").val();
+//console.log ("perfilOculto",perfilOculto);
+
+
+
 // Verificar que los datos Json estan correctos.
 // En esta parte se agrega la tabla a la plugin "DataTable" y no quema en el HTML el contenido de los campos.
 // Se agregan tres propiedades últimas para mejorar el desempeño en la carga de la páginas.
 // defenderRender, retrieve, proccesing
+// ?perfilOculto="+perfilOculto = Se manda como variable GET a "datatable-productos.ajax.php"
 $('.tablaProductos').DataTable({
-	"ajax":"ajax/datatable-productos.ajax.php",
+	"ajax":"ajax/datatable-productos.ajax.php?perfilOculto="+perfilOculto,
 	"defenderRender":true,
 	"retrieve":true,
 	"processing":true,

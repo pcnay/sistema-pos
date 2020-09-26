@@ -94,6 +94,10 @@
             </tbody> -->
 
           </table> <!-- <table class="table table-bordered tabe-striped"> -->
+
+					<!-- Se agrega esta modificacion para poder utilizar las variables de sesion en el plugin DataTable el “id” se logra permiter el ingreso  -->
+					<input type="hidden" value="<?php echo $_SESSION['perfil']; ?>" id="perfilOculto">
+
         </div> <!-- <div class="box-body"> -->
 
         <!-- /.box-body -->
