@@ -141,7 +141,7 @@
 					$item = "codigo";
 					$valor = $_POST["editarVenta"];
 	
-					// Obtener las venta que realizo el cliente, es el campo JSon, que se utilizara para poder editar la compra.
+					// Obtener las venta que realizo el cliente, es el campo JSon, que se utilizara para poder editar la venta.
 					$traerVenta = ModeloVentas::mdlMostrarVentas($tabla,$item,$valor);
 
 					// ===========================================================

@@ -16,7 +16,8 @@
 		{
 			if (isset($_POST["nuevaDescripcion"]))
 			{
-				if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["nuevaCategoria"]) &&
+				if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["nuevaDescripcion"]) && 
+					preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["nuevaCategoria"]) &&
 					preg_match('/^[0-9]+$/',$_POST["nuevoStock"]) &&
 					preg_match('/^[0-9.]+$/',$_POST["nuevoPrecioCompra"]) &&
 					preg_match('/^[0-9.]+$/',$_POST["nuevoPrecioVenta"]))
@@ -149,7 +150,8 @@
 	{
 		if (isset($_POST["editarDescripcion"]))
 		{
-			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["editarCategoria"]) &&
+			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["editarDescripcion"]) &&
+				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',$_POST["editarCategoria"]) &&
 				preg_match('/^[0-9]+$/',$_POST["editarStock"]) &&
 				preg_match('/^[0-9.]+$/',$_POST["editarPrecioCompra"]) &&
 				preg_match('/^[0-9.]+$/',$_POST["editarPrecioVenta"]))

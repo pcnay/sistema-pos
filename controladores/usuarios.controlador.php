@@ -162,7 +162,8 @@
 
               imagecopyresized($destino,$origen,0,0,0,0,$nuevoAncho,$nuevoAlto,$ancho,$alto);
               // Guardar la foto en la computadora.
-              imagejpeg($destino,$ruta);
+							// imagejpeg($destino,$ruta);
+							imagepng($destino,$ruta);
             }
             
           }
@@ -170,7 +171,12 @@
           // Se le llama Capsula, envuelve lo que se quiere encriptar.
 					$encriptar = crypt($_POST["nuevoPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 					// Se definen los datos, nombre de la tabla y un arreglo para ser insertado en la base de datos
-          $tabla = "t_Usuario";
+					$tabla = "t_Usuario";
+					if (empty($_POST["nuevoPerfil"]))
+					{
+						$_POST["nuevoPerfil"] = 'Vendedor';
+					}
+
           $datos = array("nombre"=>$_POST["nuevoNombre"],
                           "usuario"=>$_POST["nuevoUsuario"],
                     	  	 "password"=> $encriptar,
@@ -344,7 +350,8 @@
 							// Ajustar la imagen al tamaño definidos en las variables "$nuevoAncho", y "$nuevoAlto"
 							imagecopyresized($destino,$origen,0,0,0,0,$nuevoAncho,$nuevoAlto,$ancho,$alto);
 							// Guardar la foto en la computadora.
-							imagejpeg($destino,$ruta);
+							// imagejpeg($destino,$ruta);
+							imagepng($destino,$ruta);
 						}
 						
 					} // if (isset($_FILES["editarFoto"]["tmp_name"]))
@@ -369,7 +376,7 @@
 									}).then((result)=>{
 										if (result.value)
 										{
-											window.location="categorias";
+											window.location="usuarios";
 										}
 
 										});

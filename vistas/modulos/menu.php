@@ -23,6 +23,7 @@
 								</a>
 							</li>';
 				}
+
 				if ($_SESSION["perfil"] == "Administrador" || $_SESSION["perfil"] == "Especial")
 				{
 					echo ' <!-- Manejando las categorias -->
