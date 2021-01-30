@@ -13,8 +13,9 @@ USE pos;
 
 	
 	/* Para agregar una columna a la tabla t_Clientes . */
+	/*
 	ALTER TABLE t_Clientes ADD ultima_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
-	
+	*/
 
 
 /*

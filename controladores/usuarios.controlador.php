@@ -130,7 +130,10 @@
             // Crear el directorio donde se guardara la foto del usuario
 						$directorio = "vistas/img/usuarios/".$_POST["nuevoUsuario"];
 						// Si se esta utilizando servidor de Linux, se tiene que dar permisos totales a la carpeta de "usuarios".
-            mkdir ($directorio,0755);
+						// Se debe asignar el "www-data:www-data" a la carpeta de Usuarios en el servidor.
+						// chmod -R 777 usuarios.
+						// Para que se pueda grabar, borrar  las imagenes.
+            mkdir ($directorio,0777); // 0755
 
             // De acuerdo al tipo de imagen aplicamos las funciones por defecto de PHP.
             if ($_FILES["nuevaFoto"]["type"] == "image/jpeg")
@@ -149,7 +152,10 @@
 							
             }
 
-            // De acuerdo al tipo de imagen aplicamos las funciones por defecto de PHP.
+						// De acuerdo al tipo de imagen aplicamos las funciones por defecto de PHP.
+						// "imagecreatefrompng" = Se tiene que instalar en el servidor Linux remoto
+						//extensión PHP GD que no es más que una librería de funciones para el manejo y tratamiento de imágenes en PHP. Por lo que la solución a este error es instalar la citada librería.
+						// apt-get install php-gd
             if ($_FILES["nuevaFoto"]["type"] == "image/png")
             {
               $aleatorio = mt_rand(100,999);
